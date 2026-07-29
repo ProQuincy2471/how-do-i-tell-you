@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "how-do-i-tell-you",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["abrir.command"],
+      "port": 8123
+    }
+  ]
+}

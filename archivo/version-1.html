@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>How do I tell you? ...</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════
+   HOW DO I TELL YOU?  —  de Jordan, para Ana
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#05060d;
+  --ink2:#0a0c18;
+  --paper:#f4efe6;
+  --gold:#e8c88a;
+  --rose:#f0a7b8;
+  --violet:#9b8cf0;
+  --cyan:#7fd8e8;
+  --dim:rgba(244,239,230,.52);
+  --dimmer:rgba(244,239,230,.28);
+  --line:rgba(244,239,230,.12);
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --acc:var(--gold);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:var(--ink);color:var(--paper);font-family:var(--sans);
+  overflow:hidden;position:fixed;inset:0;
+  font-feature-settings:"liga" 1,"kern" 1;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--acc);color:var(--ink)}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input{font:inherit;color:inherit}
+
+/* ─── fondo vivo ─── */
+#sky{position:fixed;inset:0;z-index:0;display:block}
+#veil{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 50% 110%, rgba(155,140,240,.20), transparent 60%),
+    radial-gradient(90% 70% at 10% 0%, rgba(240,167,184,.14), transparent 60%),
+    radial-gradient(80% 60% at 95% 15%, rgba(127,216,232,.10), transparent 60%);
+  transition:opacity 1.2s, background 2.5s ease;
+}
+#grain{position:fixed;inset:-50%;z-index:2;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 7s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-4%)}60%{transform:translate(-3%,-2%)}80%{transform:translate(2%,4%)}100%{transform:translate(0,0)}}
+#vig{position:fixed;inset:0;z-index:3;pointer-events:none;
+  box-shadow:inset 0 0 220px 60px rgba(2,2,8,.85)}
+
+/* ─── portada ─── */
+#gate{
+  position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0;text-align:center;padding:6vw;
+  background:radial-gradient(60% 50% at 50% 45%, rgba(12,10,28,.55), rgba(3,4,10,.96));
+  transition:opacity 1.4s cubic-bezier(.4,0,.2,1), transform 1.4s cubic-bezier(.4,0,.2,1);
+}
+#gate.gone{opacity:0;transform:scale(1.12);pointer-events:none}
+.gate-eyebrow{font-size:.66rem;letter-spacing:.42em;text-transform:uppercase;color:var(--dimmer);margin-bottom:2.4rem;
+  opacity:0;animation:fadeUp 1.4s .3s forwards}
+#gtitle{font-family:var(--serif);font-size:clamp(2.6rem,9vw,6.6rem);line-height:1;font-weight:400;letter-spacing:-.02em}
+#gtitle .c{opacity:0;display:inline-block;transform:translateY(.5em) rotate(6deg);filter:blur(6px)}
+#gtitle .dots{color:var(--acc)}
+.gate-sub{margin-top:2.6rem;font-family:var(--serif);font-style:italic;font-size:clamp(1rem,2.6vw,1.4rem);color:var(--dim);
+  opacity:0;animation:fadeUp 1.6s 2.6s forwards}
+.gate-sub b{color:var(--rose);font-weight:400;font-style:normal}
+.gate-note{margin-top:.5rem;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dimmer);
+  opacity:0;animation:fadeUp 1.6s 3s forwards}
+#enter{
+  margin-top:4rem;padding:1rem 2.6rem;border:1px solid var(--line);border-radius:100px;
+  font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--paper);
+  opacity:0;animation:fadeUp 1.6s 3.4s forwards;position:relative;overflow:hidden;
+  transition:border-color .5s,letter-spacing .5s,background .5s;backdrop-filter:blur(6px);
+}
+#enter:hover{border-color:var(--acc);letter-spacing:.42em;background:rgba(232,200,138,.08)}
+#enter::after{content:'';position:absolute;inset:0;border-radius:100px;
+  box-shadow:0 0 0 0 rgba(232,200,138,.45);animation:pulse 3.2s 4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,200,138,.35)}70%{box-shadow:0 0 0 22px rgba(232,200,138,0)}100%{box-shadow:0 0 0 0 rgba(232,200,138,0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ─── shell ─── */
+#shell{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;opacity:0;pointer-events:none;
+  transition:opacity 1.6s .3s}
+#shell.on{opacity:1;pointer-events:auto}
+
+header{
+  display:flex;align-items:center;gap:1.2rem;padding:1rem clamp(1rem,3vw,2.4rem);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(20px);background:rgba(5,6,13,.5);flex:0 0 auto;
+}
+.brand{font-family:var(--serif);font-size:1.15rem;white-space:nowrap;letter-spacing:-.01em}
+.brand span{color:var(--acc)}
+nav{display:flex;gap:.15rem;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+nav button{
+  padding:.5rem .95rem;border-radius:100px;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);transition:.35s;border:1px solid transparent;white-space:nowrap
+}
+nav button:hover{color:var(--paper)}
+nav button.on{color:var(--ink);background:var(--acc);border-color:var(--acc)}
+
+main{flex:1;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative}
+main::-webkit-scrollbar{width:5px}
+main::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px}
+.view{display:none;padding:clamp(1.6rem,4vw,3.4rem) clamp(1rem,4vw,3rem) 12rem;max-width:1180px;margin:0 auto}
+.view.on{display:block;animation:viewIn .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ─── actos / lista ─── */
+.act{margin-bottom:5.5rem}
+.act-head{position:relative;margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line)}
+.act-num{font-size:.62rem;letter-spacing:.44em;color:var(--acc);text-transform:uppercase}
+.act-name{font-family:var(--serif);font-size:clamp(1.9rem,5.5vw,3.2rem);line-height:1.05;margin-top:.35rem}
+.act-meta{font-size:.7rem;color:var(--dimmer);letter-spacing:.18em;text-transform:uppercase;margin-top:.6rem}
+
+.rows{display:flex;flex-direction:column}
+.row{
+  display:flex;align-items:center;gap:1rem;padding:.72rem .9rem;border-radius:12px;cursor:pointer;
+  transition:background .3s,transform .3s,padding .3s;position:relative;
+}
+.row::before{content:'';position:absolute;left:0;top:12%;height:76%;width:2px;background:var(--acc);
+  border-radius:2px;opacity:0;transition:.3s;transform:scaleY(.3)}
+.row:hover{background:rgba(244,239,230,.045);padding-left:1.5rem}
+.row:hover::before{opacity:1;transform:scaleY(1)}
+.row.playing{background:rgba(232,200,138,.09)}
+.row.playing::before{opacity:1;transform:scaleY(1)}
+.row.heard .r-title{color:var(--dim)}
+.r-idx{font-size:.7rem;color:var(--dimmer);width:2.6rem;flex:0 0 auto;font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.r-main{flex:1;min-width:0}
+.r-title{font-size:.98rem;font-weight:400;letter-spacing:-.005em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r-art{font-size:.74rem;color:var(--dim);margin-top:.16rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r-tags{display:flex;gap:.4rem;flex:0 0 auto}
+.tag{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;padding:.28rem .55rem;border-radius:100px;
+  border:1px solid var(--line);color:var(--dimmer)}
+.tag.note{border-color:rgba(240,167,184,.4);color:var(--rose)}
+.tag.lyr{border-color:rgba(127,216,232,.35);color:var(--cyan)}
+.r-play{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;font-size:.6rem;color:var(--dim);transition:.3s;opacity:0}
+.row:hover .r-play,.row.playing .r-play{opacity:1}
+.r-play:hover{border-color:var(--acc);color:var(--acc);background:rgba(232,200,138,.12);transform:scale(1.12)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:12px}
+.bars i{width:2px;background:var(--acc);border-radius:1px;animation:eq .9s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.2s}.bars i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:3px}50%{height:12px}}
+
+/* ─── interludios / cartas ─── */
+.interlude{
+  margin:2rem 0 1rem;padding:clamp(1.6rem,4vw,3rem);border-radius:20px;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,rgba(155,140,240,.10),rgba(240,167,184,.05) 55%,transparent);
+  border:1px solid var(--line);
+}
+.interlude::before{content:'"';position:absolute;top:-2.4rem;left:1rem;font-family:var(--serif);
+  font-size:11rem;color:var(--paper);opacity:.05}
+.il-label{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--acc);margin-bottom:1.2rem}
+.il-line{font-family:var(--serif);font-size:clamp(1.15rem,3.2vw,1.75rem);line-height:1.5;color:var(--paper);
+  margin-bottom:1rem;opacity:.94;font-style:italic}
+.il-note{border-left:2px solid var(--rose);padding-left:1.1rem;margin-top:1.6rem;color:var(--dim);
+  font-size:.9rem;line-height:1.75;max-width:60ch}
+.il-note+.il-note{margin-top:.9rem}
+
+/* ─── constelación ─── */
+#constWrap{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  background:rgba(255,255,255,.015);height:min(72vh,760px)}
+#const{width:100%;height:100%;display:block;cursor:crosshair}
+#ctip{position:absolute;pointer-events:none;padding:.55rem .8rem;border-radius:10px;font-size:.76rem;
+  background:rgba(5,6,13,.92);border:1px solid var(--line);backdrop-filter:blur(10px);opacity:0;
+  transition:opacity .2s;max-width:260px;z-index:5}
+#ctip b{display:block;font-weight:500;margin-bottom:.15rem}
+#ctip span{color:var(--dim);font-size:.68rem}
+.const-legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1.2rem;font-size:.66rem;color:var(--dimmer);
+  letter-spacing:.14em;text-transform:uppercase}
+.const-legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:.45rem;vertical-align:middle}
+
+/* ─── UI sobre la constelación ─── */
+#cui{position:absolute;inset:0;pointer-events:none;padding:.9rem;display:flex;flex-direction:column;gap:.55rem}
+#cacts{display:flex;flex-direction:column;gap:.3rem;align-items:flex-start;pointer-events:auto}
+.cact{
+  display:flex;align-items:center;gap:.55rem;padding:.34rem .7rem;border-radius:100px;font-size:.62rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);border:1px solid transparent;
+  background:rgba(5,6,13,.5);backdrop-filter:blur(8px);transition:.3s;white-space:nowrap
+}
+.cact:hover,.cact.on{color:var(--paper);border-color:var(--line)}
+.cact i{width:7px;height:7px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 8px currentColor}
+.cact u{text-decoration:none;color:var(--dimmer);font-variant-numeric:tabular-nums;font-size:.58rem}
+#ctools{position:absolute;top:.9rem;right:.9rem;display:flex;flex-direction:column;gap:.3rem;
+  align-items:flex-end;pointer-events:auto}
+.ctool{padding:.4rem .8rem;border-radius:100px;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dimmer);border:1px solid var(--line);background:rgba(5,6,13,.55);backdrop-filter:blur(8px);transition:.3s}
+.ctool:hover{color:var(--paper);border-color:var(--acc)}
+.ctool.on{color:var(--ink);background:var(--acc);border-color:var(--acc)}
+#cfind{position:absolute;left:.9rem;bottom:2.4rem;pointer-events:auto;width:min(240px,45%)}
+#cq{width:100%;padding:.45rem .85rem;border-radius:100px;border:1px solid var(--line);outline:none;
+  background:rgba(5,6,13,.6);backdrop-filter:blur(8px);font-size:.72rem}
+#cq:focus{border-color:var(--acc)}
+#cq::placeholder{color:var(--dimmer)}
+#cqres{margin-top:.35rem;max-height:150px;overflow-y:auto;border-radius:12px}
+#cqres div{padding:.4rem .7rem;font-size:.7rem;color:var(--dim);cursor:pointer;background:rgba(5,6,13,.85);
+  border-bottom:1px solid var(--line)}
+#cqres div:hover{color:var(--acc);background:rgba(232,200,138,.1)}
+#cprog{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.05);pointer-events:none}
+#cprog i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--rose),var(--gold));
+  transition:width 1s cubic-bezier(.2,.8,.2,1)}
+#cprog b{position:absolute;right:.7rem;bottom:.5rem;font-size:.58rem;letter-spacing:.24em;color:var(--dimmer);font-weight:400}
+@media (max-width:640px){#cfind{display:none}.cact u{display:none}}
+
+/* ─── búsqueda ─── */
+.searchbar{display:flex;align-items:center;gap:.8rem;padding:.85rem 1.2rem;border:1px solid var(--line);
+  border-radius:100px;margin-bottom:2.4rem;background:rgba(255,255,255,.02);transition:.4s;max-width:560px}
+.searchbar:focus-within{border-color:var(--acc);background:rgba(232,200,138,.05)}
+.searchbar input{flex:1;background:none;border:none;outline:none;font-size:.92rem}
+.searchbar input::placeholder{color:var(--dimmer)}
+.searchbar .kbd{font-size:.6rem;color:var(--dimmer);border:1px solid var(--line);border-radius:5px;padding:.15rem .4rem}
+
+/* ─── títulos de vista ─── */
+.vtitle{font-family:var(--serif);font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin-bottom:.6rem}
+.vsub{color:var(--dim);font-size:.92rem;max-width:62ch;line-height:1.7;margin-bottom:2.6rem}
+
+/* ─── carta ─── */
+.letter{max-width:64ch;margin:0 auto;font-family:var(--serif);font-size:clamp(1.1rem,2.6vw,1.45rem);
+  line-height:1.85;color:rgba(244,239,230,.9)}
+.letter p{margin-bottom:1.6rem;opacity:0;transform:translateY(18px);filter:blur(4px)}
+.letter p.in{animation:letterIn 1.4s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes letterIn{to{opacity:1;transform:none;filter:none}}
+.letter em{color:var(--rose);font-style:italic}
+.letter .sig{text-align:right;color:var(--acc);margin-top:3rem}
+
+/* ─── stats ─── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:3rem}
+.stat{border:1px solid var(--line);border-radius:16px;padding:1.4rem;background:rgba(255,255,255,.015)}
+.stat b{display:block;font-family:var(--serif);font-size:2.4rem;line-height:1;color:var(--acc)}
+.stat span{font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer);margin-top:.6rem;display:block}
+.barwrap{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:1rem}
+.barwrap i{display:block;height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));
+  border-radius:4px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+
+/* ─── modal canción ─── */
+#modal{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:clamp(.8rem,3vw,2rem)}
+#modal.on{display:flex}
+#mbg{position:absolute;inset:0;background:rgba(3,4,10,.82);backdrop-filter:blur(14px);animation:fade .5s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+#mcard{
+  position:relative;width:min(900px,100%);max-height:92vh;overflow-y:auto;border-radius:24px;
+  border:1px solid var(--line);background:linear-gradient(160deg,#0d0f1e,#07080f);
+  animation:pop .6s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.7)
+}
+@keyframes pop{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+#mcard::-webkit-scrollbar{width:5px}#mcard::-webkit-scrollbar-thumb{background:var(--line)}
+.m-top{padding:clamp(1.4rem,4vw,2.4rem);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.m-top::after{content:'';position:absolute;inset:0;background:radial-gradient(70% 100% at 80% 0%,rgba(155,140,240,.16),transparent 70%);pointer-events:none}
+.m-act{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--acc)}
+.m-title{font-family:var(--serif);font-size:clamp(1.7rem,4.6vw,2.7rem);line-height:1.1;margin:.5rem 0 .4rem}
+.m-art{color:var(--dim);font-size:.88rem}
+#mclose{position:absolute;top:1rem;right:1rem;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;z-index:4;transition:.3s}
+#mclose:hover{border-color:var(--rose);color:var(--rose);transform:rotate(90deg)}
+.m-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem;position:relative;z-index:2}
+.pill{text-decoration:none;color:var(--paper);padding:.62rem 1.15rem;border-radius:100px;border:1px solid var(--line);font-size:.7rem;
+  letter-spacing:.18em;text-transform:uppercase;transition:.3s;display:inline-flex;align-items:center;gap:.5rem}
+.pill:hover{border-color:var(--acc);color:var(--acc);background:rgba(232,200,138,.08)}
+.pill.solid{background:var(--acc);color:var(--ink);border-color:var(--acc)}
+.pill.solid:hover{filter:brightness(1.1);color:var(--ink)}
+.m-body{padding:clamp(1.2rem,4vw,2.4rem)}
+.frame{aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line);margin-bottom:1.6rem}
+.frame iframe{width:100%;height:100%;border:0}
+.tabs{display:flex;gap:.3rem;border-bottom:1px solid var(--line);margin-bottom:1.4rem;overflow-x:auto}
+.tabs button{padding:.7rem 1.05rem;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);
+  border-bottom:1px solid transparent;margin-bottom:-1px;transition:.3s;white-space:nowrap}
+.tabs button.on{color:var(--acc);border-bottom-color:var(--acc)}
+.pane{display:none;animation:viewIn .5s}
+.pane.on{display:block}
+.lyr-line{font-family:var(--serif);font-size:1.12rem;line-height:1.9;color:rgba(244,239,230,.88)}
+.lyr-line.tr{color:var(--dim);font-style:italic;font-size:1rem}
+.lyr-empty{border:1px dashed var(--line);border-radius:14px;padding:1.6rem;color:var(--dim);font-size:.86rem;line-height:1.7}
+.lyr-empty code{background:rgba(255,255,255,.06);padding:.15rem .4rem;border-radius:5px;font-size:.8rem;color:var(--cyan)}
+.notebox{border-left:2px solid var(--rose);padding-left:1.2rem;color:rgba(244,239,230,.82);line-height:1.85;font-size:.98rem}
+
+/* ─── dock reproductor ─── */
+#dock{
+  position:fixed;left:50%;bottom:0;transform:translate(-50%,120%);z-index:50;width:min(1180px,calc(100% - 1.6rem));
+  border-radius:22px 22px 0 0;border:1px solid var(--line);border-bottom:none;
+  background:rgba(8,9,18,.9);backdrop-filter:blur(26px);transition:transform .8s cubic-bezier(.2,.9,.2,1);
+  box-shadow:0 -20px 60px rgba(0,0,0,.6)
+}
+#dock.on{transform:translate(-50%,0)}
+.dock-row{display:flex;align-items:center;gap:1rem;padding:.85rem 1.1rem}
+.vinyl{width:44px;height:44px;border-radius:50%;flex:0 0 auto;position:relative;
+  background:conic-gradient(from 0deg,#15161f,#2a2b3a,#15161f,#2a2b3a,#15161f);
+  border:1px solid rgba(255,255,255,.1);animation:spin 4.5s linear infinite;animation-play-state:paused}
+#dock.spinning .vinyl{animation-play-state:running}
+.vinyl::after{content:'';position:absolute;inset:38%;border-radius:50%;background:var(--acc)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dock-info{flex:1;min-width:0}
+.dock-info b{display:block;font-size:.88rem;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dock-info span{font-size:.7rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.dock-btns{display:flex;gap:.35rem;flex:0 0 auto}
+.ic{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;
+  font-size:.72rem;transition:.3s;color:var(--dim)}
+.ic:hover{border-color:var(--acc);color:var(--acc);background:rgba(232,200,138,.1)}
+.ic.on{border-color:var(--acc);color:var(--acc)}
+#dockFrame{height:0;overflow:hidden;transition:height .6s cubic-bezier(.2,.9,.2,1);border-top:1px solid transparent}
+#dock.open #dockFrame{height:min(38vh,300px);border-top-color:var(--line)}
+#dockFrame iframe{width:100%;height:100%;border:0}
+
+/* ─── toast ─── */
+#toast{position:fixed;left:50%;bottom:6.5rem;transform:translate(-50%,20px);z-index:80;
+  padding:.75rem 1.4rem;border-radius:100px;background:rgba(8,9,18,.95);border:1px solid var(--acc);
+  font-size:.76rem;letter-spacing:.06em;opacity:0;pointer-events:none;transition:.5s;backdrop-filter:blur(10px)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ─── secreto ─── */
+#secret{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:8vw;text-align:center;
+  background:radial-gradient(60% 50% at 50% 50%,rgba(20,12,32,.9),rgba(3,4,10,.99))}
+#secret.on{display:grid;animation:fade 1.2s}
+#secret .in{max-width:60ch}
+#secret h2{font-family:var(--serif);font-size:clamp(2rem,7vw,4rem);line-height:1.1;margin-bottom:2rem}
+#secret p{color:var(--dim);line-height:1.9;font-size:1.02rem;margin-bottom:1.2rem}
+
+/* mobile */
+@media (max-width:640px){
+  .r-tags{display:none}
+  .r-idx{width:1.9rem}
+  header{gap:.7rem;padding:.8rem 1rem}
+  .brand{font-size:.95rem}
+  nav button{padding:.42rem .7rem;font-size:.6rem;letter-spacing:.1em}
+  .view{padding-bottom:14rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<canvas id="sky"></canvas>
+<div id="veil"></div>
+<div id="grain"></div>
+<div id="vig"></div>
+
+<!-- ══ PORTADA ══ -->
+<div id="gate">
+  <div class="gate-eyebrow">Una playlist · 200 canciones · un año</div>
+  <h1 id="gtitle"></h1>
+  <div class="gate-sub">De <b>Jordan</b> &nbsp;·&nbsp; Para <b>Ana</b></div>
+  <div class="gate-note">con cariño</div>
+  <button id="enter">Abrir</button>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="shell">
+  <header>
+    <div class="brand">How do I tell you<span>?</span></div>
+    <nav>
+      <button data-v="acts" class="on">Actos</button>
+      <button data-v="const">Constelación</button>
+      <button data-v="search">Buscar</button>
+      <button data-v="letter">Carta</button>
+      <button data-v="you">Tú y esto</button>
+      <button id="shuffle">✧ Azar</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="view on" id="v-acts"></section>
+
+    <section class="view" id="v-const">
+      <h2 class="vtitle">Constelación</h2>
+      <p class="vsub">Seis constelaciones, una por acto. Cada estrella es una canción y empieza apagada: se enciende para siempre en cuanto la escuchas. Arrastra para moverte, rueda para acercar, clic para abrir.</p>
+      <div id="constWrap">
+        <canvas id="const"></canvas>
+        <div id="ctip"></div>
+        <div id="cui">
+          <div id="cacts"></div>
+          <div id="ctools">
+            <button class="ctool" data-tool="path" title="Traza el orden en que las escuchaste">✧ Mi camino</button>
+            <button class="ctool" data-tool="labels" title="Mostrar nombres">Aa Nombres</button>
+            <button class="ctool" data-tool="fit" title="Ver todo">⤢ Todo</button>
+          </div>
+          <div id="cfind"><input id="cq" placeholder="buscar estrella…" autocomplete="off"><div id="cqres"></div></div>
+        </div>
+        <div id="cprog"><i></i><b></b></div>
+      </div>
+      <div class="const-legend"></div>
+    </section>
+
+    <section class="view" id="v-search">
+      <h2 class="vtitle">Buscar</h2>
+      <p class="vsub">Por canción, por artista, o por acto. Escribe <em>nota</em> para ver solo las que llevan algo escrito.</p>
+      <div class="searchbar">
+        <span style="color:var(--dimmer)">⌕</span>
+        <input id="q" placeholder="Taylor Swift, ILLENIUM, TWICE, soft spot…" autocomplete="off">
+        <span class="kbd">esc</span>
+      </div>
+      <div id="results" class="rows"></div>
+    </section>
+
+    <section class="view" id="v-letter">
+      <h2 class="vtitle" style="text-align:center">La carta</h2>
+      <p class="vsub" style="text-align:center;margin:0 auto 3.4rem">Baja despacio.</p>
+      <div class="letter" id="letterBody"></div>
+    </section>
+
+    <section class="view" id="v-you">
+      <h2 class="vtitle">Tú y esto</h2>
+      <p class="vsub">Lo que llevas escuchado se guarda en este dispositivo. Nadie más lo ve.</p>
+      <div class="stats" id="statsBox"></div>
+      <div class="barwrap" style="margin-bottom:3rem"><i id="progBar" style="width:0"></i></div>
+      <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:1rem">Tus favoritas</h3>
+      <div id="favs" class="rows"></div>
+      <div style="margin-top:3rem"><button class="pill" id="reset">Borrar mi progreso</button></div>
+    </section>
+  </main>
+</div>
+
+<!-- ══ MODAL ══ -->
+<div id="modal">
+  <div id="mbg"></div>
+  <div id="mcard">
+    <div class="m-top">
+      <button id="mclose">✕</button>
+      <div class="m-act" id="mAct"></div>
+      <h3 class="m-title" id="mTitle"></h3>
+      <div class="m-art" id="mArt"></div>
+      <div class="m-actions">
+        <button class="pill solid" id="mPlay">▶ Reproducir aquí</button>
+        <a class="pill" id="mYT" target="_blank" rel="noopener">Abrir en YouTube ↗</a>
+        <button class="pill" id="mFav">♡ Favorita</button>
+      </div>
+    </div>
+    <div class="m-body">
+      <div id="mFrame"></div>
+      <div class="tabs" id="mTabs"></div>
+      <div id="mPanes"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DOCK ══ -->
+<div id="dock">
+  <div class="dock-row">
+    <div class="vinyl"></div>
+    <div class="dock-info"><b id="dTitle">—</b><span id="dArt"></span></div>
+    <div class="dock-btns">
+      <button class="ic" id="dPrev" title="Anterior">⏮</button>
+      <button class="ic" id="dNext" title="Siguiente">⏭</button>
+      <button class="ic" id="dOpen" title="Mostrar video">▤</button>
+      <button class="ic" id="dInfo" title="Ver canción">ⓘ</button>
+      <button class="ic" id="dStop" title="Cerrar">✕</button>
+    </div>
+  </div>
+  <div id="dockFrame"></div>
+</div>
+
+<div id="toast"></div>
+
+<div id="secret"><div class="in">
+  <h2 id="secTitle"></h2>
+  <p id="secBody"></p>
+  <button class="pill" onclick="document.getElementById('secret').classList.remove('on')">Cerrar</button>
+</div></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   1. LETRAS  —  ✏️  LLENA ESTO
+   ----------------------------------------------------------------------
+   Formato:  "titulo exacto de la canción": {
+                 lang: "en",                       // idioma original
+                 og:  ["verso 1","verso 2"],       // letra original
+                 es:  ["traducción 1","trad 2"]    // traducción (opcional)
+             }
+   Las canciones sin entrada aquí muestran un aviso amable.
+   ══════════════════════════════════════════════════════════════════════ */
+const LYRICS = {
+  // Ejemplo de cómo se ve una entrada llena:
+  // "Out Of Time": { lang:"en",
+  //   og:["...","..."],
+  //   es:["...","..."] },
+};
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. LA PLAYLIST
+   ══════════════════════════════════════════════════════════════════════ */
+const ACTS = [
+  {
+    n:"Acto I", name:"No sé cómo decirlo", hue:"rose",
+    epi:"El principio: cuando todavía era solo una sensación sin nombre.",
+    songs:[
+      ["Told You So (Lavern & VisionV Remix)","Martin Garrix, Jex, Lavern, VisionV"],
+      ["Miss Americana & The Heartbreak Prince","Taylor Swift"],
+      ["Just One Day","BTS"],
+      ["What is Love?","TWICE"],
+      ["Earthquake","JISOO"],
+      ["I GOT YOU","TWICE"],
+      ["Feel Special","TWICE"],
+      ["LOVE, AFRAID","MADEIN"],
+      ["Out Of Time","Justin Mylo, Alessia Labate"]
+    ],
+    quotes:["Out Of Time"], notes:[]
+  },
+  {
+    n:"Acto II", name:"I could be the one", hue:"violet",
+    epi:"El impulso de estar ahí, aunque nadie lo pida.",
+    songs:[
+      ["Cry (with John Martin)","Gryffin, John Martin"],
+      ["Strategy","TWICE"],
+      ["Not Today","BTS"],
+      ["Beautiful Drug (Remix)","Zac Brown Band, Avicii"],
+      ["Gonna Love Ya","Avicii"],
+      ["Talk To Myself","Avicii"],
+      ["I Could Be The One","Avicii, Nicky Romero"]
+    ],
+    quotes:["I Could Be The One"],
+    notes:["Aquí aplica indudablemente ese típico «I can do it alone», pero a la vez el «I know, but I want to do it for you»."]
+  },
+  {
+    n:"Acto III", name:"Still breathing", hue:"cyan",
+    epi:"El acto largo. El año entero cabe aquí.",
+    songs:[
+      ["True Believer","Avicii"],["Addicted To You","Avicii"],
+      ["Forever Yours","Kygo, Avicii, Sandro Cavazza"],["Firework Eyes","Excision, Sullivan King"],
+      ["I Don't Understand But I Luv U","SEVENTEEN"],["Happy?","Nico Collins"],
+      ["THANKS","SEVENTEEN"],["F.I.L.A (Fall In Love Again)","TWICE"],
+      ["Closer","JIHYO"],["ONE&ONLY","ASTRO"],["Boy in Luv","BTS"],["BUT YOU","iKON"],
+      ["To you","SEVENTEEN"],["Conversation","TWICE"],
+      ["Die For You (Dabin Remix)","VALORANT, Grabbitz, Dabin"],
+      ["Love is Gone (JOSHUA)","SLANDER, SEVENTEEN, Dylan Matthew, JOSHUA"],
+      ["Otras Vidas","Carlos Rivera"],["HELLO","TREASURE"],["Ash","LE SSERAFIM"],
+      ["Moon","ASTRO, VIVIZ, MINHYUK, KIHYUN, I.M, HOSHI, WONWOO, MINGYU, DK, SEUNGKWAN, BANGCHAN"],
+      ["Cold Water (ft. Justin Bieber & MØ)","Major Lazer, Justin Bieber, MØ"],
+      ["Ojitos Lindos","Bad Bunny, Bomba Estéreo"],
+      ["Please Don't Change","Jung Kook, DJ Snake"],
+      ["The Best Thing I Ever Did","TWICE"],
+      ["Ignite","K-391, Alan Walker, Julie Bergan, SEUNGRI"],
+      ["Blink","Corbyn Besson, TZUYU"],["Losing Sleep","TZUYU"],
+      ["Walk Thru Fire","Vicetone"],["ALL OR NOTHING","NAYEON"],
+      ["Alone, Pt. II","Alan Walker, Ava Max"],["Mikrokosmos","BTS"],
+      ["Hold On Tight","aespa"],["Replay","SLANDER, Dylan Matthew"],
+      ["Free","Kpop Demon Hunters, RUMI, JINU"],["Free","SABAI, Miles Away, ANDe, Shannon"],
+      ["Under the skin","&TEAM"],["Stuck In The Middle","Ran-D, Vertile"],
+      ["Give Me Love","Don Diablo, Calum Scott"],["Like Crazy","Jimin"],
+      ["Still Breathing","Faouzia, G.E.M., ILLENIUM"]
+    ],
+    quotes:["Still Breathing"],
+    notes:["Como tal no tiene algo específico en las lyrics, pero me recuerdan a esos momentos más bajos, y al menos en el último año, fuiste tú una de las personas que más me alentaba a seguir (aunque no lo hicieras directamente)."]
+  },
+  {
+    n:"Acto IV", name:"Stuck in the middle", hue:"gold",
+    epi:"El nudo. Lo que no se ha dicho, y por qué.",
+    songs:[
+      ["Wouldn't Change A Thing","ILLENIUM, Thirty Seconds To Mars"],
+      ["Sideways","ILLENIUM, Valerie Broussard, NURKO"],
+      ["If It Wasn't For You","Alesso"],["Diamond Heart","Alan Walker, Sophia Somajo"],
+      ["Chasing That Feeling","TOMORROW X TOGETHER"],["Boy With Luv","BTS, Halsey"],
+      ["Make A Move","EMMA WAHLIN"],["EYES CLOSED","JISOO, ZAYN"],
+      ["Bite Me","ENHYPEN"],["Given-Taken","ENHYPEN"],["Love Is Lonely","NMIXX"],
+      ["Beautiful","Kygo, Sandro Cavazza"],["Fortress","ILLENIUM, Joni Fatora"],
+      ["Parachute","HALIENE, Amidy"],["In Your Fantasy","ATEEZ"],
+      ["Deja Vu","TOMORROW X TOGETHER"],["NEW NEW","TWICE"],
+      ["Ruin The Friendship","Taylor Swift"],["stay a little longer","ROSÉ"],
+      ["Nothing Hurts Like Goodbye","SLANDER, Kiiara"],["NO PROBLEM","NAYEON, Felix"],
+      ["Butterflies","NAYEON"],["FANTASIA","MONSTA X"],
+      ["I Knew You Were Trouble.","Taylor Swift"],["Perfect","One Direction"],
+      ["You Belong With Me","Taylor Swift"],["Stuck In The Middle","BABYMONSTER"]
+    ],
+    quotes:["Stuck In The Middle"],
+    notes:[
+      "Todavía me acuerdo cuando salió esta canción: justo estaba en mi semana de piso pediá en SF, y tengo el recuerdo muy marcado —idk why— de estar esperando ahí en la salita a que pasara sea quien fuera que estuviera, para pasar visita…",
+      "Those lyrics…",
+      "No voy a negarlo: desde hace mucho tiempo me sentí stuck in the middle with you, y lo sigo estando. No sé qué hacer, qué sí o no decir, qué sí o no hacer, etc."
+    ]
+  },
+  {
+    n:"Acto V", name:"Soft spot", hue:"rose",
+    epi:"Donde deja de ser duda y empieza a ser evidencia.",
+    songs:[
+      ["PLAYING WITH FIRE","BLACKPINK"],["Killin' It Girl","j-hope, GloRilla"],
+      ["Never Let Go","Jung Kook"],["Hard to Love","BLACKPINK"],
+      ["Only One","ILLENIUM, Nina Sung"],["Paper Rings","Taylor Swift"],
+      ["Paper Thin","ILLENIUM, Tom DeLonge, Angels & Airwaves"],
+      ["Wake Me When It's Quiet","Hilda, Don Diablo"],
+      ["Heartbreak In Heaven","TZUYU, PENIEL"],["INCEPTION","ATEEZ"],
+      ["RUSH","TWICE"],["CRUSH","IVE"],["Sacrifice","League of Legends, G.E.M."],
+      ["Beautiful Strangers","TOMORROW X TOGETHER"],["VERY NICE","SEVENTEEN"],
+      ["MOJABI GHOST","Tainy, Bad Bunny"],["FIREWORK","&TEAM"],["Moon","BTS"],
+      ["COMPLETE MESS","5 Seconds of Summer"],
+      ["The Killa (I Belong to You)","TOMORROW X TOGETHER"],
+      ["The Gift","Céline Dion"],["HBD","SEVENTEEN"],["3am","ROSÉ"],
+      ["drinks or coffee","ROSÉ"],["Cruise","Kep1er"],["Reservations","Sorn, MINNIE"],
+      ["All Falls Down","Alan Walker, Noah Cyrus, Digital Farm Animals, Juliander"],
+      ["In My Arms","ILLENIUM, HAYLA"],["End of Time","K-391, Alan Walker, Ahrix"],
+      ["Waiting For Tomorrow","Martin Garrix, Pierce Fulton, Mike Shinoda"],
+      ["Stars Will Align","Kygo, Imagine Dragons"],["Red Diamond","MISAMO"],
+      ["BANG BANG","IVE"],["The Man","Taylor Swift"],
+      ["All of The Girls You've Loved Before","Taylor Swift"],
+      ["You & Me (Coachella ver.)","JENNIE"],
+      ["Alone (Sullivan King Remix)","Kayzo, Our Last Night, Sullivan King"],
+      ["DUELE EL CORAZON","Enrique Iglesias, Wisin"],["Talk that Talk","TWICE"],
+      ["Hot Mess","aespa"],["DECAFFEINATED (SANA)","TWICE"],["soft spot","keshi"]
+    ],
+    quotes:["soft spot"], notes:[]
+  },
+  {
+    n:"Acto VI", name:"Todo lo que no dije", hue:"violet",
+    epi:"El final abierto. Lo que sigue sonando cuando ya no hay nada que decir.",
+    songs:[
+      ["Refuge","ILLENIUM, Norma Jean Martine"],["LOVE ME or LOSER","ONEUS"],
+      ["What Love Can Do","BONNIE X CLYDE"],["Not Gonna Leave You","Wallaby, NEIMY"],
+      ["Young","The Chainsmokers"],["DIFFERENT","LE SSERAFIM"],
+      ["Lose You","Gammer, Tweekacore, Da Tweekaz"],
+      ["Angel (Lonely Prelude)","ILLENIUM"],["Lonely","ILLENIUM, Chandler Leighton"],
+      ["Feel Alive","ILLENIUM, Bastille, Dabin"],["Wild Ride (Ryos Remix)","KSHMR, Ryos"],
+      ["MOONLIGHT","TWICE"],["Nothing Without Your Love","Jin"],["Super Tuna","Jin"],
+      ["Tired","Alan Walker, Gavin James"],["Looking Your Eyes","Lim Ha Young"],
+      ["How to Love","Cash Cash, Sofía Reyes"],
+      ["I Need You To Know","Armin van Buuren, Nicky Romero, Ifimay"],
+      ["I Need U","BTS"],["Only One","ILLENIUM, Nina Sung"],
+      ["ballad of a homeschooled girl","Olivia Rodrigo"],
+      ["Slow It Down","Jason Ross, L8NCY"],["Pretty U","SEVENTEEN"],
+      ["baby blue","MONSTA X"],["Secrets","MONSTA X"],["About Last Night","MONSTA X"],
+      ["Memory of Us","DEMIAN"],["Moonstruck","ENHYPEN"],
+      ["Free","ARMNHMR, LOCKBOX, Sara, Benyo, Gabriel Eli"],["That Girl","Olly Murs"],
+      ["Rock with you","SEVENTEEN"],
+      ["What If I Told You That I Love You (Don Diablo Remix)","Ali Gatie, Don Diablo"],
+      ["Message In A Bottle (Fat Max G Remix) (Taylor's Version)","Taylor Swift, Fat Max Gsus"],
+      ["number one girl","ROSÉ"],["Shine With Me","IVE"],
+      ["Waiting","Vicetone, Daisy Guttridge"],["The Fate of Ophelia","Taylor Swift"],
+      ["Yes or No","Jung Kook"],["Truman (HAN & Felix)","Stray Kids"],
+      ["Boyfriend","YEONJUN"],["PUSH & PULL (JIHYO, SANA, DAHYUN)","TWICE"],
+      ["Last Shot","VALORANT, templuv, 347aidan"],["Blue Valentine","NMIXX"],
+      ["Walk Thru Fire","Vicetone"],["Still With You","Jung Kook"],["MARS","TWICE"],
+      ["Magnetic","MONSTA X, Sebastian Yatra"],["Stay Alive","Jung Kook"],
+      ["Hollow","HALIENE, Elephante"],["Messy (F1)","ROSÉ, F1 The Album"],
+      ["Euphoria","BTS"],["YOU GET ME","TWICE"],["First Kiss","Calu"],
+      ["Nothing Hurts Like Goodbye","SLANDER"],["Falling","Jin"],
+      ["Potential","Lauv"],["THUNDER","SEVENTEEN"],
+      ["Azizam (D.O.D Remix)","Ed Sheeran, D.O.D"],
+      ["Bad Desire (With or Without You)","ENHYPEN"],
+      ["Air","Gryffin, Excision, Julia Michaels"],["Ur Alive","ILLENIUM, WYLDE"],
+      ["Opalite","Taylor Swift"],["Style","Taylor Swift"],
+      ["If The World Was Ending","NURKO, Dayce Williams"],
+      ["Eternity","NURKO, Dayce Williams"]
+    ],
+    quotes:[], notes:[]
+  }
+];
+
+const LETTER = [
+  "No sé cómo se dice esto en voz alta. Llevo intentándolo un rato ya.",
+  "Así que hice lo único que sí sé hacer: junté doscientas canciones y dejé que ellas lo dijeran por mí.",
+  "No están en orden cronológico. Están en el orden en que fueron pasando las cosas <em>por dentro</em>.",
+  "Hay actos que duraron meses. Hay canciones que solo significan una tarde concreta, un pasillo, una hora esperando algo.",
+  "Y hay una que se llama <em>Stuck In The Middle</em> que sigue describiendo exactamente dónde estoy.",
+  "No hace falta que respondas nada. Esto no es una pregunta con respuesta obligatoria — es solo lo que no cabía en un mensaje.",
+  "Gracias por el último año. En serio. Aunque no supieras que lo estabas haciendo.",
+  "<span class='sig'>— Jordan</span>"
+];
+
+/* ── IDs de YouTube resueltos (título||artistas → videoId) ── */
+const YT = {
+  "Earthquake||JISOO":"2V6lvCUPT8I",
+  "I GOT YOU||TWICE":"haf67eKF0uo",
+  "Told You So (Lavern & VisionV Remix)||Martin Garrix, Jex, Lavern, VisionV":"A_sZ16eYp80",
+  "What is Love?||TWICE":"i0p1bmr0EmE",
+  "Miss Americana & The Heartbreak Prince||Taylor Swift":"Kwf7P2GNAVw",
+  "LOVE, AFRAID||MADEIN":"offEu12tm-0",
+  "Feel Special||TWICE":"3ymwOvzhwHs",
+  "Out Of Time||Justin Mylo, Alessia Labate":"JFtBWi9r4ls",
+  "Just One Day||BTS":"dzAwJW107nk",
+  "Cry (with John Martin)||Gryffin, John Martin":"enbNUqSZdD8",
+  "Strategy||TWICE":"Sz_wWzgh-vQ",
+  "Beautiful Drug (Remix)||Zac Brown Band, Avicii":"6rgZu_jZAJo",
+  "Not Today||BTS":"9DwzBICPhdM",
+  "Gonna Love Ya||Avicii":"UuxTn5vC8VM",
+  "Talk To Myself||Avicii":"kfntpNM1-dM",
+  "I Could Be The One||Avicii, Nicky Romero":"bek1y2uiQGA",
+  "True Believer||Avicii":"MhTJJ1AHzzU",
+  "Addicted To You||Avicii":"Qc9c12q3mrc",
+  "Forever Yours||Kygo, Avicii, Sandro Cavazza":"Xxqz3bgPTLs",
+  "Firework Eyes||Excision, Sullivan King":"2qq0dD0pQO0",
+  "THANKS||SEVENTEEN":"gZItyr1SNjU",
+  "Closer||JIHYO":"71c1dJBL-DU",
+  "F.I.L.A (Fall In Love Again)||TWICE":"I4xliZW07tk",
+  "ONE&ONLY||ASTRO":"50EhDl7uiJQ",
+  "Boy in Luv||BTS":"m8MfJg68oCs",
+  "I Don't Understand But I Luv U||SEVENTEEN":"MGK5wZJDXjo",
+  "To you||SEVENTEEN":"n9ta1Pgeu80",
+  "Die For You (Dabin Remix)||VALORANT, Grabbitz, Dabin":"9AZnIgtZqKw",
+  "BUT YOU||iKON":"r5n1GCY-nYQ",
+  "Conversation||TWICE":"KwqUdV2hpII",
+  "Love is Gone (JOSHUA)||SLANDER, SEVENTEEN, Dylan Matthew, JOSHUA":"suEyjN0M9_k",
+  "Happy?||Nico Collins":"0ot4AqJ_jCM",
+  "HELLO||TREASURE":"aPd9exmH17o",
+  "Otras Vidas||Carlos Rivera":"VilDW2Aj9aM",
+  "Ash||LE SSERAFIM":"IFUn0LMRM-E",
+  "Cold Water (ft. Justin Bieber & MØ)||Major Lazer, Justin Bieber, MØ":"nBtDsQ4fhXY",
+  "The Best Thing I Ever Did||TWICE":"CfUGjK6gGgs",
+  "Moon||ASTRO, VIVIZ, MINHYUK, KIHYUN, I.M, HOSHI, WONWOO, MINGYU, DK, SEUNGKWAN, BANGCHAN":"UUFJlUy5aA4",
+  "Ignite||K-391, Alan Walker, Julie Bergan, SEUNGRI":"Az-mGR-CehY",
+  "Ojitos Lindos||Bad Bunny, Bomba Estéreo":"wAjHQXrIj9o",
+  "Alone, Pt. II||Alan Walker, Ava Max":"HhjHYkPQ8F0",
+  "Walk Thru Fire||Vicetone":"acmbUpvXp_Y",
+  "Please Don't Change||Jung Kook, DJ Snake":"P4Fmy4kkJTg",
+  "Blink||Corbyn Besson, TZUYU":"QcuV8h_I1y0",
+  "Replay||SLANDER, Dylan Matthew":"GGDgnPm8yB0",
+  "Losing Sleep||TZUYU":"U0abEcy5Mqs",
+  "Mikrokosmos||BTS":"Fw7C6IsDYgI",
+  "Free||Kpop Demon Hunters, RUMI, JINU":"fjOeJssZX_Q",
+  "Hold On Tight||aespa":"1XZRhrt1Tkg",
+  "Free||SABAI, Miles Away, ANDe, Shannon":"yymtJ9Y4oOc",
+  "ALL OR NOTHING||NAYEON":"Qqgqp7GgSZQ",
+  "Under the skin||&TEAM":"0utfT0nbuTA",
+  "Sideways||ILLENIUM, Valerie Broussard, NURKO":"hxVviJsgfok",
+  "Wouldn't Change A Thing||ILLENIUM, Thirty Seconds To Mars":"6FYCVdQrOYM",
+  "Still Breathing||Faouzia, G.E.M., ILLENIUM":"wjJWe7FKfPU",
+  "Diamond Heart||Alan Walker, Sophia Somajo":"sJXZ9Dok7u8",
+  "Stuck In The Middle||Ran-D, Vertile":"Inu1qnVfWP4",
+  "Like Crazy||Jimin":"nOI67IDlNMQ",
+  "Give Me Love||Don Diablo, Calum Scott":"7OvlmRI-WpU",
+  "Chasing That Feeling||TOMORROW X TOGETHER":"ISnyONG1dEc",
+  "If It Wasn't For You||Alesso":"nLFZrRNvbvU",
+  "Boy With Luv||BTS, Halsey":"XsX3ATc3FbA",
+  "Given-Taken||ENHYPEN":"nQ6wLuYvGd4",
+  "Bite Me||ENHYPEN":"wXFLzODIdUI",
+  "Fortress||ILLENIUM, Joni Fatora":"7gF-05RYizs",
+  "Make A Move||EMMA WAHLIN":"kqyV0gQS_48",
+  "EYES CLOSED||JISOO, ZAYN":"EN1tMeXQii0",
+  "Beautiful||Kygo, Sandro Cavazza":"4IUNL6zzVZ8",
+  "Love Is Lonely||NMIXX":"zhrT1cmQ9zA",
+  "In Your Fantasy||ATEEZ":"JOF2ZTqvzwY",
+  "Parachute||HALIENE, Amidy":"Sy_Lt5UUnTM",
+  "NEW NEW||TWICE":"JqEEOtVtBO4",
+  "Deja Vu||TOMORROW X TOGETHER":"DiHUEWBRQEI",
+  "Butterflies||NAYEON":"iLOJKRHmwI8",
+  "Ruin The Friendship||Taylor Swift":"WQCPl5rTMDQ",
+  "I Knew You Were Trouble.||Taylor Swift":"TqAollrUJdA",
+  "stay a little longer||ROSÉ":"vHvOYQ0hbBA",
+  "NO PROBLEM||NAYEON, Felix":"XRQxpx4NGUk",
+  "Nothing Hurts Like Goodbye||SLANDER, Kiiara":"-1uV9Gb1htY",
+  "FANTASIA||MONSTA X":"p2JzPlpA1Iw",
+  "You Belong With Me||Taylor Swift":"VuNIsY6JdUw",
+  "PLAYING WITH FIRE||BLACKPINK":"9pdj4iJD08s",
+  "Perfect||One Direction":"Ho32Oh6b4jc",
+  "Killin' It Girl||j-hope, GloRilla":"q9leDzlNEaY",
+  "Stuck In The Middle||BABYMONSTER":"GsV1i0QHi-o",
+  "Only One||ILLENIUM, Nina Sung":"m7WS5V_Quwc",
+  "Never Let Go||Jung Kook":"J_n4Ysi5iUM",
+  "Heartbreak In Heaven||TZUYU, PENIEL":"EV-SV9YzRdQ",
+  "Hard to Love||BLACKPINK":"7Hr3p1BHC_E",
+  "Paper Rings||Taylor Swift":"8zdg-pDF10g",
+  "Paper Thin||ILLENIUM, Tom DeLonge, Angels & Airwaves":"BkQu7RQ8FBs",
+  "Wake Me When It's Quiet||Hilda, Don Diablo":"sUmVrPGYZ-E",
+  "INCEPTION||ATEEZ":"2NArH91kHoQ",
+  "RUSH||TWICE":"gw5uSSsHm6c",
+  "CRUSH||IVE":"D-geLVTaBAo",
+  "VERY NICE||SEVENTEEN":"J-wFp43XOrA",
+  "Moon||BTS":"F5H3g0UR7CI",
+  "FIREWORK||&TEAM":"uY-lOn0XwBg",
+  "MOJABI GHOST||Tainy, Bad Bunny":"O1wUdB7MQbI",
+  "The Killa (I Belong to You)||TOMORROW X TOGETHER":"hExiWr2_wBk",
+  "Beautiful Strangers||TOMORROW X TOGETHER":"IcwHopeT5gY",
+  "3am||ROSÉ":"9rcayn1TQTA",
+  "COMPLETE MESS||5 Seconds of Summer":"GoQ85cs5fk0",
+  "Sacrifice||League of Legends, G.E.M.":"pzt6SmvGpXk",
+  "All Falls Down||Alan Walker, Noah Cyrus, Digital Farm Animals, Juliander":"6RLLOEzdxsM",
+  "The Gift||Céline Dion":"R6BvA82sUYo",
+  "Cruise||Kep1er":"qbEKlKtjkPI",
+  "drinks or coffee||ROSÉ":"PFDO5OZO61Y",
+  "End of Time||K-391, Alan Walker, Ahrix":"Oj18EikZMuU",
+  "HBD||SEVENTEEN":"h5dk1hCL_oY",
+  "Reservations||Sorn, MINNIE":"yhtaMiavRIY",
+  "In My Arms||ILLENIUM, HAYLA":"XlZ2IWoLXPo",
+  "Stars Will Align||Kygo, Imagine Dragons":"TM5ZtMP4OCQ",
+  "All of The Girls You've Loved Before||Taylor Swift":"SpLJl9Au3fw",
+  "Waiting For Tomorrow||Martin Garrix, Pierce Fulton, Mike Shinoda":"GTaOXDmD3qk",
+  "BANG BANG||IVE":"9qkpcLK422o",
+  "Red Diamond||MISAMO":"2l8t9MOKWQI",
+  "The Man||Taylor Swift":"AqAJLh9wuZ0",
+  "You & Me (Coachella ver.)||JENNIE":"3yILnlnIqyU",
+  "Talk that Talk||TWICE":"k6jqx9kZgPM",
+  "DECAFFEINATED (SANA)||TWICE":"um6VLQEm500",
+  "soft spot||keshi":"4Lmcadu8ghM",
+  "Alone (Sullivan King Remix)||Kayzo, Our Last Night, Sullivan King":"Sk0m42-3WOM",
+  "Refuge||ILLENIUM, Norma Jean Martine":"lIyKh8adNh4",
+  "DUELE EL CORAZON||Enrique Iglesias, Wisin":"xFutjZEBTXs",
+  "Hot Mess||aespa":"2iK3ccCsI6s",
+  "LOVE ME or LOSER||ONEUS":"MEx4nBk_MSk",
+  "Young||The Chainsmokers":"z6nfK_zhYNk",
+  "Not Gonna Leave You||Wallaby, NEIMY":"FBnmjbgU_u0",
+  "Angel (Lonely Prelude)||ILLENIUM":"M_CjuxUfmk8",
+  "Lonely||ILLENIUM, Chandler Leighton":"BWorPV9036o",
+  "What Love Can Do||BONNIE X CLYDE":"-_j2ZXDixeI",
+  "DIFFERENT||LE SSERAFIM":"HFZUAXhdnHk",
+  "Lose You||Gammer, Tweekacore, Da Tweekaz":"CHjIEukKS90",
+  "Tired||Alan Walker, Gavin James":"g4hGRvs6HHU",
+  "Nothing Without Your Love||Jin":"7ue9yqfApQA",
+  "Feel Alive||ILLENIUM, Bastille, Dabin":"NP21WG0Z9YQ",
+  "Wild Ride (Ryos Remix)||KSHMR, Ryos":"92BG43aHWTc",
+  "MOONLIGHT||TWICE":"Q8nCjQCvWD4",
+  "How to Love||Cash Cash, Sofía Reyes":"peByeoQhjMM",
+  "I Need You To Know||Armin van Buuren, Nicky Romero, Ifimay":"YMzbfDNdMaU",
+  "Slow It Down||Jason Ross, L8NCY":"xaaDFvaxeC4",
+  "Super Tuna||Jin":"ArHGiOxYwHM",
+  "Looking Your Eyes||Lim Ha Young":"O2UdMyXDSLo",
+  "I Need U||BTS":"O_kfgwSxEDQ",
+  "baby blue||MONSTA X":"PxZej9IEVxc",
+  "Pretty U||SEVENTEEN":"Ur243WXPEpA",
+  "ballad of a homeschooled girl||Olivia Rodrigo":"obSpLSnJ-wI",
+  "Free||ARMNHMR, LOCKBOX, Sara, Benyo, Gabriel Eli":"dwrqGh2QNEg",
+  "Rock with you||SEVENTEEN":"WpuatuzSDK4",
+  "Secrets||MONSTA X":"YXYTdlCbYvg",
+  "About Last Night||MONSTA X":"sBFi-Vg31wg",
+  "Message In A Bottle (Fat Max G Remix) (Taylor's Version)||Taylor Swift, Fat Max Gsus":"mCWRjuhRRYg",
+  "Memory of Us||DEMIAN":"K3qfl5blz4w",
+  "Moonstruck||ENHYPEN":"7T8yERKbXfc",
+  "That Girl||Olly Murs":"3q2IXr6fjh0",
+  "number one girl||ROSÉ":"pZ1NdE69VTs",
+  "Waiting||Vicetone, Daisy Guttridge":"nYO-x0drtF4",
+  "What If I Told You That I Love You (Don Diablo Remix)||Ali Gatie, Don Diablo":"jvwVNMAa77E",
+  "Yes or No||Jung Kook":"uOFIcm-L0po",
+  "Boyfriend||YEONJUN":"eD8NC174Jik",
+  "Last Shot||VALORANT, templuv, 347aidan":"cLx3tyzht3Y",
+  "Shine With Me||IVE":"DriF-yior0k",
+  "The Fate of Ophelia||Taylor Swift":"ko70cExuzZM",
+  "Truman (HAN & Felix)||Stray Kids":"diMyNjWyDW8",
+  "Stay Alive||Jung Kook":"z1GnsD3mvf4",
+  "MARS||TWICE":"N1ExjhcpLso",
+  "Magnetic||MONSTA X, Sebastian Yatra":"4DQlncYMCyw",
+  "Messy (F1)||ROSÉ, F1 The Album":"ia2Ph61bYzc",
+  "PUSH & PULL (JIHYO, SANA, DAHYUN)||TWICE":"LKHm2N-knDQ",
+  "Still With You||Jung Kook":"BksBNbTIoPE",
+  "Blue Valentine||NMIXX":"EmeW6li6bbo",
+  "First Kiss||Calu":"t9OpgqtqJHM",
+  "Nothing Hurts Like Goodbye||SLANDER":"-1uV9Gb1htY",
+  "Euphoria||BTS":"MwrAE1hFNWo",
+  "THUNDER||SEVENTEEN":"pS57UX6s-xw",
+  "Potential||Lauv":"yQ7Xp6dOCCk",
+  "Hollow||HALIENE, Elephante":"ARvnxz3F1v0",
+  "YOU GET ME||TWICE":"GzmFNfvKSTY",
+  "Falling||Jin":"1hgtmw_laFs",
+  "Bad Desire (With or Without You)||ENHYPEN":"a2Zqdo9RbNs",
+  "Azizam (D.O.D Remix)||Ed Sheeran, D.O.D":"PdXrZELSM78",
+  "Ur Alive||ILLENIUM, WYLDE":"CarS26Ii6DQ",
+  "Air||Gryffin, Excision, Julia Michaels":"2XQEruKtR5c",
+  "Opalite||Taylor Swift":"1FVF-9KQiPo",
+  "Style||Taylor Swift":"-CmadmM5cOk",
+  "Eternity||NURKO, Dayce Williams":"tkanhAardXc",
+  "If The World Was Ending||NURKO, Dayce Williams":"TDBdEgvcL6s"
+};
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. MOTOR
+   ══════════════════════════════════════════════════════════════════════ */
+const HUE = {rose:'var(--rose)', violet:'var(--violet)', cyan:'var(--cyan)', gold:'var(--gold)'};
+const HUERAW = {rose:[240,167,184], violet:[155,140,240], cyan:[127,216,232], gold:[232,200,138]};
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+// aplanar
+const SONGS = [];
+ACTS.forEach((a,ai)=>a.songs.forEach(([t,ar],si)=>{
+  SONGS.push({id:SONGS.length, t, ar, ai, si, act:a.name, actn:a.n, hue:a.hue,
+    note: a.quotes.includes(t) ? a.notes : []});
+}));
+const N = SONGS.length;
+const ytq = s => encodeURIComponent(s.t+' '+s.ar.split(',')[0]);
+const vid = s => YT[s.t+'||'+s.ar] || null;
+const ytSearch = s => vid(s) ? 'https://www.youtube.com/watch?v='+vid(s)
+                             : 'https://www.youtube.com/results?search_query='+ytq(s);
+const ytEmbed = s => vid(s)
+  ? 'https://www.youtube-nocookie.com/embed/'+vid(s)+'?autoplay=1&rel=0&modestbranding=1'
+  : 'https://www.youtube.com/results?search_query='+ytq(s);
+
+// estado persistente
+const KEY='hditu_v1';
+let ST = {heard:[], favs:[]};
+try{ ST = Object.assign(ST, JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+const save = ()=>{ try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){} };
+const heard = i => ST.heard.includes(i);
+const fav = i => ST.favs.includes(i);
+
+/* ─── portada: título letra por letra ─── */
+(function(){
+  const txt="How do I tell you? ...", el=$('#gtitle');
+  [...txt].forEach((ch,i)=>{
+    const s=document.createElement('span');
+    s.className='c'+(i>=txt.length-4?' dots':'');
+    s.textContent = ch===' '?' ':ch;
+    s.style.animation=`fadeUp 1s ${.5+i*.055}s cubic-bezier(.2,.9,.2,1) forwards`;
+    s.style.animationName='charIn';
+    el.appendChild(s);
+  });
+  const st=document.createElement('style');
+  st.textContent='@keyframes charIn{to{opacity:1;transform:none;filter:none}}';
+  document.head.appendChild(st);
+})();
+
+$('#enter').onclick = ()=>{
+  $('#gate').classList.add('gone');
+  setTimeout(()=>{ $('#gate').style.display='none'; $('#shell').classList.add('on'); }, 900);
+};
+
+/* ─── fondo canvas: partículas + parallax ─── */
+(function(){
+  const c=$('#sky'), x=c.getContext('2d');
+  let W,H,ps=[],mx=.5,my=.5,tmx=.5,tmy=.5;
+  function size(){ W=c.width=innerWidth*devicePixelRatio; H=c.height=innerHeight*devicePixelRatio;
+    c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; }
+  size(); addEventListener('resize',size);
+  for(let i=0;i<130;i++) ps.push({
+    x:Math.random(), y:Math.random(), z:.3+Math.random()*.7,
+    r:.4+Math.random()*1.7, s:.00004+Math.random()*.00016,
+    p:Math.random()*Math.PI*2
+  });
+  addEventListener('pointermove',e=>{ tmx=e.clientX/innerWidth; tmy=e.clientY/innerHeight; });
+  let hue=[232,200,138];
+  window.setSkyHue = h => { const t=HUERAW[h]||hue; hue=t; };
+  (function loop(t){
+    mx+=(tmx-mx)*.04; my+=(tmy-my)*.04;
+    x.clearRect(0,0,W,H);
+    ps.forEach(p=>{
+      p.y-=p.s*p.z; if(p.y<-.05)p.y=1.05;
+      const px=(p.x+(mx-.5)*.05*p.z)*W, py=(p.y+(my-.5)*.04*p.z)*H;
+      const tw=.35+.65*Math.abs(Math.sin(t*.0006+p.p));
+      x.beginPath(); x.arc(px,py,p.r*p.z*devicePixelRatio,0,7);
+      x.fillStyle=`rgba(${hue[0]},${hue[1]},${hue[2]},${tw*p.z*.55})`; x.fill();
+    });
+    requestAnimationFrame(loop);
+  })(0);
+})();
+
+/* ─── render: actos ─── */
+function rowHTML(s){
+  const L = LYRICS[s.t];
+  return `<div class="row${heard(s.id)?' heard':''}" data-id="${s.id}">
+    <div class="r-idx">${String(s.si+1).padStart(2,'0')}</div>
+    <div class="r-main"><div class="r-title">${esc(s.t)}</div><div class="r-art">${esc(s.ar)}</div></div>
+    <div class="r-tags">
+      ${s.note.length?'<span class="tag note">nota</span>':''}
+      ${L?'<span class="tag lyr">letra</span>':''}
+      ${fav(s.id)?'<span class="tag" style="border-color:rgba(240,167,184,.5);color:var(--rose)">♥</span>':''}
+    </div>
+    <button class="r-play" data-play="${s.id}">▶</button>
+  </div>`;
+}
+function esc(t){ return t.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+
+function renderActs(){
+  let h='';
+  ACTS.forEach((a,ai)=>{
+    const songs = SONGS.filter(s=>s.ai===ai);
+    h+=`<div class="act" data-hue="${a.hue}">
+      <div class="act-head">
+        <div class="act-num" style="color:${HUE[a.hue]}">${a.n}</div>
+        <div class="act-name">${a.name}</div>
+        <div class="act-meta">${songs.length} canciones · ${esc(a.epi)}</div>
+      </div>
+      <div class="rows">${songs.map(rowHTML).join('')}</div>`;
+    if(a.quotes.length || a.notes.length){
+      h+=`<div class="interlude">
+        <div class="il-label">Interludio · ${esc(a.quotes[0]||'')}</div>
+        ${a.quotes.map(q=>{
+          const L=LYRICS[q];
+          if(L) return L.og.map(l=>`<div class="il-line">${esc(l)}</div>`).join('');
+          return `<div class="il-line" style="opacity:.45">— letra pendiente de <em>${esc(q)}</em> —</div>`;
+        }).join('')}
+        ${a.notes.map(n=>`<div class="il-note">${n}</div>`).join('')}
+      </div>`;
+    }
+    h+='</div>';
+  });
+  $('#v-acts').innerHTML=h;
+}
+
+/* ─── vistas ─── */
+function go(v){
+  $$('nav button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  $('#main').scrollTop=0;
+  if(v==='const') drawConst();
+  if(v==='letter') animLetter();
+  if(v==='you') renderYou();
+  if(v==='search') setTimeout(()=>$('#q').focus(),120);
+}
+$$('nav button[data-v]').forEach(b=>b.onclick=()=>go(b.dataset.v));
+
+/* ─── carta ─── */
+let letterDone=false;
+function animLetter(){
+  const box=$('#letterBody');
+  if(!letterDone){ box.innerHTML=LETTER.map(p=>`<p>${p}</p>`).join(''); letterDone=true; }
+  const ps=[...box.querySelectorAll('p')];
+  ps.forEach(p=>p.classList.remove('in'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} }),{threshold:.25});
+  ps.forEach(p=>io.observe(p));
+  setTimeout(()=>ps.slice(0,3).forEach(p=>p.classList.add('in')),100);
+}
+
+/* ─── búsqueda ─── */
+$('#q').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  let list;
+  if(!q) list=[];
+  else if(q==='nota'||q==='notas') list=SONGS.filter(s=>s.note.length);
+  else list=SONGS.filter(s=>(s.t+' '+s.ar+' '+s.act+' '+s.actn).toLowerCase().includes(q));
+  $('#results').innerHTML = q
+    ? (list.length? list.map(rowHTML).join('')
+       : `<div style="color:var(--dim);padding:2rem 0">Nada con «${esc(q)}». Prueba con un artista.</div>`)
+    : `<div style="color:var(--dimmer);padding:2rem 0">Escribe algo…</div>`;
+});
+
+/* ─── tú y esto ─── */
+function renderYou(){
+  const h=ST.heard.length, f=ST.favs.length, pct=Math.round(h/N*100);
+  const acts = ACTS.map((a,ai)=>{
+    const tot=SONGS.filter(s=>s.ai===ai).length;
+    const got=SONGS.filter(s=>s.ai===ai&&heard(s.id)).length;
+    return {n:a.n,name:a.name,got,tot};
+  });
+  $('#statsBox').innerHTML = `
+    <div class="stat"><b>${h}</b><span>escuchadas de ${N}</span></div>
+    <div class="stat"><b>${pct}%</b><span>del recorrido</span></div>
+    <div class="stat"><b>${f}</b><span>favoritas tuyas</span></div>
+    <div class="stat"><b>${ACTS.length}</b><span>actos</span></div>
+    ${acts.map(a=>`<div class="stat"><b style="font-size:1.5rem">${a.got}<span style="font-size:.9rem;color:var(--dimmer)">/${a.tot}</span></b><span>${esc(a.name)}</span></div>`).join('')}`;
+  $('#progBar').style.width=pct+'%';
+  $('#favs').innerHTML = f? ST.favs.map(i=>rowHTML(SONGS[i])).join('')
+    : `<div style="color:var(--dim)">Todavía ninguna. Abre una canción y dale a ♡.</div>`;
+}
+$('#reset').onclick=()=>{ if(confirm('¿Borrar tu progreso guardado?')){ ST={heard:[],favs:[]}; save(); renderActs(); renderYou(); if(CST.built)paintActChips(); toast('Progreso borrado'); } };
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONSTELACIÓN  —  motor propio: cámara, nebulosas, clústeres, camino
+   ══════════════════════════════════════════════════════════════════════ */
+const CST = {
+  built:false, raf:null, W:0, H:0,
+  cam:{x:0,y:0,z:1}, tgt:{x:0,y:0,z:1},
+  nodes:[], edges:[], dust:[], shots:[], ripples:[],
+  hover:null, focusAct:-1, showLabels:false, showPath:false,
+  drag:null, moved:false, t:0
+};
+
+function seeded(n){ let s=Math.sin(n*127.1)*43758.5453; return s-Math.floor(s); }
+
+function buildConst(){
+  const N_ACTS=ACTS.length;
+  CST.nodes=[]; CST.edges=[];
+  ACTS.forEach((a,ai)=>{
+    const list=SONGS.filter(s=>s.ai===ai);
+    // centro del clúster sobre una elipse amplia
+    const ang=(ai/N_ACTS)*Math.PI*2 - Math.PI/2;
+    const cx=Math.cos(ang)*560, cy=Math.sin(ang)*320;
+    const rot=seeded(ai+9)*Math.PI*2;
+    const spread=17+Math.sqrt(list.length)*3.4;
+    a._c={x:cx,y:cy,r:spread*Math.sqrt(list.length)*1.25+55};
+    const GA=2.399963229; // ángulo áureo
+    list.forEach((s,i)=>{
+      const rr=spread*Math.sqrt(i+.7)*(.88+seeded(s.id*3.1)*.26);
+      const th=i*GA+rot+seeded(s.id*7.7)*.24;
+      const n={
+        s, ai,
+        x:cx+Math.cos(th)*rr*1.22,
+        y:cy+Math.sin(th)*rr*.92,
+        base:2.1+seeded(s.id*5.3)*2.4,
+        ph:seeded(s.id*2.2)*Math.PI*2,
+        lit:0, pop:0
+      };
+      CST.nodes.push(n);
+    });
+  });
+  // aristas: trazo de vecino más cercano (silueta de constelación) + ramas cortas
+  const byAct={};
+  CST.nodes.forEach((n,i)=>{ (byAct[n.ai]=byAct[n.ai]||[]).push(i); });
+  const D2=(i,j)=>(CST.nodes[i].x-CST.nodes[j].x)**2+(CST.nodes[i].y-CST.nodes[j].y)**2;
+  const chainEnds={};
+  Object.entries(byAct).forEach(([ai,idx])=>{
+    const left=new Set(idx);
+    let curI=idx[0]; left.delete(curI);
+    const first=curI;
+    while(left.size){
+      let best=-1,bd=1e9;
+      left.forEach(j=>{ const d=D2(curI,j); if(d<bd){bd=d;best=j;} });
+      CST.edges.push([curI,best,0]);
+      left.delete(best); curI=best;
+    }
+    chainEnds[ai]=[first,curI];
+    // ramas: cada nodo se une a su 2.º vecino más cercano de vez en cuando
+    idx.forEach(i=>{
+      if(seeded(i*11.3)>.26) return;
+      const cands=idx.filter(j=>j!==i).sort((a,b)=>D2(i,a)-D2(i,b)).slice(1,3);
+      const j=cands[Math.floor(seeded(i*4.4)*cands.length)];
+      if(j!=null && D2(i,j)<9000) CST.edges.push([i,j,1]);
+    });
+  });
+  // puentes entre actos consecutivos (el hilo del relato)
+  for(let ai=0;ai<N_ACTS-1;ai++){
+    if(chainEnds[ai]&&chainEnds[ai+1]) CST.edges.push([chainEnds[ai][1], chainEnds[ai+1][0], 2]);
+  }
+  // polvo de fondo
+  CST.dust=[];
+  for(let i=0;i<340;i++) CST.dust.push({
+    x:(seeded(i*1.7)-.5)*3400, y:(seeded(i*3.3)-.5)*2200,
+    r:.35+seeded(i*5.9)*1.1, z:.25+seeded(i*8.1)*.6, ph:seeded(i*2.9)*7
+  });
+  CST.built=true;
+}
+
+const W2S = (x,y) => [ (x-CST.cam.x)*CST.cam.z + CST.W/2, (y-CST.cam.y)*CST.cam.z + CST.H/2 ];
+const S2W = (x,y) => [ (x-CST.W/2)/CST.cam.z + CST.cam.x, (y-CST.H/2)/CST.cam.z + CST.cam.y ];
+
+function fitConst(){
+  if(!CST.nodes.length){ CST.tgt={x:0,y:0,z:1}; return; }
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  CST.nodes.forEach(n=>{ x0=Math.min(x0,n.x);x1=Math.max(x1,n.x);y0=Math.min(y0,n.y);y1=Math.max(y1,n.y); });
+  const pad=70;
+  const z=Math.min(CST.W/(x1-x0+pad*2), CST.H/(y1-y0+pad*2));
+  CST.tgt={x:(x0+x1)/2, y:(y0+y1)/2, z:Math.max(.3,Math.min(2.2,z))};
+}
+function focusAct(ai){
+  const a=ACTS[ai]; if(!a._c) return;
+  CST.focusAct = CST.focusAct===ai ? -1 : ai;
+  if(CST.focusAct<0){ fitConst(); }
+  else CST.tgt={x:a._c.x, y:a._c.y, z:Math.min(CST.W,CST.H)/(a._c.r*2.35)};
+  paintActChips();
+}
+function flyTo(id,zoom){
+  const n=CST.nodes.find(n=>n.s.id===id); if(!n) return;
+  CST.tgt={x:n.x,y:n.y,z:zoom||1.6};
+  CST.ripples.push({x:n.x,y:n.y,t:0,hue:n.s.hue});
+}
+
+function paintActChips(){
+  $('#cacts').innerHTML=ACTS.map((a,ai)=>{
+    const tot=SONGS.filter(s=>s.ai===ai).length;
+    const got=SONGS.filter(s=>s.ai===ai&&heard(s.id)).length;
+    return `<button class="cact${CST.focusAct===ai?' on':''}" data-a="${ai}">
+      <i style="background:${HUE[a.hue]};color:${HUE[a.hue]}"></i>${esc(a.n)} · ${esc(a.name)} <u>${got}/${tot}</u></button>`;
+  }).join('');
+  $$('#cacts .cact').forEach(b=>b.onclick=()=>focusAct(+b.dataset.a));
+  const h=ST.heard.length;
+  $('#cprog i').style.width=(h/N*100)+'%';
+  $('#cprog b').textContent=h+' / '+N+' encendidas';
+}
+
+function drawConst(){
+  if(!CST.built) buildConst();
+  const c=$('#const'), x=c.getContext('2d'), wrap=$('#constWrap');
+  const W=wrap.clientWidth, H=wrap.clientHeight, DPR=Math.min(devicePixelRatio,2);
+  CST.W=W; CST.H=H;
+  c.width=W*DPR; c.height=H*DPR; c.style.width=W+'px'; c.style.height=H+'px';
+  x.setTransform(DPR,0,0,DPR,0,0);
+  if(!CST.inited){ CST.inited=true; fitConst(); CST.cam={...CST.tgt}; }
+  $('.const-legend').innerHTML=ACTS.map(a=>`<span><i style="background:${HUE[a.hue]}"></i>${esc(a.n)} · ${esc(a.name)}</span>`).join('')
+    +`<span style="color:var(--dim)">arrastra · rueda para zoom · clic en una estrella</span>`;
+  paintActChips();
+  if(CST.raf) cancelAnimationFrame(CST.raf);
+  loopConst(x);
+}
+
+function loopConst(x){
+  const step = t => {
+    CST.t=t; CST.raf=requestAnimationFrame(step);
+    const W=CST.W,H=CST.H;
+    // cámara suave
+    CST.cam.x+=(CST.tgt.x-CST.cam.x)*.07;
+    CST.cam.y+=(CST.tgt.y-CST.cam.y)*.07;
+    CST.cam.z+=(CST.tgt.z-CST.cam.z)*.07;
+    const Z=CST.cam.z;
+    x.clearRect(0,0,W,H);
+
+    // 1 · nebulosas por acto
+    ACTS.forEach((a,ai)=>{
+      if(!a._c) return;
+      const [sx,sy]=W2S(a._c.x,a._c.y);
+      const R=a._c.r*Z*1.5;
+      if(sx<-R||sx>W+R||sy<-R||sy>H+R) return;
+      const [r,g,b]=HUERAW[a.hue];
+      const dim = CST.focusAct>=0 && CST.focusAct!==ai ? .28 : 1;
+      const pulse = .82+.18*Math.sin(t*.0004+ai);
+      const gr=x.createRadialGradient(sx,sy,0,sx,sy,R*pulse);
+      gr.addColorStop(0,`rgba(${r},${g},${b},${.085*dim})`);
+      gr.addColorStop(.5,`rgba(${r},${g},${b},${.032*dim})`);
+      gr.addColorStop(1,`rgba(${r},${g},${b},0)`);
+      x.fillStyle=gr; x.beginPath(); x.arc(sx,sy,R*pulse,0,7); x.fill();
+    });
+
+    // 2 · polvo con parallax
+    CST.dust.forEach(d=>{
+      const [sx,sy]=W2S(d.x*(.6+d.z*.4), d.y*(.6+d.z*.4));
+      if(sx<-20||sx>W+20||sy<-20||sy>H+20) return;
+      const tw=.3+.7*Math.abs(Math.sin(t*.0007+d.ph));
+      x.beginPath(); x.arc(sx,sy,Math.max(.3,d.r*Z*d.z),0,7);
+      x.fillStyle=`rgba(244,239,230,${tw*d.z*.20})`; x.fill();
+    });
+
+    // 3 · aristas
+    x.lineWidth=Math.max(.5,.9*Z);
+    CST.edges.forEach(([i,j,kind])=>{
+      const A=CST.nodes[i],B=CST.nodes[j]; if(!A||!B) return;
+      const dim = CST.focusAct>=0 && CST.focusAct!==A.ai && CST.focusAct!==B.ai ? .18 : 1;
+      const both = A.lit>.5 && B.lit>.5;
+      const [r,g,b]=HUERAW[A.s.hue];
+      const [sx,sy]=W2S(A.x,A.y), [ex,ey]=W2S(B.x,B.y);
+      if((sx<0&&ex<0)||(sx>W&&ex>W)||(sy<0&&ey<0)||(sy>H&&ey>H)) return;
+      let al = kind===2 ? .07 : (kind===1?.06:.11);
+      if(both) al*= 3.2;
+      x.beginPath(); x.moveTo(sx,sy); x.lineTo(ex,ey);
+      x.strokeStyle=`rgba(${r},${g},${b},${al*dim})`;
+      if(kind===2){ x.setLineDash([4*Z,7*Z]); } else x.setLineDash([]);
+      x.stroke(); x.setLineDash([]);
+    });
+
+    // 4 · mi camino
+    if(CST.showPath && ST.heard.length>1){
+      const pts=ST.heard.map(id=>CST.nodes.find(n=>n.s.id===id)).filter(Boolean);
+      x.beginPath();
+      pts.forEach((n,i)=>{ const [sx,sy]=W2S(n.x,n.y); i?x.lineTo(sx,sy):x.moveTo(sx,sy); });
+      x.strokeStyle='rgba(232,200,138,.55)'; x.lineWidth=Math.max(.8,1.3*Z);
+      x.setLineDash([6,6]); x.lineDashOffset=-t*.02; x.stroke();
+      x.setLineDash([]); x.lineDashOffset=0;
+    }
+
+    // 5 · telaraña de proximidad al pasar el cursor
+    if(CST.hover){
+      const h=CST.hover, [hx,hy]=W2S(h.x,h.y);
+      CST.nodes.forEach(n=>{
+        if(n===h) return;
+        const d=Math.hypot(n.x-h.x,n.y-h.y);
+        if(d>150) return;
+        const [sx,sy]=W2S(n.x,n.y);
+        x.beginPath(); x.moveTo(hx,hy); x.lineTo(sx,sy);
+        x.strokeStyle=`rgba(244,239,230,${(1-d/150)*.22})`; x.lineWidth=.7; x.stroke();
+      });
+    }
+
+    // 6 · ondas de clic
+    CST.ripples=CST.ripples.filter(rp=>{
+      rp.t+=.018; if(rp.t>1) return false;
+      const [sx,sy]=W2S(rp.x,rp.y);
+      const [r,g,b]=HUERAW[rp.hue];
+      x.beginPath(); x.arc(sx,sy,rp.t*90*Z,0,7);
+      x.strokeStyle=`rgba(${r},${g},${b},${(1-rp.t)*.5})`; x.lineWidth=Math.max(.6,(1-rp.t)*2.4*Z); x.stroke();
+      return true;
+    });
+
+    // 7 · estrellas
+    const playing = cur ? cur.id : -1;
+    CST.nodes.forEach(n=>{
+      const on=heard(n.s.id);
+      n.lit += ((on?1:0)-n.lit)*.08;
+      n.pop *= .93;
+      const [sx,sy]=W2S(n.x,n.y);
+      const rad=(n.base*(1+n.lit*.75)+n.pop*4)*Math.max(.85,Math.min(Z,2.2));
+      if(sx<-40||sx>CST.W+40||sy<-40||sy>CST.H+40) return;
+      const [r,g,b]=HUERAW[n.s.hue];
+      const dim = CST.focusAct>=0 && CST.focusAct!==n.ai ? .2 : 1;
+      const tw=.45+.55*Math.abs(Math.sin(t*.0011+n.ph));
+      if(n.lit>.05){
+        const gl=rad*(2.6+n.lit*1.6);
+        const gr=x.createRadialGradient(sx,sy,0,sx,sy,gl);
+        gr.addColorStop(0,`rgba(${r},${g},${b},${.30*n.lit*dim})`);
+        gr.addColorStop(1,`rgba(${r},${g},${b},0)`);
+        x.fillStyle=gr; x.beginPath(); x.arc(sx,sy,gl,0,7); x.fill();
+      }
+      x.beginPath(); x.arc(sx,sy,rad,0,7);
+      x.fillStyle=`rgba(${r},${g},${b},${(.30+n.lit*.68)*(n.lit>.5?1:tw)*dim})`; x.fill();
+      // brillo cruzado de las encendidas
+      if(n.lit>.6){
+        const L=rad*2.6;
+        x.strokeStyle=`rgba(${r},${g},${b},${.22*n.lit*dim})`; x.lineWidth=.7;
+        x.beginPath(); x.moveTo(sx-L,sy); x.lineTo(sx+L,sy); x.moveTo(sx,sy-L); x.lineTo(sx,sy+L); x.stroke();
+      }
+      if(n.s.id===playing){
+        const p=1+Math.sin(t*.005)*.25;
+        x.beginPath(); x.arc(sx,sy,rad*3.2*p,0,7);
+        x.strokeStyle=`rgba(${r},${g},${b},.75)`; x.lineWidth=1.3; x.stroke();
+      }
+      if(fav(n.s.id)){
+        x.beginPath(); x.arc(sx,sy,rad*2.1,0,7);
+        x.strokeStyle='rgba(240,167,184,.55)'; x.lineWidth=.9; x.stroke();
+      }
+      if(CST.hover===n){
+        x.beginPath(); x.arc(sx,sy,rad*2.8,0,7);
+        x.strokeStyle='rgba(244,239,230,.85)'; x.lineWidth=1.1; x.stroke();
+      }
+      // etiquetas
+      const showLbl = CST.showLabels || Z>1.45 || CST.hover===n || n.s.id===playing;
+      if(showLbl && dim>.5){
+        x.font='500 10px Inter, sans-serif';
+        x.fillStyle=`rgba(244,239,230,${CST.hover===n?.95:(.30+n.lit*.4)})`;
+        x.textAlign='center';
+        x.fillText(n.s.t.length>28?n.s.t.slice(0,27)+'…':n.s.t, sx, sy-rad-7);
+      }
+    });
+
+    // 8 · estrellas fugaces
+    if(Math.random()<.004) CST.shots.push({x:Math.random()*CST.W,y:Math.random()*CST.H*.5,
+      vx:2.4+Math.random()*2.6, vy:1.1+Math.random()*1.4, l:0});
+    CST.shots=CST.shots.filter(sh=>{
+      sh.x+=sh.vx*2.4; sh.y+=sh.vy*2.4; sh.l+=.016;
+      if(sh.l>1) return false;
+      const g=x.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*26,sh.y-sh.vy*26);
+      g.addColorStop(0,`rgba(244,239,230,${(1-sh.l)*.75})`); g.addColorStop(1,'rgba(244,239,230,0)');
+      x.strokeStyle=g; x.lineWidth=1.4;
+      x.beginPath(); x.moveTo(sh.x,sh.y); x.lineTo(sh.x-sh.vx*26,sh.y-sh.vy*26); x.stroke();
+      return true;
+    });
+  };
+  CST.raf=requestAnimationFrame(step);
+}
+
+/* ─── interacción ─── */
+(function(){
+  const c=$('#const'), tip=$('#ctip');
+  const pick=(mx,my)=>{
+    let best=null,bd=1e9;
+    CST.nodes.forEach(n=>{ const [sx,sy]=W2S(n.x,n.y);
+      const d=(sx-mx)**2+(sy-my)**2; if(d<bd){bd=d;best=n;} });
+    return bd < Math.max(260, 900*CST.cam.z) ? best : null;
+  };
+  c.addEventListener('pointerdown',e=>{ CST.drag={x:e.clientX,y:e.clientY,cx:CST.tgt.x,cy:CST.tgt.y}; CST.moved=false; c.setPointerCapture(e.pointerId); });
+  c.addEventListener('pointerup',e=>{
+    if(CST.drag && !CST.moved){
+      const r=c.getBoundingClientRect();
+      const n=pick(e.clientX-r.left,e.clientY-r.top);
+      if(n){ n.pop=1.4; CST.ripples.push({x:n.x,y:n.y,t:0,hue:n.s.hue}); openSong(n.s.id); }
+    }
+    CST.drag=null;
+  });
+  c.addEventListener('pointerleave',()=>{ CST.drag=null; CST.hover=null; tip.style.opacity=0; });
+  c.addEventListener('pointermove',e=>{
+    const r=c.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+    if(CST.drag){
+      const dx=e.clientX-CST.drag.x, dy=e.clientY-CST.drag.y;
+      if(Math.abs(dx)+Math.abs(dy)>4) CST.moved=true;
+      CST.tgt.x=CST.drag.cx-dx/CST.cam.z; CST.tgt.y=CST.drag.cy-dy/CST.cam.z;
+      CST.cam.x=CST.tgt.x; CST.cam.y=CST.tgt.y;
+      c.style.cursor='grabbing'; tip.style.opacity=0; return;
+    }
+    const n=pick(mx,my); CST.hover=n;
+    if(n){
+      tip.style.opacity=1;
+      tip.innerHTML=`<b>${esc(n.s.t)}</b><span>${esc(n.s.ar)}<br>${esc(n.s.actn)} · pista ${n.s.si+1}${heard(n.s.id)?' · escuchada':''}</span>`;
+      tip.style.left=Math.min(mx+16, c.clientWidth-250)+'px';
+      tip.style.top=Math.min(my+16, c.clientHeight-90)+'px';
+      c.style.cursor='pointer';
+    } else { tip.style.opacity=0; c.style.cursor='grab'; }
+  });
+  c.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const r=c.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+    const [wx,wy]=S2W(mx,my);
+    const nz=Math.min(3.6, Math.max(.22, CST.tgt.z*(e.deltaY>0?.88:1.14)));
+    CST.tgt.x = wx-(mx-CST.W/2)/nz;
+    CST.tgt.y = wy-(my-CST.H/2)/nz;
+    CST.tgt.z = nz;
+    CST.focusAct=-1; paintActChips();
+  },{passive:false});
+
+  $$('#ctools .ctool').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.tool;
+    if(t==='fit'){ CST.focusAct=-1; fitConst(); paintActChips(); return; }
+    if(t==='path'){ CST.showPath=!CST.showPath; b.classList.toggle('on',CST.showPath);
+      toast(CST.showPath? (ST.heard.length>1?'Tu camino, en el orden en que las escuchaste':'Escucha al menos dos para trazar el camino') :'Camino oculto'); }
+    if(t==='labels'){ CST.showLabels=!CST.showLabels; b.classList.toggle('on',CST.showLabels); }
+  });
+
+  const cq=$('#cq');
+  cq.addEventListener('input',()=>{
+    const q=cq.value.trim().toLowerCase();
+    if(!q){ $('#cqres').innerHTML=''; return; }
+    const hits=SONGS.filter(s=>(s.t+' '+s.ar).toLowerCase().includes(q)).slice(0,8);
+    $('#cqres').innerHTML=hits.map(s=>`<div data-go="${s.id}">${esc(s.t)} <span style="color:var(--dimmer)">· ${esc(s.ar.split(',')[0])}</span></div>`).join('');
+    $$('#cqres div').forEach(d=>d.onclick=()=>{ CST.focusAct=-1; flyTo(+d.dataset.go,1.7); paintActChips(); });
+  });
+})();
+
+/* ─── redibujar al cambiar tamaño ─── */
+addEventListener('resize',()=>{ if($('#v-const').classList.contains('on')) drawConst(); });
+
+/* ─── modal ─── */
+let cur=null;
+function openSong(id){
+  const s=SONGS[id]; cur=s;
+  $('#mAct').textContent=s.actn+' · '+s.act;
+  $('#mAct').style.color=HUE[s.hue];
+  $('#mTitle').textContent=s.t;
+  $('#mArt').textContent=s.ar;
+  $('#mYT').href=ytSearch(s);
+  $('#mFav').innerHTML = fav(id)?'♥ En favoritas':'♡ Favorita';
+  $('#mFrame').innerHTML='';
+  setSkyHue(s.hue);
+  document.documentElement.style.setProperty('--acc',HUE[s.hue]);
+
+  const L=LYRICS[s.t];
+  const tabs=[];
+  if(L){ tabs.push(['og','Letra original'+(L.lang?' ('+L.lang+')':'')]);
+         if(L.es) tabs.push(['es','Traducción']);
+         if(L.es) tabs.push(['both','Lado a lado']); }
+  else tabs.push(['none','Letra']);
+  if(s.note.length) tabs.push(['note','Nota de Jordan']);
+  tabs.push(['ctx','Dónde vive']);
+
+  $('#mTabs').innerHTML=tabs.map(([k,l],i)=>`<button data-t="${k}" class="${i?'':'on'}">${l}</button>`).join('');
+  $('#mPanes').innerHTML=tabs.map(([k],i)=>{
+    let inner='';
+    if(k==='og') inner=L.og.map(l=>`<div class="lyr-line">${esc(l)}</div>`).join('');
+    if(k==='es') inner=L.es.map(l=>`<div class="lyr-line tr">${esc(l)}</div>`).join('');
+    if(k==='both') inner=L.og.map((l,j)=>`<div style="margin-bottom:1.1rem"><div class="lyr-line">${esc(l)}</div><div class="lyr-line tr">${esc(L.es[j]||'')}</div></div>`).join('');
+    if(k==='none') inner=`<div class="lyr-empty">Esta canción todavía no tiene letra cargada.<br><br>Para añadirla, abre este archivo y busca el bloque <code>const LYRICS</code> al inicio del script. Agrega:<br><br><code>"${esc(s.t)}": { lang:"en", og:["…"], es:["…"] }</code></div>`;
+    if(k==='note') inner=s.note.map(n=>`<div class="notebox">${n}</div>`).join('<div style="height:1rem"></div>');
+    if(k==='ctx') inner=`<div class="notebox" style="border-color:${HUE[s.hue]}">
+        Pista <b>${s.si+1}</b> de <b>${ACTS[s.ai].songs.length}</b> en <b>${esc(s.actn)} — ${esc(s.act)}</b>.<br><br>
+        <em style="color:var(--dim)">${esc(ACTS[s.ai].epi)}</em><br><br>
+        Posición global: ${s.id+1} / ${N}.</div>`;
+    return `<div class="pane${i?'':' on'}" data-p="${k}">${inner}</div>`;
+  }).join('');
+  $$('#mTabs button').forEach(b=>b.onclick=()=>{
+    $$('#mTabs button').forEach(o=>o.classList.toggle('on',o===b));
+    $$('#mPanes .pane').forEach(p=>p.classList.toggle('on',p.dataset.p===b.dataset.t));
+  });
+  $('#modal').classList.add('on');
+}
+$('#mclose').onclick=$('#mbg').onclick=()=>$('#modal').classList.remove('on');
+$('#mPlay').onclick=()=>{ const s=cur; play(s.id);
+  if(vid(s)) $('#mFrame').innerHTML=`<div class="frame"><iframe src="${ytEmbed(s)}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`; };
+$('#mFav').onclick=()=>{
+  const i=cur.id, k=ST.favs.indexOf(i);
+  if(k<0){ ST.favs.push(i); toast('♥ Guardada'); } else { ST.favs.splice(k,1); toast('Quitada de favoritas'); }
+  save(); $('#mFav').innerHTML=fav(i)?'♥ En favoritas':'♡ Favorita'; renderActs();
+};
+
+/* ─── reproductor ─── */
+function play(id){
+  const s=SONGS[id]; cur=s;
+  $('#dTitle').textContent=s.t; $('#dArt').textContent=s.ar+' · '+s.actn;
+  $('#dock').classList.add('on','spinning','open');
+  if(vid(s)) $('#dockFrame').innerHTML=`<iframe src="${ytEmbed(s)}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+  else { $('#dockFrame').innerHTML=''; window.open(ytSearch(s),'_blank'); toast('Esta no tiene video fijado — te abrí la búsqueda'); }
+  setSkyHue(s.hue); document.documentElement.style.setProperty('--acc',HUE[s.hue]);
+  $('#veil').style.background = veilFor(s.hue);
+  if(!heard(id)){ ST.heard.push(id); save(); checkSecret(); }
+  if(CST.built){
+    const n=CST.nodes.find(n=>n.s.id===id);
+    if(n){ n.pop=1.6; CST.ripples.push({x:n.x,y:n.y,t:0,hue:n.s.hue}); }
+    paintActChips();
+  }
+  $$('.row').forEach(r=>r.classList.toggle('playing',+r.dataset.id===id));
+  $$('.row').forEach(r=>{ if(heard(+r.dataset.id)) r.classList.add('heard'); });
+}
+function veilFor(h){
+  const [r,g,b]=HUERAW[h];
+  return `radial-gradient(120% 90% at 50% 110%, rgba(${r},${g},${b},.24), transparent 62%),
+          radial-gradient(90% 70% at 10% 0%, rgba(240,167,184,.12), transparent 60%),
+          radial-gradient(80% 60% at 95% 15%, rgba(127,216,232,.09), transparent 60%)`;
+}
+$('#dOpen').onclick=()=>$('#dock').classList.toggle('open');
+$('#dInfo').onclick=()=>cur&&openSong(cur.id);
+$('#dStop').onclick=()=>{ $('#dock').classList.remove('on','spinning','open'); $('#dockFrame').innerHTML=''; };
+$('#dNext').onclick=()=>cur&&play((cur.id+1)%N);
+$('#dPrev').onclick=()=>cur&&play((cur.id-1+N)%N);
+$('#shuffle').onclick=()=>{
+  const pool=SONGS.filter(s=>!heard(s.id));
+  const s=(pool.length?pool:SONGS)[Math.floor(Math.random()*(pool.length||N))];
+  openSong(s.id); toast('El azar eligió: '+s.t);
+};
+
+/* ─── delegación de clics ─── */
+document.addEventListener('click',e=>{
+  const pb=e.target.closest('[data-play]');
+  if(pb){ e.stopPropagation(); play(+pb.dataset.play); return; }
+  const row=e.target.closest('.row');
+  if(row) openSong(+row.dataset.id);
+});
+
+/* ─── toast ─── */
+let tt;
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2600); }
+
+/* ─── secreto ─── */
+const MILE=[
+  [1,'La primera','Ya empezó. Quedan '+(N-1)+'. No hay prisa — esto no se acaba hoy.'],
+  [10,'Diez','Diez de doscientas. Ya vas dentro del Acto I y todavía no te he dicho nada difícil.'],
+  [50,'Un cuarto','Cincuenta canciones. Si llegaste hasta aquí es porque algo te está diciendo algo.'],
+  [100,'La mitad','Cien. Justo la mitad. Aquí es donde, si esto fuera una película, alguien diría algo por fin.'],
+  [150,'Casi','Ciento cincuenta. Ya estás en los actos que más me costó ordenar.'],
+  [200,'Todas','Las doscientas. No queda ninguna. Entonces ya lo sabes todo — o al menos, todo lo que supe poner en canciones. Gracias por escucharlas. — Jordan']
+];
+function checkSecret(){
+  const h=ST.heard.length;
+  const m=MILE.find(x=>x[0]===h);
+  if(m){ $('#secTitle').textContent=m[1]; $('#secBody').textContent=m[2]; $('#secret').classList.add('on'); }
+}
+
+/* ─── teclado ─── */
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ $('#modal').classList.remove('on'); $('#secret').classList.remove('on'); }
+  if(e.target.tagName==='INPUT') return;
+  if(e.key==='/'){ e.preventDefault(); go('search'); }
+  if(e.key===' '&&cur){ e.preventDefault(); $('#dock').classList.toggle('open'); }
+  if(e.key==='ArrowRight'&&cur) play((cur.id+1)%N);
+  if(e.key==='ArrowLeft'&&cur) play((cur.id-1+N)%N);
+  if(e.key==='r') $('#shuffle').click();
+});
+
+/* ─── arranque ─── */
+renderActs();
+$('#results').innerHTML=`<div style="color:var(--dimmer);padding:2rem 0">Escribe algo…</div>`;
+console.log('%cHow do I tell you? ...','font-family:Georgia;font-size:22px;color:#e8c88a');
+console.log('%cDe Jordan, para Ana · '+N+' canciones','color:#f0a7b8');
+</script>
+</body>
+</html>

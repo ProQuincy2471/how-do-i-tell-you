@@ -539,6 +539,48 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
   .m-cover{width:84px}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ── modo letras: cola de pendientes + pizarra para pegar ── */
+#lyrTop{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:0 0 1.4rem}
+#lyrTop .lb{flex:1;min-width:180px;height:3px;border-radius:3px;background:var(--line);overflow:hidden}
+#lyrTop .lb i{display:block;height:100%;width:0;background:var(--a);transition:width .5s}
+#lyrTop b{font-family:var(--serif);font-size:1.5rem;font-weight:400}
+#lyrTop span{font-size:.7rem;color:var(--dimmer)}
+.lrow{display:flex;align-items:center;gap:.8rem;padding:.55rem .2rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.lrow .lc{width:40px;height:40px;border-radius:9px;object-fit:cover;flex:0 0 auto;background:rgba(255,255,255,.05)}
+.lrow .lm{flex:1;min-width:170px}
+.lrow .lm b{display:block;font-weight:400;font-size:.9rem}
+.lrow .lm span{font-size:.68rem;color:var(--dimmer)}
+.lrow .ll{display:flex;gap:.3rem;flex-wrap:wrap;align-items:center}
+.lnk{text-decoration:none;color:var(--dim);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .6rem;border-radius:100px;border:1px solid var(--line);transition:.3s;white-space:nowrap}
+.lnk:hover{color:var(--a);border-color:var(--a)}
+.lrow .go{padding:.36rem .8rem;border-radius:100px;border:1px solid var(--a);color:var(--a);font-size:.62rem;
+  letter-spacing:.14em;text-transform:uppercase;background:none;cursor:pointer;transition:.3s}
+.lrow .go:hover{background:color-mix(in srgb,var(--a) 14%,transparent)}
+.lrow.done{opacity:.5}
+
+#lyrPad{position:fixed;inset:0;z-index:80;display:none;background:rgba(4,5,10,.86);backdrop-filter:blur(14px);
+  padding:clamp(.5rem,2.4vw,1.6rem)}
+#lyrPad.on{display:flex;align-items:center;justify-content:center}
+.pad{width:min(1120px,100%);max-height:100%;display:flex;flex-direction:column;border:1px solid var(--line);
+  border-radius:18px;background:linear-gradient(180deg,#0b0d16,#06070e);box-shadow:0 30px 90px rgba(0,0,0,.6);overflow:hidden}
+.pad-h{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pad-h img{width:46px;height:46px;border-radius:10px;object-fit:cover}
+.pad-h .m{flex:1;min-width:160px}
+.pad-h .m b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:400}
+.pad-h .m span{font-size:.68rem;color:var(--dimmer)}
+.pad-b{flex:1;overflow-y:auto;padding:1rem 1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.pad-b textarea{width:100%;min-height:46vh;padding:.75rem .9rem;border-radius:12px;border:1px solid var(--line);
+  background:rgba(255,255,255,.03);outline:none;font-size:.84rem;line-height:1.7;font-family:var(--sans);resize:vertical}
+.pad-b textarea:focus{border-color:var(--a);background:color-mix(in srgb,var(--a) 7%,transparent)}
+.pad-b label{display:flex;justify-content:space-between;align-items:baseline;font-size:.58rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--dimmer);margin-bottom:.4rem}
+.pad-b label u{text-decoration:none;color:var(--a);letter-spacing:.06em}
+.pad-f{padding:.85rem 1.1rem;border-top:1px solid var(--line);display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.pad-f .sp{flex:1}
+.pad-f .kbd{font-size:.6rem;color:var(--dimmer)}
+@media(max-width:760px){.pad-b{grid-template-columns:1fr}.pad-b textarea{min-height:28vh}}
 </style>
 </head>
 <body>
@@ -562,6 +604,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
       <button data-v="mosaic">Mosaico</button>
       <button data-v="maps">Artistas</button>
       <button data-v="letter">Carta</button>
+      <button data-v="lyr">Letras</button>
       <span class="navsep"></span>
       <button data-v="search" class="ico" title="Buscar  ( / )">⌕</button>
       <button data-v="you" class="ico" title="Tú y esto">◐</button>
@@ -623,6 +666,18 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
       <h2 class="vtitle" style="text-align:center">La carta</h2>
       <p class="vsub" style="text-align:center;margin:0 auto 3.2rem">Baja despacio.</p>
       <div class="letter" id="letterBody"></div>
+    </section>
+
+    <section class="view" id="v-lyr">
+      <h2 class="vtitle">Letras</h2>
+      <p class="vsub">Las que todavía no tienen letra, en orden. Abre un buscador, copia, y pega original y traducción en la pizarra: se guarda y salta sola a la siguiente. Si el texto trae marcas <code>[00:12.40]</code>, queda sincronizado.</p>
+      <div id="lyrTop">
+        <div><b id="lyrGot">0</b> <span id="lyrOf">de 190 con letra</span></div>
+        <div class="lb"><i id="lyrBar"></i></div>
+        <button class="pill solid" id="lyrStart">Empezar por la primera</button>
+      </div>
+      <div class="mos-filters" id="lyrFilters"></div>
+      <div id="lyrList"></div>
     </section>
 
     <section class="view" id="v-you">
@@ -693,6 +748,27 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
   <div class="vp-box"><div id="ytHost"></div></div>
   <div class="vp-foot" id="vpFoot"></div>
 </aside>
+
+<div id="lyrPad"><div class="pad">
+  <div class="pad-h">
+    <img id="padCover" alt="">
+    <div class="m"><b id="padTitle"></b><span id="padArt"></span></div>
+    <div class="ll" id="padLinks"></div>
+    <button class="ic" id="padClose" title="Cerrar (esc)">✕</button>
+  </div>
+  <div class="pad-b">
+    <div><label>Letra original <u id="padNog">0 versos</u></label><textarea id="pad_og" placeholder="Pega aquí la letra original — un verso por línea…"></textarea></div>
+    <div><label>Traducción <u id="padNes">0 versos</u></label><textarea id="pad_es" placeholder="Pega aquí la traducción — misma cantidad de líneas para el modo lado a lado…"></textarea></div>
+  </div>
+  <div class="pad-f">
+    <button class="pill solid" id="padNext">Guardar y siguiente</button>
+    <button class="pill" id="padSave">Guardar y quedarme</button>
+    <button class="pill" id="padSkip">Saltar →</button>
+    <span class="sp"></span>
+    <span class="kbd" id="padPos"></span>
+    <span class="kbd">⌘/ctrl + ↵ guarda y salta</span>
+  </div>
+</div></div>
 
 <div id="drawer"><div class="dw-head"><h3 id="dwTitle">Editar</h3><button class="ic" id="dwClose">✕</button></div>
   <div class="dw-body" id="dwBody"></div><div class="dw-foot" id="dwFoot"></div></div>
@@ -1891,12 +1967,13 @@ function renderAll(){
   $('#gcount').textContent=SONGS.length;
   if($('#navActs')) $('#navActs').textContent=LB()[1];
   if($('#v-maps').classList.contains('on')) renderMaps();
+  if($('#v-lyr').classList.contains('on')) renderLyr();
 }
 
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 28-07 06:41';
+const BUILD='v 28-07 20:40 · letras';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -1939,6 +2016,113 @@ $('#enter').onclick=()=>{
 })();
 
 /* ══════════════════════════════════════════════════════════════════════
+   6·5 · MODO LETRAS: cola de pendientes + pizarra para pegar de una en una
+   ══════════════════════════════════════════════════════════════════════ */
+const LYRF={mode:'pend',ai:-1};
+const hasLyr=s=>(s.og||'').trim().length>0;
+const lyrQuery=s=>encodeURIComponent(s.t.replace(/\s*\((?:feat|with)[^)]*\)/ig,'')+' '+s.ar.split(',')[0]);
+function lyrLinks(s,cls){
+  const q=lyrQuery(s);
+  return [['Genius',`https://genius.com/search?q=${q}`],
+          ['Musixmatch',`https://www.musixmatch.com/search/${q}`],
+          ['letras.com',`https://www.letras.com/?q=${q}`],
+          ['Google',`https://www.google.com/search?q=${q}+lyrics`]]
+    .map(([n,u])=>`<a class="${cls||'lnk'}" target="_blank" rel="noopener" href="${u}">${n} ↗</a>`).join('');
+}
+function lyrList(){
+  let l=SONGS;
+  if(LYRF.mode==='pend')  l=l.filter(s=>!hasLyr(s));
+  if(LYRF.mode==='fav')   l=l.filter(s=>!hasLyr(s)&&fav(s.key));
+  if(LYRF.mode==='heard') l=l.filter(s=>!hasLyr(s)&&heard(s.key));
+  if(LYRF.mode==='done')  l=l.filter(hasLyr);
+  if(LYRF.ai>=0) l=l.filter(s=>s.ai===LYRF.ai);
+  return l;
+}
+function renderLyr(){
+  const got=SONGS.filter(hasLyr).length, n=SONGS.length;
+  $('#lyrGot').textContent=got;
+  $('#lyrOf').textContent='de '+n+' con letra · faltan '+(n-got);
+  $('#lyrBar').style.width=(n?got/n*100:0)+'%';
+  const chips=[['pend','Pendientes'],['fav','♥ sin letra'],['heard','Escuchadas sin letra'],['done','Ya con letra'],['all','Todas']];
+  $('#lyrFilters').innerHTML=chips.map(([m,t])=>`<button class="chip${LYRF.mode===m?' on':''}" data-lf="${m}">${t}</button>`).join('')
+    +`<span class="navsep"></span><button class="chip${LYRF.ai<0?' on':''}" data-la="-1">Todas las ${LB()[1].toLowerCase()}</button>`
+    +ACTV.map(a=>`<button class="chip${LYRF.ai===a.ai?' on':''}" data-la="${a.ai}" style="--a:${actColor(a)}">${esc(a.n)}</button>`).join('');
+  const l=lyrList();
+  $('#lyrList').innerHTML = l.length ? l.map(s=>`
+    <div class="lrow${hasLyr(s)?' done':''}" style="${styleVars(s)}">
+      ${artOf(s)?`<img class="lc" loading="lazy" src="${artOf(s)}" alt="">`:'<div class="lc"></div>'}
+      <div class="lm"><b>${esc(s.t)}</b><span>${esc(s.ar)}${s.lang?' · '+esc(s.lang):''} · ${esc(s.actn)}</span></div>
+      <div class="ll">${lyrLinks(s)}</div>
+      <button class="go" data-lyrk="${esc(s.key)}">${hasLyr(s)?'Editar':'Pegar'}</button>
+    </div>`).join('')
+    : '<div class="empty">Aquí no queda ninguna. ✧</div>';
+  $('#lyrStart').textContent = l.length ? (LYRF.mode==='done'?'Repasar la primera':'Empezar por la primera ('+l.length+')') : 'Nada pendiente aquí';
+  $('#lyrStart').disabled=!l.length;
+}
+$('#lyrFilters').onclick=e=>{
+  const b=e.target.closest('[data-lf]'); const a=e.target.closest('[data-la]');
+  if(b){ LYRF.mode=b.dataset.lf; renderLyr(); }
+  else if(a){ LYRF.ai=+a.dataset.la; renderLyr(); }
+};
+$('#lyrList').onclick=e=>{ const b=e.target.closest('[data-lyrk]'); if(b) openPad(b.dataset.lyrk); };
+$('#lyrStart').onclick=()=>{ const l=lyrList(); if(l.length) openPad(l[0].key); };
+
+/* ── la pizarra ── */
+let PAD={q:[],i:0};
+function openPad(key){
+  const l=lyrList();
+  let i=l.findIndex(s=>s.key===key);
+  if(i<0){ PAD.q=[key]; i=0; } else PAD.q=l.map(s=>s.key);
+  PAD.i=i;
+  paintPad();
+  $('#lyrPad').classList.add('on');
+  setTimeout(()=>$('#pad_og').focus(),60);
+}
+function padSong(){ return BYKEY[PAD.q[PAD.i]]||null; }
+function paintPad(){
+  const s=padSong(); if(!s){ closePad(); return; }
+  $('#padCover').src=artOf(s)||'';
+  $('#padCover').style.display=artOf(s)?'':'none';
+  $('#padTitle').textContent=s.t;
+  $('#padArt').textContent=s.ar+' · '+s.actn+(s.lang?' · '+s.lang:'');
+  $('#padLinks').innerHTML=lyrLinks(s);
+  $('#pad_og').value=s.og||'';
+  $('#pad_es').value=s.es||'';
+  $('#padPos').textContent=(PAD.i+1)+' de '+PAD.q.length;
+  applyPalette(s);
+  padCount();
+}
+const padCount=()=>{
+  const n=t=>t.trim()?t.trim().split('\n').length:0;
+  $('#padNog').textContent=n($('#pad_og').value)+' versos';
+  $('#padNes').textContent=n($('#pad_es').value)+' versos';
+};
+function padStore(){
+  const s=padSong(); if(!s) return;
+  setSongEdit(s.key,{og:$('#pad_og').value, es:$('#pad_es').value});
+  save(); renderAll(); renderLyr();
+}
+function padGo(d){
+  const j=PAD.i+d;
+  if(j<0||j>=PAD.q.length){ closePad(); toast('Fin de la cola'); return; }
+  PAD.i=j; paintPad(); $('#pad_og').focus();
+}
+function closePad(){ $('#lyrPad').classList.remove('on'); if(cur) applyPalette(cur); }
+$('#padClose').onclick=closePad;
+$('#lyrPad').onclick=e=>{ if(e.target.id==='lyrPad') closePad(); };
+$('#padSave').onclick=()=>{ padStore(); toast('Guardada'); };
+$('#padNext').onclick=()=>{ padStore(); toast('Guardada'); padGo(1); };
+$('#padSkip').onclick=()=>padGo(1);
+['pad_og','pad_es'].forEach(id=>{
+  const t=$('#'+id);
+  t.addEventListener('input',padCount);
+  t.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); padStore(); toast('Guardada'); padGo(1); }
+    if(e.key==='Escape'){ e.preventDefault(); closePad(); }
+  });
+});
+
+/* ══════════════════════════════════════════════════════════════════════
    7 · NAVEGACIÓN
    ══════════════════════════════════════════════════════════════════════ */
 function stopConstLoop(){ if(CST.raf){cancelAnimationFrame(CST.raf);CST.raf=null;} }
@@ -1952,6 +2136,7 @@ function go(v){
   if(v==='you') renderYou();
   if(v==='mosaic') renderMosaic();
   if(v==='maps') renderMaps();
+  if(v==='lyr') renderLyr();
   if(v==='search') setTimeout(()=>$('#q').focus(),120);
 }
 $$('nav button[data-v]').forEach(b=>b.onclick=()=>go(b.dataset.v));
@@ -4062,7 +4247,10 @@ function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on');
    14 · TECLADO
    ══════════════════════════════════════════════════════════════════════ */
 addEventListener('keydown',e=>{
-  if(e.key==='Escape'){ if(stageOn){closeStage();return;} $('#modal').classList.remove('on'); closeDrawer(); }
+  if(e.key==='Escape'){ if(stageOn){closeStage();return;}
+    if($('#lyrPad').classList.contains('on')){closePad();return;}
+    $('#modal').classList.remove('on'); closeDrawer(); }
+  if(e.key==='l'&&!$('#lyrPad').classList.contains('on')&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)){ go('lyr'); return; }
   if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)){
     if(SYNC&&e.key==='Enter'&&e.target.id==='e_og'){} return; }
   if(e.key==='/'){e.preventDefault();go('search');}

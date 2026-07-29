@@ -78,6 +78,15 @@ o sea a una retícula visible — ya pasó, y se notaba muchísimo.
 El bucle de dibujo se pausa a propósito cuando `document.hidden` es cierto. Si el
 lienzo aparece negro, casi siempre es eso y no un fallo.
 
+## El modo Letras
+
+La pestaña **Letras** (o la tecla `l`) es la cola de trabajo para ir pegando letras:
+lista las canciones que aún no tienen, con enlaces de búsqueda por canción
+(Genius, Musixmatch, letras.com, Google), y abre una pizarra a doble columna
+—original y traducción— con «Guardar y siguiente» (`⌘/ctrl + ↵`). Guarda en
+`ST.edits.songs[key].og/.es`, igual que el editor ✎; la constante `LYRICS` del
+HTML solo sirve para dejar letras por defecto en el código.
+
 ## Trampas conocidas
 
 - `cur` es la canción **enfocada** (cambia al abrir una ficha); `playing` es la

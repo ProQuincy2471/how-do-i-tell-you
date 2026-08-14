@@ -151,7 +151,8 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .rail{display:flex;align-items:center;gap:.55rem;padding:.42rem .8rem .42rem .5rem;border-radius:100px;
   border:1px solid var(--line);white-space:nowrap;transition:.3s;flex:0 0 auto;background:rgba(255,255,255,.02)}
 .rail:hover{border-color:var(--rc);background:rgba(255,255,255,.06);background:color-mix(in srgb,var(--rc) 12%,transparent)}
-.rail.on{border-color:var(--rc)}
+.rail.on{border-color:var(--rc);background:color-mix(in srgb,var(--rc) 18%,transparent);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--rc) 30%,transparent)}
 .rail svg{flex:0 0 auto}
 .rail b{font-family:var(--serif);font-size:.95rem;font-weight:400}
 .rail span{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
@@ -307,6 +308,8 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .apod span{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pc);display:block;margin-top:.3rem}
 .apod em{display:block;font-size:.72rem;color:var(--dim);margin-top:.7rem;line-height:1.5;font-style:normal;position:relative}
 .abubbles{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.map-tools{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.4rem}
+.map-tools .searchbar{padding:.55rem 1rem}
 .abub{border-radius:100px;padding:.4rem .9rem;border:1px solid var(--line);cursor:pointer;transition:.3s;
   display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.02)}
 .abub:hover{transform:translateY(-2px)}
@@ -1104,12 +1107,12 @@ const MEMORIES = [
   {icon:'🌶️',hue:'gold',label:'Ronchas de Xoco',text:'Un misterio médico que ninguno de los dos resolvió nunca.'},
   {icon:'🚗',hue:'gold',label:'Las cuatro llantas',text:'Había días en que hasta el coche cooperando se sentía como una noticia que merecía anunciarse.'},
   {icon:'🗒️',hue:'rose',label:'Post-its anti-ansiedad',text:'Un juguito de regalo que todavía no uso, guardado por si acaso.'},
-  {icon:'🎐',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
-  {icon:'🌆',hue:'cyan',label:'Casi almorzar en la Roma',text:'Terminamos ahí sin plan, decidiendo qué comer más tiempo del que tardamos en comerlo.'},
-  {icon:'💭',hue:'gold',label:'Preguntas a ChatGPT',text:'Un juego improvisado para matar el tiempo: contestar lo que fuera que se nos ocurriera preguntarle.'},
+  {icon:'🐟',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
+  {icon:'🍴',hue:'cyan',label:'Casi almorzar en la Roma',text:'Terminamos ahí sin plan, decidiendo qué comer más tiempo del que tardamos en comerlo.'},
+  {icon:'🤖',hue:'gold',label:'Preguntas a ChatGPT',text:'Un juego improvisado para matar el tiempo: contestar lo que fuera que se nos ocurriera preguntarle.'},
   {icon:'🍵',hue:'cyan',label:'Café en la Mexicana',text:'Cerrando esa rotación con café y con Vero, como debía ser.'},
   {icon:'🎮',hue:'gold',label:'PewDiePie y Outlast',text:'Conversaciones sin ninguna razón particular. Solo porque sí.'},
-  {icon:'📲',hue:'gold',label:'Todo lo que dijera Jungkook',text:'Cualquier cosa que lo mencionara, enviada sin razón ni disculpa.'},
+  {icon:'🐰',hue:'gold',label:'Todo lo que dijera Jungkook',text:'Cualquier cosa que lo mencionara, enviada sin razón ni disculpa.'},
   {icon:'😬',hue:'gold',label:'Santos Bravos',text:'Una experiencia que ninguno de los dos pidió y que ninguno de los dos olvida.'},
   {icon:'🪖',hue:'cyan',label:'Esperando a los bitis',text:'Contando los días para que el servicio militar terminara, como si fuera nuestro.'},
   {icon:'📸',hue:'gold',label:'El trend de las fotos con Gemini',text:'Caímos en la moda exactamente al mismo tiempo que todo el mundo.'},
@@ -1125,7 +1128,7 @@ const MEMORIES = [
   {icon:'🏎️',hue:'gold',label:'El recap de F1, F2 y F3',text:'Jugado en un restaurante, mientras esperábamos la comida. Ese sí funcionó.'},
   {icon:'🍗',hue:'gold',label:'El mega plato de pollo',text:'En SSAM pediste un plato entero y fue lo único que comiste. Nunca lo voy a olvidar.'},
   {icon:'📞',hue:'cyan',label:'Teléfono Negro 2',text:'Después de comer, al cine — porque un año sin ver algo random juntos no cuenta.'},
-  {icon:'🗨️',hue:'cyan',label:'Con Fonsi y Melvin',text:'Otro día cualquiera en la central de MI, justo antes de que sonara el código.'},
+  {icon:'👥',hue:'cyan',label:'Con Fonsi y Melvin',text:'Otro día cualquiera en la central de MI, justo antes de que sonara el código.'},
   {icon:'🚨',hue:'cyan',label:'El código pediátrico',text:'Salí disparado a media plática por un paciente que acababa de llegar. Así era y así seguirá siendo.'},
   {icon:'🎢',hue:'rose',label:'Tus aventuras inesperadas',text:'Nunca fue molestia que me contaras tus historias con sorpresas de último momento. Al contrario: siempre quise saber más.'},
   {icon:'💜',hue:'rose',label:'Best bestie bestie',text:'No sé en qué momento exacto una interacción tan aleatoria se convirtió en esto: la persona con la que hablo todos los días.'},
@@ -1965,6 +1968,19 @@ function renderActs(){
 
   $('#v-acts').innerHTML=`<div id="actRail">${rail}</div>`+body;
   bindDrag();
+  initActSpy();
+}
+let actSpyObs=null;
+function initActSpy(){
+  if(actSpyObs) actSpyObs.disconnect();
+  const acts=[...document.querySelectorAll('.act')]; if(!acts.length)return;
+  actSpyObs=new IntersectionObserver(es=>es.forEach(e=>{
+    const btn=document.querySelector(`#actRail .rail[data-jump="${e.target.dataset.ai}"]`);
+    if(!btn)return;
+    btn.classList.toggle('on',e.isIntersecting);
+    if(e.isIntersecting) btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  }),{rootMargin:'-35% 0px -55% 0px',threshold:0});
+  acts.forEach(el=>actSpyObs.observe(el));
 }
 
 function featureHTML(s){
@@ -2121,10 +2137,24 @@ function renderMaps(){
         están en <em>Todos</em>. Clic en cualquiera para ver sus canciones.</p>`;
   }
   if(mapTab==='all'){
-    B.innerHTML=`<div class="abubbles">${list.map(card).join('')}</div>
-      <p class="vsub" style="margin-top:1.6rem">${list.length} nombres distintos entre las ${SONGS.length} canciones.</p>`;
+    let shown=list;
+    if(mapQuery) shown=shown.filter(([a])=>a.toLowerCase().includes(mapQuery));
+    if(mapSort==='az') shown=[...shown].sort((x,y)=>x[0].localeCompare(y[0]));
+    B.innerHTML=`<div class="map-tools">
+        <div class="searchbar" style="flex:1;min-width:180px"><span style="color:var(--dimmer)">⌕</span>
+          <input id="mapQ" placeholder="Buscar artista…" autocomplete="off" value="${esc(mapQuery)}"></div>
+        <button class="chip${mapSort==='count'?' on':''}" data-msort="count">Por presencia</button>
+        <button class="chip${mapSort==='az'?' on':''}" data-msort="az">A–Z</button>
+      </div>
+      <div class="abubbles">${shown.map(card).join('') || '<div class="empty">Nada con ese nombre.</div>'}</div>
+      <p class="vsub" style="margin-top:1.6rem">${shown.length}${shown.length!==list.length?' de '+list.length:''} nombres distintos entre las ${SONGS.length} canciones.</p>`;
+    const qi=$('#mapQ');
+    qi.oninput=e=>{ mapQuery=e.target.value.trim().toLowerCase(); renderMaps(); };
+    qi.focus(); qi.setSelectionRange(qi.value.length,qi.value.length);
+    $$('#mapBody [data-msort]').forEach(b=>b.onclick=()=>{ mapSort=b.dataset.msort; renderMaps(); });
   }
 }
+let mapQuery='', mapSort='count';
 let letterDone=false;
 function animLetter(){
   const box=$('#letterBody');
@@ -2317,7 +2347,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08n · iconos-corregidos';
+const BUILD='v 14-08o · nebulosas+voces+iconos';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

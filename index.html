@@ -335,6 +335,7 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   background:none;color:var(--a);font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .letter-cta button:hover{background:color-mix(in srgb,var(--a) 14%,transparent);transform:translateY(-2px)}
 .letter-cta img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.letter-div{text-align:center;letter-spacing:.6em;color:var(--dimmer);margin:3.2rem 0;font-size:.85rem;opacity:.6}
 .ps-btn{background:none;border:1px solid var(--line);color:var(--dimmer);border-radius:100px;
   padding:.3rem .8rem;font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
   cursor:pointer;transition:.3s;vertical-align:middle;margin-left:.5rem}
@@ -1026,6 +1027,15 @@ const LETTER = [
   "<span class='sig'>— Jordan</span>"
 ];
 
+const LETTER2 = [
+  "P.D. — tampoco cupo en una posdata, así que aquí va una segunda parte.",
+  "Who would've thought que una playlist se me iba a ir tanto de las manos. Iba a ser un link de Spotify y ya. Terminó siendo esto: un cielo con estrellas de verdad, dieciocho constelaciones, un editor de letras completo — y yo a las tres de la mañana peleándome con un canvas para que las nebulosas no se vieran como una cuadrícula.",
+  "No sé si eso cuenta como «unique», pero al menos no es genérico JAJAJA.",
+  "190 canciones y ninguna quedó ahí de relleno. Cada una se ganó su lugar, aunque a veces me tomó semanas admitir por qué.",
+  "Si llegaste hasta aquí abajo — leyendo esto en vez de estar haciendo algo mejor con tu tiempo — gracias por eso también.",
+  "<span class='sig'>— Jordan, otra vez</span>"
+];
+
 const YTIDS = {
   "Told You So (Lavern & VisionV Remix)||Martin Garrix, Jex, Lavern, VisionV":"A_sZ16eYp80",
   "Miss Americana & The Heartbreak Prince||Taylor Swift":"Kwf7P2GNAVw",
@@ -1109,7 +1119,7 @@ const YTIDS = {
   "I Knew You Were Trouble.||Taylor Swift":"VmBoTeLsKfs",
   "Perfect||One Direction":"Ho32Oh6b4jc",
   "You Belong With Me||Taylor Swift":"VuNIsY6JdUw",
-  "Stuck In The Middle||BABYMONSTER":"YAFg8FyRTU8",
+  "Stuck In The Middle||BABYMONSTER":"GsV1i0QHi-o",
   "PLAYING WITH FIRE||BLACKPINK":"9pdj4iJD08s",
   "Killin' It Girl||j-hope, GloRilla":"L7p1QsQ3FKo",
   "Never Let Go||Jung Kook":"J_n4Ysi5iUM",
@@ -2004,10 +2014,12 @@ function animLetter(){
     const dust=Array.from({length:16},(_,i)=>
       `<i style="left:${(seeded(i*3.1)*100).toFixed(1)}%;top:${(seeded(i*7.7+1)*100).toFixed(1)}%;animation-delay:${(seeded(i*5.3)*6).toFixed(2)}s"></i>`).join('');
     box.innerHTML=`<div class="letter-dust">${dust}</div>`+LETTER.map(p=>`<p>${p}</p>`).join('')
-      +`<div class="letter-cta" id="letterCta"></div><div class="ps" id="psBlock"></div>`;
-    // easter egg: tres clics seguidos en la firma abren una posdata que tú escribes,
-    // no que yo invente — el origen de esto (who would've thought…) es tuyo de contar
-    const sig=box.querySelector('.sig');
+      +`<div class="letter-cta" id="letterCta"></div>`
+      +`<div class="letter-div">· · ·</div>`
+      +LETTER2.map(p=>`<p>${p}</p>`).join('')
+      +`<div class="ps" id="psBlock"></div>`;
+    // botón de posdata: se cuelga de la última firma (la del cierre de la parte 2)
+    const sigs=box.querySelectorAll('.sig'); const sig=sigs[sigs.length-1];
     if(sig){
       sig.insertAdjacentHTML('afterend',' <button class="ps-btn" id="psOpen" title="Escribir una posdata">＋ P.D.</button>');
       $('#psOpen').onclick=togglePS;
@@ -2075,7 +2087,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08c · pd-boton';
+const BUILD='v 14-08e · carta-parte2';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

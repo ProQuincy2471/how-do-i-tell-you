@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "how-do-i-tell-you",
-      "runtimeExecutable": "bash",
-      "runtimeArgs": ["abrir.command"],
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["servidor.py", "8123"],
       "port": 8123
     }
   ]

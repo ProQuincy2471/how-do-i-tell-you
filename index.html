@@ -640,6 +640,8 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
 .pad{width:min(1120px,100%);max-height:100%;display:flex;flex-direction:column;border:1px solid var(--line);
   border-radius:18px;background:linear-gradient(180deg,#0b0d16,#06070e);box-shadow:0 30px 90px rgba(0,0,0,.6);overflow:hidden}
 .pad-h{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pad-batch{height:2px;background:var(--line)}
+.pad-batch i{display:block;height:100%;background:var(--a);transition:width .4s cubic-bezier(.2,.8,.2,1)}
 .pad-h img{width:46px;height:46px;border-radius:10px;object-fit:cover}
 .pad-h .m{flex:1;min-width:160px}
 .pad-h .m b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:400}
@@ -703,6 +705,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
             <button class="ctool" data-tool="grid">⊞ Retícula</button>
             <button class="ctool on" data-tool="sky">✦ Cielo real</button>
             <button class="ctool" data-tool="fit">⤢ Todo</button>
+            <button class="ctool" data-tool="next" title="Atajo: n">→ Siguiente sin escuchar</button>
           </div>
           <div id="cfind"><input id="cq" placeholder="buscar estrella…" autocomplete="off"><div id="cqres"></div></div>
         </div>
@@ -831,6 +834,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
     <div class="ll" id="padLinks"></div>
     <button class="ic" id="padClose" title="Cerrar (esc)">✕</button>
   </div>
+  <div class="pad-batch"><i id="padBatchBar"></i></div>
   <div class="pad-b">
     <div><label>Letra original <u id="padNog">0 versos</u></label><textarea id="pad_og" placeholder="Pega aquí la letra original — un verso por línea…"></textarea></div>
     <div><label>Traducción <u id="padNes">0 versos</u></label><textarea id="pad_es" placeholder="Pega aquí la traducción — misma cantidad de líneas para el modo lado a lado…"></textarea></div>
@@ -2347,7 +2351,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08o · nebulosas+voces+iconos';
+const BUILD='v 14-08q · letras-pulido';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -2463,8 +2467,20 @@ function paintPad(){
   $('#pad_og').value=s.og||'';
   $('#pad_es').value=s.es||'';
   $('#padPos').textContent=(PAD.i+1)+' de '+PAD.q.length;
+  $('#padBatchBar').style.width=(PAD.q.length?(PAD.i+1)/PAD.q.length*100:0)+'%';
   applyPalette(s);
   padCount();
+}
+// pegado desde Genius suele traer basura pegada: "63 ContributorsX Lyrics" al inicio,
+// "Embed" y un número pegado al final, marcas de traducción de línea repetida — se limpia
+// sola para no tener que editarla a mano cada vez
+function cleanPaste(txt){
+  return txt
+    .replace(/^\s*\d+\s*Contributors?.*?Lyrics\s*/is,'')
+    .replace(/You might also like\s*/gi,'')
+    .replace(/\d*Embed$/,'')
+    .replace(/^\s+|\s+$/g,'')
+    .split('\n').map(l=>l.replace(/\s+$/,'')).join('\n');
 }
 const padCount=()=>{
   const n=t=>t.trim()?t.trim().split('\n').length:0;
@@ -2490,6 +2506,16 @@ $('#padSkip').onclick=()=>padGo(1);
 ['pad_og','pad_es'].forEach(id=>{
   const t=$('#'+id);
   t.addEventListener('input',padCount);
+  t.addEventListener('paste',e=>{
+    const raw=(e.clipboardData||window.clipboardData).getData('text');
+    const cleaned=cleanPaste(raw);
+    if(cleaned===raw)return; // nada que limpiar: deja que el navegador pegue normal
+    e.preventDefault();
+    const start=t.selectionStart, end=t.selectionEnd, v=t.value;
+    t.value=v.slice(0,start)+cleaned+v.slice(end);
+    t.selectionStart=t.selectionEnd=start+cleaned.length;
+    padCount();
+  });
   t.addEventListener('keydown',e=>{
     if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); padStore(); toast('Guardada'); padGo(1); }
     if(e.key==='Escape'){ e.preventDefault(); closePad(); }
@@ -3096,6 +3122,24 @@ function flyTo(key,zoom){
   CST.tgt={x:n.x,y:n.y,z:zoom||1.6};
   CST.ripples.push({x:n.x,y:n.y,t:0,c:nodeRGB(n)});
 }
+function flyToNextUnheard(){
+  if(ST.heard.length>=SONGS.length){ toast('Ya las escuchaste todas ✧'); return; }
+  // busca desde la estrella que tienes enfocada ahora, siguiendo el orden de la playlist,
+  // y da la vuelta si hace falta — así "siguiente" siempre avanza, nunca repite la misma
+  const near=CST.nodes.reduce((best,n)=>{
+    const d=Math.hypot(n.x-CST.tgt.x,n.y-CST.tgt.y);
+    return (!best||d<best.d)?{d,n}:best;
+  },null);
+  const startId=near?near.n.s.id+1:0;
+  let key=null;
+  for(let k=0;k<SONGS.length;k++){
+    const s=SONGS[(startId+k)%SONGS.length];
+    if(!heard(s.key)){ key=s.key; break; }
+  }
+  if(!key)return;
+  CST.focusAct=-1; flyTo(key,1.8); paintActChips();
+  const s=BYKEY[key]; if(s)toast('✧ '+s.t);
+}
 function paintActChips(){
   $('#cacts').innerHTML=ACTV.map(a=>{
     const tot=a.songs.length, got=a.songs.filter(s=>heard(s.key)).length, col=actColor(a);
@@ -3465,6 +3509,7 @@ document.addEventListener('visibilitychange',()=>{
   $$('#ctools .ctool').forEach(b=>b.onclick=()=>{
     const t=b.dataset.tool;
     if(t==='fit'){CST.focusAct=-1;fitConst();paintActChips();return;}
+    if(t==='next'){flyToNextUnheard();return;}
     if(t==='path'){CST.showPath=!CST.showPath;b.classList.toggle('on',CST.showPath);
       toast(CST.showPath?(ST.heard.length>1?'Tu camino, en el orden en que las escuchaste':'Escucha al menos dos para trazarlo'):'Camino oculto');}
     if(t==='labels'){CST.showLabels=!CST.showLabels;b.classList.toggle('on',CST.showLabels);}
@@ -4700,6 +4745,11 @@ addEventListener('keydown',e=>{
   if(e.key==='v')$('#dOpen').click();
   if(e.key==='f'){ stageOn?closeStage():openStage(); }
   if(e.key==='e')$('#editBtn').click();
+  if($('#v-const').classList.contains('on')){
+    if(e.key==='n'){ flyToNextUnheard(); }
+    if(e.key==='+'||e.key==='='){ CST.tgt.z=Math.min(4.5,CST.tgt.z*1.2); }
+    if(e.key==='-'||e.key==='_'){ CST.tgt.z=Math.max(.12,CST.tgt.z*0.83); }
+  }
 });
 
 /* ══════════════════════════════════════════════════════════════════════

@@ -620,7 +620,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
       <button data-v="acts" class="on" id="navActs">Nebulosas</button>
       <button data-v="const">Constelación</button>
       <button data-v="mosaic">Mosaico</button>
-      <button data-v="maps">Artistas</button>
+      <button data-v="maps">Voces</button>
       <button data-v="letter">Carta</button>
       <button data-v="lyr">Letras</button>
       <span class="navsep"></span>
@@ -1619,7 +1619,8 @@ const mkKey=(t,ar)=>t+'||'+ar;
 const LABELS={Nebulosa:['Nebulosa','Nebulosas'],Cúmulo:['Cúmulo','Cúmulos'],
   Estela:['Estela','Estelas'],Cuadrante:['Cuadrante','Cuadrantes'],Órbita:['Órbita','Órbitas'],
   Fase:['Fase','Fases'],Capítulo:['Capítulo','Capítulos'],Tramo:['Tramo','Tramos'],
-  Movimiento:['Movimiento','Movimientos'],Acto:['Acto','Actos']};
+  Movimiento:['Movimiento','Movimientos'],Acto:['Acto','Actos'],
+  Deriva:['Deriva','Derivas'],Marea:['Marea','Mareas'],Latido:['Latido','Latidos']};
 const LB=()=> LABELS[ST.prefs.label]||LABELS.Nebulosa;
 const relabel=t=>String(t).replace(/^Acto\b/,LB()[0]);
 
@@ -2032,7 +2033,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-08 · carta+mosaico+camino';
+const BUILD='v 13-08c · messier+voces+labels';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -2334,24 +2335,34 @@ function drawRealSky(x,W,H,Z,t,DPR){
     const [sx,sy]=W2S(p.x,p.y);
     if(sx<-10||sx>W+10||sy<-10||sy>H+10)return;
     const rr=Math.max(.35,p.r*Math.max(.55,Math.min(Z*1.1,1.9)));
-    // centelleo: más marcado en las débiles, como en el cielo de verdad
+    // centelleo: más marcado en las débiles, como en el cielo de verdad — tres armónicos
+    // en vez de dos, para que no se sienta un parpadeo mecánico y repetitivo
     const tw=1+Math.sin(t*.0022*p.sp+p.ph)*.34*p.amp
-             +Math.sin(t*.0071*p.sp+p.ph*2.3)*.16*p.amp;
+             +Math.sin(t*.0071*p.sp+p.ph*2.3)*.16*p.amp
+             +Math.sin(t*.00047*p.sp+p.ph*.6)*.12*p.amp;
     const a=Math.min(.9,((5.6-p.m)*.14+.1)*tw);
+    // centelleo cromático: las estrellas brillantes cambian levemente de tinte al parpadear,
+    // como pasa de verdad por la turbulencia atmosférica — más notorio cerca de los picos
+    let pc=p.c;
+    if(p.m<3){
+      const cs=(tw-1)*22;
+      pc=[Math.max(0,Math.min(255,p.c[0]-cs*.8)),Math.max(0,Math.min(255,p.c[1])),
+          Math.max(0,Math.min(255,p.c[2]+cs))];
+    }
     if(p.m<2.2){
       const gr=x.createRadialGradient(sx,sy,0,sx,sy,rr*5);
-      gr.addColorStop(0,`rgba(${p.c[0]},${p.c[1]},${p.c[2]},${a*.5})`);
-      gr.addColorStop(1,`rgba(${p.c[0]},${p.c[1]},${p.c[2]},0)`);
+      gr.addColorStop(0,`rgba(${pc[0]},${pc[1]},${pc[2]},${a*.5})`);
+      gr.addColorStop(1,`rgba(${pc[0]},${pc[1]},${pc[2]},0)`);
       x.fillStyle=gr;x.beginPath();x.arc(sx,sy,rr*5,0,7);x.fill();
       if(p.m<1.6&&Z>.3){                       // cruz de difracción, como en las fotos
-        const L=rr*(5.5+(1.6-p.m)*3), tw=.6+.4*Math.sin(t*.0016+p.x);
-        x.strokeStyle=`rgba(${p.c[0]},${p.c[1]},${p.c[2]},${.22*tw})`; x.lineWidth=.7;
+        const L=rr*(5.5+(1.6-p.m)*3), tw2=.6+.4*Math.sin(t*.0016+p.x);
+        x.strokeStyle=`rgba(${pc[0]},${pc[1]},${pc[2]},${.22*tw2})`; x.lineWidth=.7;
         x.beginPath(); x.moveTo(sx-L,sy); x.lineTo(sx+L,sy);
         x.moveTo(sx,sy-L); x.lineTo(sx,sy+L); x.stroke();
       }
     }
     x.beginPath();x.arc(sx,sy,rr,0,7);
-    x.fillStyle=`rgba(${p.c[0]},${p.c[1]},${p.c[2]},${a})`;x.fill();
+    x.fillStyle=`rgba(${pc[0]},${pc[1]},${pc[2]},${a})`;x.fill();
   });
   // ecuador celeste y eclíptica
   x.save(); x.lineWidth=Math.max(.4,.7);
@@ -2406,20 +2417,54 @@ function drawRealSky(x,W,H,Z,t,DPR){
     x.moveTo(sx,sy-L); x.lineTo(sx,sy+L); x.stroke();
     return true;
   });
-  // objetos de cielo profundo
-  SKY_DSO.forEach(([ra,dec,mag,type,name,desig])=>{
+  // objetos de cielo profundo — catálogo real (Messier/NGC), cada tipo con su propio dibujo
+  SKY_DSO.forEach(([ra,dec,mag,type,name,desig],di)=>{
     const [wx,wy]=sky2w(ra,dec), [sx,sy]=W2S(wx,wy);
     if(sx<-60||sx>W+60||sy<-40||sy>H+40)return;
     const rr=Math.max(3.5,(9-mag)*1.5*Math.min(Z*1.2,1.6));
-    const gal=type.indexOf('galaxia')>=0, neb=type.indexOf('nebulosa')>=0;
-    const col=gal?[255,225,200]:neb?[220,150,220]:[190,215,255];
-    const gr=x.createRadialGradient(sx,sy,0,sx,sy,rr*2.2);
-    gr.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},.3)`);
-    gr.addColorStop(1,`rgba(${col[0]},${col[1]},${col[2]},0)`);
-    x.fillStyle=gr;x.beginPath();
-    if(gal){ x.save();x.translate(sx,sy);x.scale(1,.5);x.arc(0,0,rr*2.2,0,7);x.restore(); }
-    else x.arc(sx,sy,rr*2.2,0,7);
-    x.fill();
+    const gal=type.indexOf('galaxia')>=0, neb=type.indexOf('nebulosa')>=0||type==='resto de supernova',
+          clus=type.indexOf('cúmulo')>=0;
+    const col=gal?[255,225,200]:neb?[224,140,205]:clus?[185,222,255]:[190,215,255];
+    if(neb){
+      // nebulosa de verdad (M42, M8, M16…): lóbulos suaves centrados en su posición real,
+      // el mismo tratamiento que las de relleno de la Vía Láctea, pero con catálogo real detrás
+      const lobes=2+Math.floor(seeded(di*5.5)*3), ph0=seeded(di*1.3)*7;
+      for(let k=0;k<lobes;k++){
+        const off=k*1.9+ph0;
+        const ox=sx+Math.cos(off)*rr*.55+Math.sin(t*.00007+off)*rr*.08;
+        const oy=sy+Math.sin(off)*rr*.4+Math.cos(t*.00009+off)*rr*.08;
+        const r2=rr*(1.7-k*.22);
+        const gr=x.createRadialGradient(ox,oy,0,ox,oy,r2);
+        gr.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},.34)`);
+        gr.addColorStop(.45,`rgba(${col[0]},${col[1]},${col[2]},.14)`);
+        gr.addColorStop(1,`rgba(${col[0]},${col[1]},${col[2]},0)`);
+        x.fillStyle=gr;x.beginPath();x.arc(ox,oy,r2,0,7);x.fill();
+      }
+      x.beginPath();x.arc(sx,sy,1.3,0,7);x.fillStyle='rgba(255,255,255,.55)';x.fill();
+    } else if(clus){
+      // cúmulo de verdad: un puñado de estrellitas sueltas, no un borrón — así se ve uno real
+      const n=10+Math.floor(seeded(di*7.1)*8);
+      for(let k=0;k<n;k++){
+        const a2=seeded(di*3.1+k*1.71)*7, rad=Math.pow(seeded(di*5.3+k*2.33),.6)*rr;
+        const px=sx+Math.cos(a2)*rad, py=sy+Math.sin(a2)*rad*.85;
+        x.beginPath();x.arc(px,py,.5+seeded(di*9.2+k)*1.1,0,7);
+        x.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},${.35+seeded(di*11.4+k)*.4})`;x.fill();
+      }
+      const gr=x.createRadialGradient(sx,sy,0,sx,sy,rr*1.3);
+      gr.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},.08)`);
+      gr.addColorStop(1,`rgba(${col[0]},${col[1]},${col[2]},0)`);
+      x.fillStyle=gr;x.beginPath();x.arc(sx,sy,rr*1.3,0,7);x.fill();
+    } else {
+      // galaxia u objeto genérico: halo elíptico con núcleo brillante
+      const gr=x.createRadialGradient(sx,sy,0,sx,sy,rr*2.2);
+      gr.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},.3)`);
+      gr.addColorStop(1,`rgba(${col[0]},${col[1]},${col[2]},0)`);
+      x.fillStyle=gr;x.beginPath();
+      if(gal){ x.save();x.translate(sx,sy);x.rotate(seeded(di*4.4)*Math.PI);x.scale(1,.42);x.arc(0,0,rr*2.2,0,7);x.restore(); }
+      else x.arc(sx,sy,rr*2.2,0,7);
+      x.fill();
+      if(gal){ x.beginPath();x.arc(sx,sy,rr*.3,0,7);x.fillStyle='rgba(255,250,240,.5)';x.fill(); }
+    }
     x.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},.34)`;x.lineWidth=.8;
     x.beginPath();x.arc(sx,sy,rr,0,7);x.stroke();
     if(Z>.5){
@@ -2689,12 +2734,15 @@ function buildConst(){
       o:(.05+seeded(i*7.2)*.1)*(1-Math.abs(b2)/19)*(0.65+bulge*1.5),
       ph:seeded(i*3.7)*7, dark:seeded(i*5.1)<.1});
   }
-  for(let i=0;i<6;i++){
-    const l=(i*61+18)%360, b2=(seeded(i*3.3)-.5)*13;
+  // nebulosas de relleno de la Vía Láctea: colores de nebulosa real (H-alfa, OIII, reflexión),
+  // no una paleta arcoíris — para que se sientan parte del mismo cielo que M42 o M8
+  for(let i=0;i<9;i++){
+    const l=(i*41+18)%360, b2=(seeded(i*3.3)-.5)*11;
     const [ra,dec]=gal2eq(l,b2);
     const [wx,wy]=sky2w(ra,dec);
-    CST.neb.push({x:wx,y:wy,r:(9+seeded(i*2.7)*13)*UPD, ph:seeded(i*1.3)*7,
-      c:[[126,90,200],[60,130,190],[190,80,140],[70,150,150],[150,110,90],[110,90,190]][i%6],
+    CST.neb.push({x:wx,y:wy,r:(8+seeded(i*2.7)*12)*UPD, ph:seeded(i*1.3)*7,
+      c:[[205,85,95],[90,195,175],[120,145,225],[205,150,90],[190,95,150],[170,110,210],
+         [200,90,95],[100,180,190],[135,130,220]][i%9],
       lobes:2+Math.floor(seeded(i*5.5)*3)});
   }
   for(let i=0;i<14;i++){

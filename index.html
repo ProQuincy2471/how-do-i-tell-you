@@ -336,6 +336,36 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .letter-cta button:hover{background:color-mix(in srgb,var(--a) 14%,transparent);transform:translateY(-2px)}
 .letter-cta img{width:30px;height:30px;border-radius:8px;object-fit:cover}
 .letter-div{text-align:center;letter-spacing:.6em;color:var(--dimmer);margin:3.2rem 0;font-size:.85rem;opacity:.6}
+
+/* ── recuerdos: burbujas al estilo Inside Out ── */
+.mem-field{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.1rem 1.4rem;
+  margin:2.8rem 0;opacity:0;transform:translateY(16px);transition:opacity 1.1s,transform 1.1s;max-width:100%}
+.mem-field.in{opacity:1;transform:none}
+.mem-bubble{position:relative;aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:.3rem;cursor:pointer;text-align:center;padding:.6rem;
+  background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 38%,transparent),color-mix(in srgb,var(--c) 10%,transparent) 60%,transparent 78%);
+  border:1px solid color-mix(in srgb,var(--c) 45%,transparent);
+  box-shadow:0 0 22px color-mix(in srgb,var(--c) 22%,transparent), inset 0 0 18px color-mix(in srgb,var(--c) 14%,transparent);
+  animation:memBob 10s ease-in-out infinite;transition:transform .35s,box-shadow .35s;justify-self:center;width:100%;max-width:150px}
+.mem-bubble:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 4px 30px color-mix(in srgb,var(--c) 38%,transparent), inset 0 0 22px color-mix(in srgb,var(--c) 20%,transparent)}
+.mem-bubble.seen{opacity:.56}
+.mem-bubble.seen::after{content:'';position:absolute;top:10px;right:16%;width:6px;height:6px;border-radius:50%;
+  background:var(--c);box-shadow:0 0 8px var(--c)}
+@keyframes memBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.mem-ic{font-size:1.7rem;line-height:1;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent))}
+.mem-lb{font-size:.62rem;line-height:1.25;color:var(--paper);opacity:.85;padding:0 .3rem}
+.mem-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
+  background:rgba(4,5,10,.82);backdrop-filter:blur(10px);opacity:0;transition:opacity .35s;padding:1.4rem}
+.mem-overlay.on{opacity:1}
+.mem-card{width:min(420px,100%);border-radius:22px;padding:2.2rem 1.8rem;text-align:center;position:relative;
+  background:radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--c) 22%,#0b0d16),#0b0d16 70%);
+  border:1px solid color-mix(in srgb,var(--c) 50%,transparent);
+  box-shadow:0 0 60px color-mix(in srgb,var(--c) 30%,transparent);
+  transform:scale(.85);transition:transform .35s cubic-bezier(.2,.9,.2,1)}
+.mem-overlay.on .mem-card{transform:scale(1)}
+.mem-card-ic{font-size:3rem;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--c) 70%,transparent));margin-bottom:.6rem}
+.mem-card-lb{font-family:var(--serif);font-size:1.25rem;color:var(--c);margin-bottom:1rem}
+.mem-card-txt{font-size:.92rem;line-height:1.75;color:rgba(244,239,230,.88);margin-bottom:1.6rem}
 .ps-btn{background:none;border:1px solid var(--line);color:var(--dimmer);border-radius:100px;
   padding:.3rem .8rem;font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
   cursor:pointer;transition:.3s;vertical-align:middle;margin-left:.5rem}
@@ -1036,28 +1066,42 @@ const LETTER2 = [
   "<span class='sig'>— Jordan, otra vez</span>"
 ];
 
-// El mensaje que le escribí a Ana por su cumpleaños, el 19 de enero. Tal cual como se
-// lo mandé, salvo dos frases que suavicé a propósito: nombraban medicamentos y
-// diagnósticos suyos por su nombre, y esta página queda guardada de forma permanente
-// (incluido el historial de git) — así que el sentimiento se queda, los detalles clínicos no.
-const LETTER_BDAY = [
-  `¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡FELIZ CUMPLEAÑOS!!!!!!!!!!!!!! Espero que hoy te la pases de maravilla Ana, ojalá no salgas tan tarde o que no sea tan odioso, o yo que sé JAJAJAJAJ, que lo disfrutes. Y no solo hoy, que sea hoy y siempre que se pueda, digo habrá días no tan buenos, pero son la minoría (espero…), do things that make you feel you.`,
-  `Trataré de que no suene igual al que me mandaste para mi cumpleaños y que sea "unique", whatever that means JAJJAJAJAJ`,
-  `Who would've thought… algo tan random como lo fue hace 1 año (o bueno, poquito antes, pero se entiende la expresión xdd). . . que a alguien le tocaba estar en piso MI en ABC. . . y a alguien se le ocurrió meter su optativa con Ontañón y con Magaña…`,
-  `probablemente si te digo no me creerías xddd. Todavía recuerdo JAJAJAJAJAJJA, ese primer día de la rotación, entre que yo estaba esperando y tu en la ofi o en la central, y digo, en ese momento no sabía que eras tú JAJJAJAJAJAJA. Y probablemente esto suene malo, pero I don't mean it that way JAJJAJA. I remember, justo de ocasionalmente cuando haces contacto visual con las personas de que así accidentalmente, traías tu como cosito headband/diadema con la que detenías tu cubrebocas, tu cubrebocas, pero tu mirada era como de "t voy a matar" JAJJAJAJJAJAJA, y como tal creo que no interactuamos ni nada, solo existíamos cada quien en su rollo. Hasta poco después, la segunda semana específicamente, que estaba con Ontañón, y fue casualidad que estuve rotando con Vero, y al regresar de SF y esperar a Ontañón en Obs, que la acompañé nada más pk si ahí a la resi de MI, fue coincidencia que estabas ahí, no recuerdo quienes más, pero justo terminando pendientes y eso. . . Y digo, más vale pedir perdón que pedir permiso JAJAJAJAJAJA, pero esa primera interaction que fue muy random y esporádica de que me preguntaste que si me gustaba el kpop, no sé si fue por mi compu, mi cel, mi ipad, o mi este cosito del gafete de las twais, pero fue como con una energía y como con emoción y felicidad JAJAJA "TE GUSTA EL KPOPPPP???!?!?!??!?!?!?!???!?", no c, y yo recuerdo perfectamente como introvertido, shy, callado y antisocial que soy, como respondí con miedo "si" JAJAJAJJA, y también como dijiste que "nos llevaríamos muy bien" y yo todo sacado de onda JAJJAJAJAJA.`,
-  `Poco tiempo después igual de las veces que nos topábamos igual ahí en el ABC de que random, como en la cafetería en las mañanas para desayunar, y recuerdo cuando nada más un día estábamos ahí con todos, y por algo me reí, y recuerdo como me preguntaste "te ríes por mi acento del norte?"  (o algo así xdd) JAJAJAJJAJA, I never said that, y no, no era por tu acento xddd, o de que hablando que iba a ser el concierto de æspa, y ya, eran como esas interactions esporádicas.`,
-  `Y de cuando existías por ahí, todavía me acuerdo, que indirectamente me enteré que fue tu cumpleaños, y digo, apenas tenía como 2 semanas desde que supe de tu existencia, y como 1 después de hablar JAJAJAJJAJA, que solo te felicité y te hice pat pat en tu cabeza.`,
-  `O de cuando estaba ahí existiendo con ustedes, estabas con Fonsi y con Melvin creo? No me acuerdo exactamente, pero ahí en la central de MI? Y que suena el código ABC pediátrico de mi pacientito que acababa de llegar hace unas horas ahí al servicio y salí disparado JAJAJAJAJJA.`,
-  `O de cuando some fucking how, pk estoy idiota y soy muy shy y me da pena JAJJAJJA, nunca te pedí tu teléfono o WA para hablar JAJAJJA, todo por DM en insta JAJAJJAJA, un poco unorthodox xddd.`,
-  `Y si empiezo no paro JAJAJAJJA, desde esa vez que fuimos a ver el concierto de IVE en el cine, cuando me daban mis ataques de mandar 8521 reels a las 3 de la mañana JAJAJAJAJAJ, o del concierto de Stray Kids, de cuando fuimos a pseudo almorzar hasta allá en la Roma, respondiendo preguntas de ChatGPT, de cuando fuimos al café en la Mexicana con Vero, terminando esa rotación, o de cuando fuimos a ver la película de la F1 (no cumplió mis expectativas la película JAJAJAJ), o desde hace muuuuuucho que me mandaste algo en insta que decía "a que no crees lo que me acaba de pasar?? --> la verdad ya no sé pk a ti te pasa de todo JAJJAJAJA", o de cuando me dijiste que fuera a recoger un chocolate y un panecito al Starbucks y que fui "Ana" JAJJAJAJAJA (que, tiempo después, te regresé eso mismo en otra forma xddd), o que me humillaras en todos los exámenes de ciru JAJJAJA, el que me prestaras a Mingyu los miércoles JAJJAJAJA, el "AJU NICEEEEEEE" JAJAJAJJAJAJ en el concierto de SVT en el cine, Super Tuna de Jin, la vez que fuimos al depa de Vero y explotó la silla por los espíritus de Aranzola JAJJAJAAJA, del "HOLA T SIENTES BIEN?" de la doña loca esta que nos daba calidad (o su equivalente, siempre me confundo con los nombres de las materias) JAJJAJAJAJ, tus mega ronchotas de Xoco wtfffff JAJJAJA, cuando Nat andaba con el vape un día que iban a Xoco y que salieron tarde y que te dolía la cabeza (y mira quien terminó con el vape meses después JAJAJJAJAJA, no te juzgo ni te culpo ni nada, ya sabes, y graciosos tus videos de cuando estabas empezando y casi te ahogas JAJAJAJAJJAJA), o cuando me dijiste "buenos días, hoy si tengo mis 4 llantas" JAJJAJAJAJ, o qué tal de cuando te pusieron la araña en Polanco xddd, digo digo, nosierto, dijimos que ibamos a fingir demencia y que eso nunca pasó JAJAAJAJJAJA, o cuando nos diste los post-its de juguito anti ansiedad (pd todavía no me los acabo pk no quiero usarlos JJAJAJJAJAJJA), o estar hablando de PewDiePie y Outlast bc why the fk not JJAJAJAJJA, o mandarte cualquier fking cosa que diga jungkook bc why the fk not JAJJAJAJJAJAJ, o hablar de la terrible experiencia de Santos Bravos y RIP nuestros ojos y oídos JJAJAJAJAJJA, o de cuando fuimos al VR concert de TXT, (y en las malas tmb, pero aquí no estamos para recordar cosas malas, aquí nada de eso) estar al pendiente de cuando los bitis salieran del servicio xddd, o de cuando empezó el trend de usar Gemini para hacer las fotos, la ida al Cheesecake después de exámenes, ammmmm tmb cuando no soportábamos los miércoles en la mañana con Arechiga JJAJAJAJ, llorar por ver "a Bussiness Proposal" JAJAJJAJJA 11/10, y seguir con más recomendaciones de kdramas y eso (como Twinkling Watermelon xddd, y otras), o de la ida a ese restaurante (SSAM) y que te pediste un "mega plato de pollo" y fue lo único que comiste JJAJAJAJA y luego a ver la del "Teléfono Negro 2" o de cuando estabas sentada en el concierto de Gracie xddd, todavía siguen pendientes unos buenos sopecitos, y claro, tus esquites, toooodas las veces que me has escrito para funar a Nat JAJAJJAJA, las Twai, el recap de las carreras de F1, F2 y F3 xddd, jugar uno en un restaurante mientras esperábamos la comida, this thing goes, on, and on, and on, and on JAJJAJJA.`,
-  `No pensé que una interacción tan random e inesperada, se convertiría en todo esto, en el tan corto y largo a la vez time span de 1 año, y que some way or another, serías mi best bestie bestie, y de las personas más valiosas de mi vida.`,
-  `Y como desde un principio, gracias por permitirme ser tu amigo, y genuinamente, y no es por ser pesimista ni nada, es la verdad, probablemente mi 2025 no hubiera sido el mismo si no te hubiera conocido Ana.`,
-  `Gracias Ana, digo yo sé que todos tenemos nuestras batallas, y que ciertamente hay cosas privadas o que nos quedamos nosotros, pk es parte de nuestra historia, de lo que hemos cargado cada quien JAJAJAJAJ, pero justo, creo que, de alguien que también ha cargado lo suyo a otra persona igual, se entiende JAJAJJAJAJ. Nunca me imaginé que alguien como tú, hayas tenido que pasar por tantas cosas… And I'm really sorry for that, and I felt helpless at first, pero con haber ayudado some way, some how y que te sintieras mejor en cualquier aspecto un 0.00001%, it gave me purpose. And I really respect you and admire you, after everything you've been through, you show the world you are strong, and keep shining.`,
-  `Y digo esto puede que sea un poco cliché, pero I don't care JAJAJJA, it needs to be said. Thank you for letting me be, myself… no filters, no hiding… Thank you for letting me feel what a true and real friendship is… Gracias por no juzgarme, por escucharme, por acompañarme, por confiar en mí, por compartir lo poco o mucho de ti y tantas buenas experiencias/momentos/recuerdos, etc, que eso siga este año and who knows how much after, pero ojalá sea mucho tiempo.`,
-  `(y no, nunca fue molestia que me contaras tus trágicas aventuras o situaciones con sorpresas inesperadas, al contrario xdd, I was intrigued and I wanted to know more JAJAJJAJA).`,
-  `Sea lo que sea que quieras conseguir, hacer, decir, you do you, si quieres seguir como pediatra y medirle 3 veces la presión a los niños xdd, o patóloga para no ver pacientes, o forense para no matar lo que ya está muerto xddd, sí, sé que la carrera es dura, y el camino y todo tmb, but I know, and I trust, everything will work out in the end. Sigue siendo como eres Ana, no cambies, no dejes que la vida ni las personas arruinen tu camino ni apaguen tu chispa, you are smart, you are tough, you are enough, you are loved and cared for.`,
-  `sabes que puedes contar conmigo, I hope that from time to time, I could be the thing that calms you down when everything else doesn't, (the good kind of remedy JAJAJAJAJ), y espero que en general, todo haya sido de tu agrado, you deserve it, da best deserves da best.`,
-  `Te mando un abrazote Ana, enjoy, be yourself, te quiero 💜💜🩵🩵`
+// No es el mensaje de cumpleaños copiado — son sus mismos elementos (la historia de
+// origen, las anécdotas, el tono) hechos recuerdos sueltos, con palabras mías, no las
+// suyas. Sin nombrar diagnósticos ni medicamentos: ese detalle es de Ana, no mío.
+const LETTER3_INTRO = `Esto último no cabía en párrafos — así que aquí va de otra forma. Cada burbuja es un recuerdo. Tócalas.`;
+const LETTER3_SIG = `<span class='sig'>Por el año, Ana. Por lo que sí pasó, y por lo que sigue pasando.</span>`;
+const MEMORIES = [
+  {icon:'🏥',hue:'rose',label:'El cruce',text:'Un cambio de rotación al azar en piso MI, ABC — una optativa metida casi de casualidad con Ontañón y con Magaña. Ninguno sabía que el otro iba a importar.'},
+  {icon:'😷',hue:'rose',label:'El primer día',text:'Ni siquiera hablamos. Solo una mirada cruzada, una diadema sosteniendo un cubrebocas, y una cara de «no me hables» que no era personal.'},
+  {icon:'🎧',hue:'violet',label:'¿Te gusta el kpop?',text:'La pregunta que cambió todo, gritada con más energía de la que cabía en una frase. Contesté que sí, con miedo, como examen oral.'},
+  {icon:'☕',hue:'cyan',label:'Desayunos random',text:'Cruces esporádicos en la cafetería del ABC, sin planearlos, que con el tiempo dejaron de ser esporádicos.'},
+  {icon:'🗣️',hue:'gold',label:'El acento del norte',text:'Juraste que me reía de tu acento. Nunca lo dije. Sigo sin haberlo dicho.'},
+  {icon:'🎂',hue:'rose',label:'Su cumpleaños',text:'Lo festejé con un pat en la cabeza, apenas dos semanas después de saber que existías.'},
+  {icon:'📱',hue:'gold',label:'Nunca pedí el número',text:'Todo empezó, y siguió, por DM de Instagram. Nada ortodoxo, pero funcionó.'},
+  {icon:'🎬',hue:'violet',label:'IVE en el cine',text:'Primera de muchas salidas a gritar canciones en la oscuridad de una sala.'},
+  {icon:'🎤',hue:'violet',label:'Stray Kids',text:'Otro concierto, otra excusa para no dormir esa noche.'},
+  {icon:'📣',hue:'violet',label:'AJU NICE',text:'Gritado sin vergüenza en el concierto de SEVENTEEN, como se debe.'},
+  {icon:'🥽',hue:'violet',label:'VR concert de TXT',text:'Un concierto que no era físico y de todos modos se sintió real.'},
+  {icon:'🌙',hue:'violet',label:'Gracie en pantalla',text:'Sentada ahí, otro concierto más en una lista que no para de crecer.'},
+  {icon:'🌌',hue:'gold',label:'Reels a las 3am',text:'Mensajes que llegaban de madrugada sin ningún aviso ni disculpa.'},
+  {icon:'☕',hue:'gold',label:'«Ana» en el Starbucks',text:'Fui por un chocolate y un panecito y terminé respondiendo a tu nombre. Te lo regresé después, a mi manera.'},
+  {icon:'📝',hue:'cyan',label:'Exámenes de ciru',text:'Me humillabas sin esfuerzo y sin mala intención. Bueno, tal vez con un poco.'},
+  {icon:'🎧',hue:'gold',label:'Mingyu prestado',text:'Los miércoles eran de Mingyu. Nunca pregunté por qué, nunca hizo falta.'},
+  {icon:'👻',hue:'gold',label:'Los espíritus de Aranzola',text:'Una silla explotó en el depa de Vero. Decidimos, oficialmente, que eso nunca pasó.'},
+  {icon:'🕷️',hue:'gold',label:'La araña de Polanco',text:'Igual que la silla: fingimos demencia y aquí no pasó nada.'},
+  {icon:'🏫',hue:'cyan',label:'¿Te sientes bien?',text:'La doña de esa clase cuyo nombre siempre se me olvida, preguntando lo mismo cada vez.'},
+  {icon:'🌶️',hue:'gold',label:'Ronchas de Xoco',text:'Un misterio médico que ninguno de los dos resolvió nunca.'},
+  {icon:'🚗',hue:'gold',label:'Las cuatro llantas',text:'Había días en que hasta el coche cooperando se sentía como una noticia que merecía anunciarse.'},
+  {icon:'💛',hue:'rose',label:'Post-its anti-ansiedad',text:'Un juguito de regalo que todavía no uso, guardado por si acaso.'},
+  {icon:'🎵',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
+  {icon:'🏎️',hue:'gold',label:'F1, F2 y F3',text:'La película decepcionó. El juego de recap en un restaurante, mientras esperábamos la comida, no.'},
+  {icon:'🍗',hue:'gold',label:'El mega plato de pollo',text:'En SSAM pediste un plato entero y fue lo único que comiste. Nunca lo voy a olvidar.'},
+  {icon:'📞',hue:'cyan',label:'Teléfono Negro 2',text:'Después de comer, al cine — porque un año sin ver algo random juntos no cuenta.'},
+  {icon:'🚨',hue:'cyan',label:'El código pediátrico',text:'Salí disparado a media plática por un paciente que acababa de llegar. Así era y así seguirá siendo.'},
+  {icon:'💜',hue:'rose',label:'Best bestie bestie',text:'No sé en qué momento exacto una interacción tan aleatoria se convirtió en esto: la persona con la que hablo todos los días.'},
+  {icon:'🙏',hue:'rose',label:'Gracias por dejarme ser así',text:'Sin filtro, sin esconder nada. Por confiar, por escuchar, por quedarte cerca incluso en lo que pesa.'},
+  {icon:'✨',hue:'rose',label:'Sigue siendo tú',text:'Que nada le baje el volumen a lo que te hace tú. Ese es el deseo, siempre.'}
 ];
 
 const YTIDS = {
@@ -2041,9 +2085,12 @@ function animLetter(){
       +`<div class="letter-cta" id="letterCta"></div>`
       +`<div class="letter-div">· · ·</div>`
       +LETTER2.map(p=>`<p>${p}</p>`).join('')
-      +`<div class="letter-div">19 de enero</div>`
-      +LETTER_BDAY.map(p=>`<p>${p}</p>`).join('')
+      +`<div class="letter-div">· · ·</div>`
+      +`<p>${LETTER3_INTRO}</p>`
+      +`<div class="mem-field" id="memField"></div>`
+      +`<p>${LETTER3_SIG}</p>`
       +`<div class="ps" id="psBlock"></div>`;
+    renderMemories();
     // botón de posdata: se cuelga de la última firma (la del cierre de la parte 2)
     const sigs=box.querySelectorAll('.sig'); const sig=sigs[sigs.length-1];
     if(sig){
@@ -2068,13 +2115,50 @@ function animLetter(){
     letterDone=true;
   }
   const pars=[...box.querySelectorAll('p')];
-  const cta=$('#letterCta');
+  const cta=$('#letterCta'), memF=$('#memField');
   pars.forEach(p=>p.classList.remove('in'));
   if(cta)cta.classList.remove('in');
+  if(memF)memF.classList.remove('in');
   const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} }),{threshold:.2});
   pars.forEach(p=>io.observe(p));
   if(cta)io.observe(cta);
+  if(memF)io.observe(memF);
   setTimeout(()=>pars.slice(0,3).forEach(p=>p.classList.add('in')),80);
+}
+function renderMemories(){
+  const el=$('#memField'); if(!el)return;
+  const seen=new Set(ST.edits.memSeen||[]);
+  el.innerHTML=MEMORIES.map((m,i)=>{
+    const c=FALLBACK[m.hue].a;
+    const dur=(9+seeded(i*3.7)*7).toFixed(1);
+    const delay=(seeded(i*5.1)*9).toFixed(2);
+    return `<div class="mem-bubble${seen.has(i)?' seen':''}" data-mi="${i}" style="--c:${c};animation-duration:${dur}s;animation-delay:-${delay}s">
+      <span class="mem-ic">${m.icon}</span><span class="mem-lb">${esc(m.label)}</span>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.mem-bubble').forEach(b=>b.onclick=()=>openMemory(+b.dataset.mi));
+}
+function openMemory(i){
+  const m=MEMORIES[i]; if(!m)return;
+  ST.edits.memSeen=ST.edits.memSeen||[];
+  if(!ST.edits.memSeen.includes(i)){ ST.edits.memSeen.push(i); save(); }
+  const b=document.querySelector(`.mem-bubble[data-mi="${i}"]`); if(b)b.classList.add('seen');
+  const c=FALLBACK[m.hue].a;
+  document.body.insertAdjacentHTML('beforeend',`<div class="mem-overlay" id="memOverlay" style="--c:${c}">
+    <div class="mem-card">
+      <div class="mem-card-ic">${m.icon}</div>
+      <div class="mem-card-lb">${esc(m.label)}</div>
+      <p class="mem-card-txt">${esc(m.text)}</p>
+      <button class="pill" id="memClose">Cerrar</button>
+    </div></div>`);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>$('#memOverlay').classList.add('on')));
+  $('#memClose').onclick=closeMemory;
+  $('#memOverlay').onclick=e=>{ if(e.target.id==='memOverlay') closeMemory(); };
+}
+function closeMemory(){
+  const ov=$('#memOverlay'); if(!ov)return;
+  ov.classList.remove('on');
+  setTimeout(()=>ov.remove(),350);
 }
 function togglePS(){
   const box=$('#psBlock'); if(!box)return;
@@ -2113,7 +2197,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08f · carta-cumple';
+const BUILD='v 14-08h · recuerdos-burbujas';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -4452,6 +4536,7 @@ function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on');
    ══════════════════════════════════════════════════════════════════════ */
 addEventListener('keydown',e=>{
   if(e.key==='Escape'){ if(stageOn){closeStage();return;}
+    if($('#memOverlay')){closeMemory();return;}
     if($('#lyrPad').classList.contains('on')){closePad();return;}
     $('#modal').classList.remove('on'); closeDrawer(); }
   if(e.key==='l'&&!$('#lyrPad').classList.contains('on')&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)){ go('lyr'); return; }

@@ -335,8 +335,10 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   background:none;color:var(--a);font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .letter-cta button:hover{background:color-mix(in srgb,var(--a) 14%,transparent);transform:translateY(-2px)}
 .letter-cta img{width:30px;height:30px;border-radius:8px;object-fit:cover}
-.letter .sig.secret{cursor:pointer;transition:.4s;display:inline-block;user-select:none;-webkit-user-select:none}
-.letter .sig.secret:hover{text-shadow:0 0 18px var(--gold)}
+.ps-btn{background:none;border:1px solid var(--line);color:var(--dimmer);border-radius:100px;
+  padding:.3rem .8rem;font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:.3s;vertical-align:middle;margin-left:.5rem}
+.ps-btn:hover{color:var(--gold);border-color:var(--gold)}
 .ps{display:none;margin-top:2.6rem;padding-top:1.8rem;border-top:1px dashed rgba(244,239,230,.18);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
 .ps.on{display:block}
 .ps.in{opacity:1;transform:none}
@@ -2007,11 +2009,8 @@ function animLetter(){
     // no que yo invente — el origen de esto (who would've thought…) es tuyo de contar
     const sig=box.querySelector('.sig');
     if(sig){
-      sig.classList.add('secret'); sig.title='…';
-      let clicks=0, ct=null;
-      sig.onmousedown=e=>e.preventDefault();   // que el triple clic no seleccione el texto
-      sig.onclick=()=>{ clicks++; clearTimeout(ct); ct=setTimeout(()=>clicks=0,1400);
-        if(clicks>=3){ clicks=0; togglePS(); } };
+      sig.insertAdjacentHTML('afterend',' <button class="ps-btn" id="psOpen" title="Escribir una posdata">＋ P.D.</button>');
+      $('#psOpen').onclick=togglePS;
     }
     // cualquier <em> que nombre una canción real de la playlist se vuelve clicable
     box.querySelectorAll('em').forEach(em=>{
@@ -2076,7 +2075,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08b · fix-ytp+toasts';
+const BUILD='v 14-08c · pd-boton';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

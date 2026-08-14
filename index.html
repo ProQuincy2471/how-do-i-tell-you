@@ -335,6 +335,17 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   background:none;color:var(--a);font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .letter-cta button:hover{background:color-mix(in srgb,var(--a) 14%,transparent);transform:translateY(-2px)}
 .letter-cta img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.letter .sig.secret{cursor:pointer;transition:.4s;display:inline-block}
+.letter .sig.secret:hover{text-shadow:0 0 18px var(--gold)}
+.ps{display:none;margin-top:2.6rem;padding-top:1.8rem;border-top:1px dashed rgba(244,239,230,.18);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
+.ps.on{display:block}
+.ps.in{opacity:1;transform:none}
+.ps .ps-label{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer);margin-bottom:.9rem}
+.ps p{font-style:italic}
+.ps textarea{width:100%;min-height:140px;padding:.8rem 1rem;border-radius:12px;border:1px solid var(--line);
+  background:rgba(255,255,255,.03);outline:none;font-size:.95rem;line-height:1.7;font-family:var(--serif);font-style:italic;resize:vertical;color:inherit}
+.ps textarea:focus{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 6%,transparent)}
+.ps .ps-save{margin-top:.8rem}
 
 /* ── stats ── */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-bottom:2rem}
@@ -856,7 +867,7 @@ const ACTS = [
     quotes:["Out Of Time"], notes:[]
   },
   {
-    n:"Acto II", name:"I could be the one", hue:"violet",
+    n:"Acto II", name:"Sin que lo pidieras", hue:"violet",
     epi:"El impulso de estar ahí, aunque nadie lo pida.",
     songs:[
       ["Cry (with John Martin)","Gryffin, John Martin"],
@@ -871,7 +882,7 @@ const ACTS = [
     notes:["Aquí aplica indudablemente ese típico «I can do it alone», pero a la vez el «I know, but I want to do it for you»."]
   },
   {
-    n:"Acto III", name:"Still breathing", hue:"cyan",
+    n:"Acto III", name:"Seguir aquí", hue:"cyan",
     epi:"El acto largo. El año entero cabe aquí.",
     songs:[
       ["True Believer","Avicii"],["Addicted To You","Avicii"],
@@ -902,7 +913,7 @@ const ACTS = [
     notes:["Como tal no tiene algo específico en las lyrics, pero me recuerdan a esos momentos más bajos, y al menos en el último año, fuiste tú una de las personas que más me alentaba a seguir (aunque no lo hicieras directamente)."]
   },
   {
-    n:"Acto IV", name:"Stuck in the middle", hue:"gold",
+    n:"Acto IV", name:"Entre el sí y el no", hue:"gold",
     epi:"El nudo. Lo que no se ha dicho, y por qué.",
     songs:[
       ["Wouldn't Change A Thing","ILLENIUM, Thirty Seconds To Mars"],
@@ -928,7 +939,7 @@ const ACTS = [
     ]
   },
   {
-    n:"Acto V", name:"Soft spot", hue:"rose",
+    n:"Acto V", name:"Ya no es duda", hue:"rose",
     epi:"Donde deja de ser duda y empieza a ser evidencia.",
     songs:[
       ["PLAYING WITH FIRE","BLACKPINK"],["Killin' It Girl","j-hope, GloRilla"],
@@ -1616,11 +1627,10 @@ const FALLBACK={rose:{a:'#f0a7b8',b:'#c98ae0',d:'#160b11',m:'#301a25'},
    ══════════════════════════════════════════════════════════════════════ */
 let SONGS=[], ACTV=[], BYKEY={};
 const mkKey=(t,ar)=>t+'||'+ar;
-const LABELS={Nebulosa:['Nebulosa','Nebulosas'],Cúmulo:['Cúmulo','Cúmulos'],
-  Estela:['Estela','Estelas'],Cuadrante:['Cuadrante','Cuadrantes'],Órbita:['Órbita','Órbitas'],
-  Fase:['Fase','Fases'],Capítulo:['Capítulo','Capítulos'],Tramo:['Tramo','Tramos'],
-  Movimiento:['Movimiento','Movimientos'],Acto:['Acto','Actos'],
-  Deriva:['Deriva','Derivas'],Marea:['Marea','Mareas'],Latido:['Latido','Latidos']};
+const LABELS={Nebulosa:['Nebulosa','Nebulosas'],Estela:['Estela','Estelas'],
+  Señal:['Señal','Señales'],Frecuencia:['Frecuencia','Frecuencias'],Bitácora:['Bitácora','Bitácoras'],
+  Confesión:['Confesión','Confesiones'],Murmullo:['Murmullo','Murmullos'],Travesía:['Travesía','Travesías'],
+  Rastro:['Rastro','Rastros'],Cauce:['Cauce','Cauces']};
 const LB=()=> LABELS[ST.prefs.label]||LABELS.Nebulosa;
 const relabel=t=>String(t).replace(/^Acto\b/,LB()[0]);
 
@@ -1991,7 +2001,17 @@ function animLetter(){
     box.style.position='relative';
     const dust=Array.from({length:16},(_,i)=>
       `<i style="left:${(seeded(i*3.1)*100).toFixed(1)}%;top:${(seeded(i*7.7+1)*100).toFixed(1)}%;animation-delay:${(seeded(i*5.3)*6).toFixed(2)}s"></i>`).join('');
-    box.innerHTML=`<div class="letter-dust">${dust}</div>`+LETTER.map(p=>`<p>${p}</p>`).join('')+`<div class="letter-cta" id="letterCta"></div>`;
+    box.innerHTML=`<div class="letter-dust">${dust}</div>`+LETTER.map(p=>`<p>${p}</p>`).join('')
+      +`<div class="letter-cta" id="letterCta"></div><div class="ps" id="psBlock"></div>`;
+    // easter egg: tres clics seguidos en la firma abren una posdata que tú escribes,
+    // no que yo invente — el origen de esto (who would've thought…) es tuyo de contar
+    const sig=box.querySelector('.sig');
+    if(sig){
+      sig.classList.add('secret'); sig.title='…';
+      let clicks=0, ct=null;
+      sig.onclick=()=>{ clicks++; clearTimeout(ct); ct=setTimeout(()=>clicks=0,900);
+        if(clicks>=3){ clicks=0; togglePS(); } };
+    }
     // cualquier <em> que nombre una canción real de la playlist se vuelve clicable
     box.querySelectorAll('em').forEach(em=>{
       const t=em.textContent.trim();
@@ -2009,14 +2029,36 @@ function animLetter(){
     }
     letterDone=true;
   }
-  const ps=[...box.querySelectorAll('p')];
+  const pars=[...box.querySelectorAll('p')];
   const cta=$('#letterCta');
-  ps.forEach(p=>p.classList.remove('in'));
+  pars.forEach(p=>p.classList.remove('in'));
   if(cta)cta.classList.remove('in');
   const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} }),{threshold:.2});
-  ps.forEach(p=>io.observe(p));
+  pars.forEach(p=>io.observe(p));
   if(cta)io.observe(cta);
-  setTimeout(()=>ps.slice(0,3).forEach(p=>p.classList.add('in')),80);
+  setTimeout(()=>pars.slice(0,3).forEach(p=>p.classList.add('in')),80);
+}
+function togglePS(){
+  const box=$('#psBlock'); if(!box)return;
+  box.classList.add('on');
+  paintPS();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>box.classList.add('in')));
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function paintPS(){
+  const box=$('#psBlock'); if(!box)return;
+  const txt=(ST.edits.ps||'').trim();
+  if(txt && box.dataset.editing!=='1'){
+    box.innerHTML=`<div class="ps-label">P.D. secreta</div>`
+      +txt.split('\n').filter(Boolean).map(l=>`<p>${esc(l)}</p>`).join('')
+      +`<button class="pill ps-save" id="psEdit">Editar</button>`;
+    $('#psEdit').onclick=()=>{ box.dataset.editing='1'; paintPS(); };
+  } else {
+    box.innerHTML=`<div class="ps-label">P.D. secreta — solo tú la ves y solo tú la escribes</div>
+      <textarea id="psTxt" placeholder="Un párrafo por línea…">${esc(ST.edits.ps||'')}</textarea>
+      <button class="pill solid ps-save" id="psSave">Guardar</button>`;
+    $('#psSave').onclick=()=>{ ST.edits.ps=$('#psTxt').value; save(); box.dataset.editing='0'; paintPS(); toast('Guardada'); };
+  }
 }
 
 function renderAll(){
@@ -2033,7 +2075,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-08c · messier+voces+labels';
+const BUILD='v 13-08d · nombres+pd-secreta';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

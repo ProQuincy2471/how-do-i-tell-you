@@ -242,7 +242,12 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .tile-d{position:absolute;top:.5rem;right:.6rem;width:8px;height:8px;border-radius:50%;background:var(--sa);
   box-shadow:0 0 10px var(--sa);opacity:0;transition:.4s}
 .tile.heard .tile-d{opacity:1}
-.mos-filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.mos-filters{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin-bottom:1.6rem}
+.mos-filters .msp{flex:1}
+.mosaic.by-color .tile{order:var(--ord,0)}
+.mosaic.reveal .tile{animation:tileIn .5s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes tileIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+
 .chip{padding:.42rem .9rem;border-radius:100px;border:1px solid var(--line);font-size:.62rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--dim);transition:.3s}
 .chip:hover{color:var(--paper);border-color:var(--a)}
@@ -316,7 +321,20 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .letter p.in{animation:letterIn 1.4s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes letterIn{to{opacity:1;transform:none;filter:none}}
 .letter em{color:var(--rose);font-style:italic}
+.letter em.lref{cursor:pointer;border-bottom:1px dotted currentColor;transition:.3s;position:relative}
+.letter em.lref:hover{color:var(--gold)}
+.letter em.lref::after{content:'♫';font-style:normal;font-size:.62em;margin-left:.3em;opacity:.55;vertical-align:.15em}
 .letter .sig{color:var(--gold)}
+.letter-dust{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.letter-dust i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--paper);opacity:0;
+  animation:dustTwinkle 6s ease-in-out infinite}
+@keyframes dustTwinkle{0%,100%{opacity:0}50%{opacity:.55}}
+.letter-cta{display:flex;justify-content:center;margin-top:.6rem;opacity:0;transform:translateY(14px);transition:opacity 1.2s,transform 1.2s}
+.letter-cta.in{opacity:1;transform:none}
+.letter-cta button{display:flex;align-items:center;gap:.6rem;padding:.7rem 1.3rem;border-radius:100px;border:1px solid var(--a);
+  background:none;color:var(--a);font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.letter-cta button:hover{background:color-mix(in srgb,var(--a) 14%,transparent);transform:translateY(-2px)}
+.letter-cta img{width:30px;height:30px;border-radius:8px;object-fit:cover}
 
 /* ── stats ── */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-bottom:2rem}
@@ -1844,10 +1862,17 @@ function featureHTML(s){
   </div>`;
 }
 
+// resuelve una cita por título: si hay varias canciones con el mismo título (p.ej. dos
+// "Stuck In The Middle" de artistas distintos), prefiere la que pertenece al propio acto
+// citado antes que la primera coincidencia global — si no, cae al título global tal cual antes.
+function quoteSong(a,q){
+  const inAct=a.songs.find(s=>s.t===q);
+  return inAct||SONGS.find(x=>x.t===q);
+}
 function interludeHTML(a,col){
   if(!(a.quotes||[]).length && !(a.notes||[]).length) return '';
   const q=a.quotes[0]||'';
-  const s=SONGS.find(x=>x.t===q);
+  const s=quoteSong(a,q);
   const lines=(s&&(s.og||'').trim())? s.og.split('\n').filter(Boolean)
     : [`— letra pendiente de «${q}» · añádela desde ✎ Editar —`];
   const c=s?s.pal.a:col;
@@ -1860,26 +1885,36 @@ function interludeHTML(a,col){
   </div>`;
 }
 
+const hueOf=hex=>{ const [r,g,b]=hex2rgb(hex).map(v=>v/255); const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;
+  if(!d) return 0;
+  let h = mx===r ? ((g-b)/d)%6 : mx===g ? (b-r)/d+2 : (r-g)/d+4;
+  h*=60; return h<0?h+360:h; };
 function renderMosaic(){
   const f=$('#mosFilters');
   f.innerHTML=`<button class="chip${mosFilter<0?' on':''}" data-mf="-1">Todos</button>`
     +ACTV.map(a=>`<button class="chip${mosFilter===a.ai?' on':''}" data-mf="${a.ai}" style="--a:${actColor(a)}">${esc(a.n)}</button>`).join('')
     +`<button class="chip${mosFilter===-2?' on':''}" data-mf="-2">♥ Favoritas</button>`
-    +`<button class="chip${mosFilter===-3?' on':''}" data-mf="-3">Sin escuchar</button>`;
+    +`<button class="chip${mosFilter===-3?' on':''}" data-mf="-3">Sin escuchar</button>`
+    +`<span class="msp"></span>`
+    +`<button class="chip${mosSort==='color'?' on':''}" id="mosSortBtn">◑ Ordenar por color</button>`;
   let list=SONGS;
   if(mosFilter>=0) list=SONGS.filter(s=>s.ai===mosFilter);
   if(mosFilter===-2) list=SONGS.filter(s=>fav(s.key));
   if(mosFilter===-3) list=SONGS.filter(s=>!heard(s.key));
+  if(mosSort==='color') list=[...list].sort((a,b)=>hueOf(a.pal.a)-hueOf(b.pal.a));
   $('#mosN').textContent=SONGS.length;
-  $('#mosaic').innerHTML=list.map(s=>`
-    <div class="tile${heard(s.key)?' heard':''}" data-key="${esc(s.key)}" style="${styleVars(s)}">
+  const el=$('#mosaic');
+  el.classList.toggle('reveal',mosSort==='color');
+  el.innerHTML=list.map((s,i)=>`
+    <div class="tile${heard(s.key)?' heard':''}" data-key="${esc(s.key)}" style="${styleVars(s)};animation-delay:${Math.min(i*14,700)}ms">
       ${s.vid?`<img loading="lazy" src="${cover(s)}" alt="">`:''}
       <div class="tile-n">${esc(s.actn.replace('Acto ','')) }·${s.si+1}</div>
       <div class="tile-d"></div>
       <div class="tile-i"><b>${esc(s.t)}</b><span>${esc(s.ar)}</span>${ALB[s.base||s.key]&&ALB[s.base||s.key].al?`<span style="opacity:.7">${esc(ALB[s.base||s.key].al)}${ALB[s.base||s.key].yr?' · '+ALB[s.base||s.key].yr:''}</span>`:''}</div>
     </div>`).join('') || '<div class="empty">Nada aquí todavía.</div>';
+  if($('#mosSortBtn')) $('#mosSortBtn').onclick=()=>{ mosSort=mosSort==='color'?'idx':'color'; renderMosaic(); };
 }
-let mosFilter=-1;
+let mosFilter=-1, mosSort='idx';
 
 function renderSearch(q){
   q=(q||'').trim().toLowerCase();
@@ -1951,11 +1986,35 @@ function renderMaps(){
 let letterDone=false;
 function animLetter(){
   const box=$('#letterBody');
-  if(!letterDone){ box.innerHTML=LETTER.map(p=>`<p>${p}</p>`).join(''); letterDone=true; }
+  if(!letterDone){
+    box.style.position='relative';
+    const dust=Array.from({length:16},(_,i)=>
+      `<i style="left:${(seeded(i*3.1)*100).toFixed(1)}%;top:${(seeded(i*7.7+1)*100).toFixed(1)}%;animation-delay:${(seeded(i*5.3)*6).toFixed(2)}s"></i>`).join('');
+    box.innerHTML=`<div class="letter-dust">${dust}</div>`+LETTER.map(p=>`<p>${p}</p>`).join('')+`<div class="letter-cta" id="letterCta"></div>`;
+    // cualquier <em> que nombre una canción real de la playlist se vuelve clicable
+    box.querySelectorAll('em').forEach(em=>{
+      const t=em.textContent.trim();
+      // si el título es la cita/epígrafe de algún acto, esa es la canción correcta
+      // (algunos títulos se repiten entre artistas distintos, p.ej. dos "Stuck In The Middle")
+      const act=ACTV.find(a=>(a.quotes||[]).includes(t));
+      const s=act ? quoteSong(act,t) : SONGS.find(x=>x.t.toLowerCase()===t.toLowerCase());
+      if(s){ em.classList.add('lref'); em.dataset.open=s.key; em.title='Abrir «'+s.t+'»'; }
+    });
+    const first=box.querySelector('em.lref');
+    if(first){
+      const s=BYKEY[first.dataset.open];
+      $('#letterCta').innerHTML=`<button data-play="${esc(s.key)}">
+        ${artOf(s)?`<img src="${artOf(s)}" alt="">`:''}<span>▶ Escúchala mientras lees esto</span></button>`;
+    }
+    letterDone=true;
+  }
   const ps=[...box.querySelectorAll('p')];
+  const cta=$('#letterCta');
   ps.forEach(p=>p.classList.remove('in'));
+  if(cta)cta.classList.remove('in');
   const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} }),{threshold:.2});
   ps.forEach(p=>io.observe(p));
+  if(cta)io.observe(cta);
   setTimeout(()=>ps.slice(0,3).forEach(p=>p.classList.add('in')),80);
 }
 
@@ -1973,7 +2032,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 28-07 20:40 · letras';
+const BUILD='v 13-08 · carta+mosaico+camino';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -2830,6 +2889,14 @@ function drawConst(){
       pts.forEach((n,i)=>{const [sx,sy]=W2S(n.x,n.y);i?x.lineTo(sx,sy):x.moveTo(sx,sy);});
       x.strokeStyle='rgba(232,200,138,.55)';x.lineWidth=Math.max(.8,1.3*Z);
       x.setLineDash([6,6]);x.lineDashOffset=-t*.02;x.stroke();x.setLineDash([]);x.lineDashOffset=0;
+      // «estás aquí»: un pulso suave sobre la última estrella escuchada, el final del camino por ahora
+      const here=pts[pts.length-1];
+      if(here){
+        const [hx,hy]=W2S(here.x,here.y);
+        const pulse=.5+.5*Math.sin(t*.0022);
+        x.beginPath();x.arc(hx,hy,(9+pulse*5)*Z,0,7);
+        x.strokeStyle=`rgba(232,200,138,${.3+pulse*.25})`;x.lineWidth=Math.max(.6,1*Z);x.stroke();
+      }
     }
     if(CST.hover){
       const h=CST.hover,[hx,hy]=W2S(h.x,h.y);

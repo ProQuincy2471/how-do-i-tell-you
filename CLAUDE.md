@@ -96,5 +96,12 @@ HTML solo sirve para dejar letras por defecto en el código.
 - «Only One» y «Walk Thru Fire» aparecen **dos veces** en la playlist. Cada
   aparición tiene su propia clave (`key`), pero comparten `base` para buscar
   portada y color.
+- Varios **títulos se repiten entre artistas distintos** (p. ej. dos canciones
+  llamadas «Stuck In The Middle», una de Ran-D/Vertile y otra de BABYMONSTER —
+  esta última es el epígrafe del Acto IV, que se llama igual). Buscar una
+  canción solo por título (`SONGS.find(x=>x.t===q)`) puede traer la
+  equivocada. Para resolver la cita/epígrafe de un acto, usar `quoteSong(a,q)`
+  — prioriza la que está dentro del propio acto antes que la primera
+  coincidencia global.
 - Los textos de las canciones son citas del usuario. **No inventar letras**: la
   página tiene un editor para pegarlas (y soporta formato LRC sincronizado).

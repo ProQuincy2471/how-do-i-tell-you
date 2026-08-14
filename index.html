@@ -335,7 +335,7 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   background:none;color:var(--a);font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .letter-cta button:hover{background:color-mix(in srgb,var(--a) 14%,transparent);transform:translateY(-2px)}
 .letter-cta img{width:30px;height:30px;border-radius:8px;object-fit:cover}
-.letter .sig.secret{cursor:pointer;transition:.4s;display:inline-block}
+.letter .sig.secret{cursor:pointer;transition:.4s;display:inline-block;user-select:none;-webkit-user-select:none}
 .letter .sig.secret:hover{text-shadow:0 0 18px var(--gold)}
 .ps{display:none;margin-top:2.6rem;padding-top:1.8rem;border-top:1px dashed rgba(244,239,230,.18);opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
 .ps.on{display:block}
@@ -2009,7 +2009,8 @@ function animLetter(){
     if(sig){
       sig.classList.add('secret'); sig.title='…';
       let clicks=0, ct=null;
-      sig.onclick=()=>{ clicks++; clearTimeout(ct); ct=setTimeout(()=>clicks=0,900);
+      sig.onmousedown=e=>e.preventDefault();   // que el triple clic no seleccione el texto
+      sig.onclick=()=>{ clicks++; clearTimeout(ct); ct=setTimeout(()=>clicks=0,1400);
         if(clicks>=3){ clicks=0; togglePS(); } };
     }
     // cualquier <em> que nombre una canción real de la playlist se vuelve clicable
@@ -2075,7 +2076,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-08d · nombres+pd-secreta';
+const BUILD='v 14-08b · fix-ytp+toasts';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -3349,6 +3350,9 @@ function ticker(){
 }
 const fmt=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 
+const HEARD_MSGS=['una más — quién iba a pensarlo','encendida ✧ esa ya es tuya',
+  'ahí va, una menos por decir','esa ya suena distinto sabiendo que la escuchaste',
+  'encendida — sigue sonando'];
 function play(key){
   const s=BYKEY[key]; if(!s)return;
   cur=s; playing=s; applyPalette(s); setSongAudio(s);
@@ -3363,15 +3367,21 @@ function play(key){
     clearTimeout(watchdog); watchdog=setTimeout(()=>{ if(!YTP&&cur&&cur.vid) goSimple(cur.vid,'Reproductor simple'); },7000); }
   else if(!YTP){ makePlayer(s.vid);
     clearTimeout(watchdog); watchdog=setTimeout(()=>{ if((!YTP||!YTP.getDuration||!YTP.getDuration())&&cur&&cur.vid) goSimple(cur.vid,'Reproductor simple'); },7000); }
+  else if(typeof YTP.loadVideoById!=='function'){
+    // algunos bloqueadores de anuncios (Opera GX incluido) dejan la API de YouTube a
+    // medio construir: el objeto existe pero sin sus métodos — si pasa, cae al iframe simple
+    goSimple(s.vid,'Reproductor simple');
+  }
   else {
     // cortar en seco lo anterior antes de cargar: si se solapan, se oyen
     // las dos pistas desfasadas y suena desafinado
     try{ YTP.stopVideo(); }catch(e){}
     try{ YTP.setPlaybackRate(1); }catch(e){}
-    YTP.loadVideoById(s.vid);
+    try{ YTP.loadVideoById(s.vid); }catch(e){ goSimple(s.vid,'Reproductor simple'); }
   }
   if(shuffleOn){ const qi=shufQ.indexOf(key); if(qi>=0) shufPos=qi; }
-  if(!heard(key)){ ST.heard.push(key); save(); refreshHeard(); }
+  if(!heard(key)){ ST.heard.push(key); save(); refreshHeard();
+    toast(HEARD_MSGS[(Math.random()*HEARD_MSGS.length)|0]); }
   $$('.row').forEach(r=>r.classList.toggle('playing',r.dataset.key===key));
   if(stageOn) paintStage();
   if(CST.built){ const n=CST.nodes.find(n=>n.s.key===key);

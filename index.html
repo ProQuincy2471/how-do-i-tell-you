@@ -360,8 +360,9 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .mem-bubble.seen{opacity:.5}
 .mem-bubble.seen::after{content:'';position:absolute;top:10px;right:16%;width:6px;height:6px;border-radius:50%;
   background:var(--c);box-shadow:0 0 8px var(--c)}
-.mem-ic{font-size:1.6em;line-height:1;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent))}
-.mem-lb{font-size:.58em;line-height:1.2;color:var(--paper);opacity:.85;padding:0 .2rem}
+.mem-ic{display:flex;align-items:center;justify-content:center;line-height:1;width:1.35em;height:1.35em;
+  filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent))}
+.mem-lb{line-height:1.2;color:var(--paper);opacity:.85;padding:0 .2rem}
 .mem-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
   background:rgba(4,5,10,.82);backdrop-filter:blur(10px);opacity:0;transition:opacity .35s;padding:1.4rem}
 .mem-overlay.on{opacity:1}
@@ -1081,7 +1082,7 @@ const LETTER2 = [
 const LETTER3_INTRO = `Esto último no cabía en párrafos — así que aquí va de otra forma. Cada burbuja es un recuerdo. Tócalas.`;
 const LETTER3_SIG = `<span class='sig'>Por el año, Ana. Por lo que sí pasó, y por lo que sigue pasando.</span>`;
 const MEMORIES = [
-  {icon:'🏥',hue:'rose',label:'El cruce',text:'Un cambio de rotación al azar en piso MI, ABC — una optativa metida casi de casualidad con Ontañón y con Magaña. Ninguno sabía que el otro iba a importar.'},
+  {icon:'🌠',hue:'rose',label:'El cruce',text:'Un cambio de rotación al azar en piso MI, ABC — una optativa metida casi de casualidad con Ontañón y con Magaña. Ninguno sabía que el otro iba a importar.'},
   {icon:'😷',hue:'rose',label:'El primer día',text:'Ni siquiera hablamos. Solo una mirada cruzada, una diadema sosteniendo un cubrebocas, y una cara de «no me hables» que no era personal.'},
   {icon:'🎧',hue:'violet',label:'¿Te gusta el kpop?',text:'La pregunta que cambió todo, gritada con más energía de la que cabía en una frase. Contesté que sí, con miedo, como examen oral.'},
   {icon:'🥐',hue:'cyan',label:'Desayunos random',text:'Cruces esporádicos en la cafetería del ABC, sin planearlos, que con el tiempo dejaron de ser esporádicos.'},
@@ -1103,12 +1104,12 @@ const MEMORIES = [
   {icon:'🌶️',hue:'gold',label:'Ronchas de Xoco',text:'Un misterio médico que ninguno de los dos resolvió nunca.'},
   {icon:'🚗',hue:'gold',label:'Las cuatro llantas',text:'Había días en que hasta el coche cooperando se sentía como una noticia que merecía anunciarse.'},
   {icon:'🗒️',hue:'rose',label:'Post-its anti-ansiedad',text:'Un juguito de regalo que todavía no uso, guardado por si acaso.'},
-  {icon:'🐟',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
-  {icon:'🍽️',hue:'cyan',label:'Casi almorzar en la Roma',text:'Terminamos ahí sin plan, decidiendo qué comer más tiempo del que tardamos en comerlo.'},
-  {icon:'🤖',hue:'gold',label:'Preguntas a ChatGPT',text:'Un juego improvisado para matar el tiempo: contestar lo que fuera que se nos ocurriera preguntarle.'},
+  {icon:'🎐',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
+  {icon:'🌆',hue:'cyan',label:'Casi almorzar en la Roma',text:'Terminamos ahí sin plan, decidiendo qué comer más tiempo del que tardamos en comerlo.'},
+  {icon:'💭',hue:'gold',label:'Preguntas a ChatGPT',text:'Un juego improvisado para matar el tiempo: contestar lo que fuera que se nos ocurriera preguntarle.'},
   {icon:'🍵',hue:'cyan',label:'Café en la Mexicana',text:'Cerrando esa rotación con café y con Vero, como debía ser.'},
   {icon:'🎮',hue:'gold',label:'PewDiePie y Outlast',text:'Conversaciones sin ninguna razón particular. Solo porque sí.'},
-  {icon:'🐰',hue:'gold',label:'Todo lo que dijera Jungkook',text:'Cualquier cosa que lo mencionara, enviada sin razón ni disculpa.'},
+  {icon:'📲',hue:'gold',label:'Todo lo que dijera Jungkook',text:'Cualquier cosa que lo mencionara, enviada sin razón ni disculpa.'},
   {icon:'😬',hue:'gold',label:'Santos Bravos',text:'Una experiencia que ninguno de los dos pidió y que ninguno de los dos olvida.'},
   {icon:'🪖',hue:'cyan',label:'Esperando a los bitis',text:'Contando los días para que el servicio militar terminara, como si fuera nuestro.'},
   {icon:'📸',hue:'gold',label:'El trend de las fotos con Gemini',text:'Caímos en la moda exactamente al mismo tiempo que todo el mundo.'},
@@ -1124,7 +1125,7 @@ const MEMORIES = [
   {icon:'🏎️',hue:'gold',label:'El recap de F1, F2 y F3',text:'Jugado en un restaurante, mientras esperábamos la comida. Ese sí funcionó.'},
   {icon:'🍗',hue:'gold',label:'El mega plato de pollo',text:'En SSAM pediste un plato entero y fue lo único que comiste. Nunca lo voy a olvidar.'},
   {icon:'📞',hue:'cyan',label:'Teléfono Negro 2',text:'Después de comer, al cine — porque un año sin ver algo random juntos no cuenta.'},
-  {icon:'👥',hue:'cyan',label:'Con Fonsi y Melvin',text:'Otro día cualquiera en la central de MI, justo antes de que sonara el código.'},
+  {icon:'🗨️',hue:'cyan',label:'Con Fonsi y Melvin',text:'Otro día cualquiera en la central de MI, justo antes de que sonara el código.'},
   {icon:'🚨',hue:'cyan',label:'El código pediátrico',text:'Salí disparado a media plática por un paciente que acababa de llegar. Así era y así seguirá siendo.'},
   {icon:'🎢',hue:'rose',label:'Tus aventuras inesperadas',text:'Nunca fue molestia que me contaras tus historias con sorpresas de último momento. Al contrario: siempre quise saber más.'},
   {icon:'💜',hue:'rose',label:'Best bestie bestie',text:'No sé en qué momento exacto una interacción tan aleatoria se convirtió en esto: la persona con la que hablo todos los días.'},
@@ -2204,8 +2205,12 @@ function renderMemories(){
   const seen=new Set(ST.edits.memSeen||[]);
   el.innerHTML=MEMORIES.map((m,i)=>{
     const c=FALLBACK[m.hue].a, p=MEM_PHYS[i], d=(p.r*2).toFixed(0);
-    return `<div class="mem-bubble${seen.has(i)?' seen':''}" data-mi="${i}" style="--c:${c};width:${d}px;height:${d}px;font-size:${(p.r/32).toFixed(2)}em">
-      <span class="mem-ic">${m.icon}</span><span class="mem-lb">${esc(m.label)}</span>
+    // el ícono nunca crece más allá de este rango, sin importar el radio de la burbuja
+    // ni cuánto "peso visual" tenga el glifo — así no hay uno gigante y otro diminuto
+    const icPx=Math.max(17,Math.min(27,p.r*0.52)).toFixed(1);
+    const lbPx=Math.max(8.5,Math.min(11.5,p.r*0.23)).toFixed(1);
+    return `<div class="mem-bubble${seen.has(i)?' seen':''}" data-mi="${i}" style="--c:${c};width:${d}px;height:${d}px">
+      <span class="mem-ic" style="font-size:${icPx}px">${m.icon}</span><span class="mem-lb" style="font-size:${lbPx}px">${esc(m.label)}</span>
     </div>`;
   }).join('');
   el.querySelectorAll('.mem-bubble').forEach(b=>b.onclick=()=>openMemory(+b.dataset.mi));
@@ -2312,7 +2317,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08m · fisica-ajustada';
+const BUILD='v 14-08n · iconos-corregidos';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

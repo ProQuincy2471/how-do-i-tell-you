@@ -226,7 +226,11 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .il-note{border-left:2px solid var(--rose);padding-left:1.1rem;margin-top:1.4rem;color:var(--dim);font-size:.9rem;line-height:1.75;max-width:62ch}
 
 /* ── mosaico ── */
-.mosaic{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(130px,11vw,190px),1fr));gap:.8rem}
+.mosaic{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile-min,150px),1fr));gap:var(--tile-gap,.8rem);transition:gap .25s}
+.mosaic.tiny .tile{border-radius:5px;border-width:0}
+.mosaic.tiny .tile-n,.mosaic.tiny .tile-i,.mosaic.tiny .tile-d{display:none}
+.mos-zoom{display:flex;align-items:center;gap:.5rem;color:var(--dimmer);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.mos-zoom input[type=range]{width:110px;accent-color:var(--a)}
 .tile{position:relative;min-height:148px;aspect-ratio:1;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid var(--line);
   background:var(--sm,#111);transition:transform .4s cubic-bezier(.2,.9,.2,1),box-shadow .4s}
 .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s,filter .5s;filter:saturate(.75) brightness(.62)}
@@ -345,13 +349,25 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   justify-content:center;gap:.3rem;cursor:pointer;text-align:center;padding:.6rem;
   background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 38%,transparent),color-mix(in srgb,var(--c) 10%,transparent) 60%,transparent 78%);
   border:1px solid color-mix(in srgb,var(--c) 45%,transparent);
-  box-shadow:0 0 22px color-mix(in srgb,var(--c) 22%,transparent), inset 0 0 18px color-mix(in srgb,var(--c) 14%,transparent);
-  animation:memBob 10s ease-in-out infinite;transition:transform .35s,box-shadow .35s;justify-self:center;width:100%;max-width:150px}
-.mem-bubble:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 4px 30px color-mix(in srgb,var(--c) 38%,transparent), inset 0 0 22px color-mix(in srgb,var(--c) 20%,transparent)}
-.mem-bubble.seen{opacity:.56}
+  animation:memFloat var(--dur,12s) ease-in-out infinite, memGlow var(--gdur,6s) ease-in-out infinite;
+  animation-delay:var(--del,0s), var(--gdel,0s);
+  transition:transform .35s,box-shadow .35s;justify-self:center;width:100%;max-width:150px}
+.mem-bubble:hover{animation-play-state:paused;transform:translate(0,-6px) scale(1.08) !important;
+  box-shadow:0 4px 30px color-mix(in srgb,var(--c) 38%,transparent), inset 0 0 22px color-mix(in srgb,var(--c) 20%,transparent)}
+.mem-bubble.seen{opacity:.5}
 .mem-bubble.seen::after{content:'';position:absolute;top:10px;right:16%;width:6px;height:6px;border-radius:50%;
   background:var(--c);box-shadow:0 0 8px var(--c)}
-@keyframes memBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes memFloat{
+  0%{transform:translate(0,0) rotate(0deg)}
+  22%{transform:translate(var(--dx),calc(var(--dy) * -1)) rotate(var(--rot))}
+  50%{transform:translate(calc(var(--dx) * -.7),calc(var(--dy) * .6)) rotate(0deg)}
+  74%{transform:translate(calc(var(--dx) * .5),var(--dy)) rotate(calc(var(--rot) * -1))}
+  100%{transform:translate(0,0) rotate(0deg)}
+}
+@keyframes memGlow{
+  0%,100%{box-shadow:0 0 18px color-mix(in srgb,var(--c) 18%,transparent), inset 0 0 16px color-mix(in srgb,var(--c) 11%,transparent)}
+  50%{box-shadow:0 0 30px color-mix(in srgb,var(--c) 32%,transparent), inset 0 0 22px color-mix(in srgb,var(--c) 18%,transparent)}
+}
 .mem-ic{font-size:1.7rem;line-height:1;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent))}
 .mem-lb{font-size:.62rem;line-height:1.25;color:var(--paper);opacity:.85;padding:0 .3rem}
 .mem-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
@@ -703,6 +719,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
       <h2 class="vtitle">Mosaico</h2>
       <p class="vsub">Las <span id="mosN">190</span> portadas. Cada una le dio su color a su canción en toda la app.</p>
       <div class="mos-filters" id="mosFilters"></div>
+      <div class="mos-zoom">⊙ <input type="range" id="mosZoom" min="46" max="220" value="150"> ⊞</div>
       <div class="mosaic" id="mosaic"></div>
     </section>
 
@@ -1095,9 +1112,26 @@ const MEMORIES = [
   {icon:'🚗',hue:'gold',label:'Las cuatro llantas',text:'Había días en que hasta el coche cooperando se sentía como una noticia que merecía anunciarse.'},
   {icon:'💛',hue:'rose',label:'Post-its anti-ansiedad',text:'Un juguito de regalo que todavía no uso, guardado por si acaso.'},
   {icon:'🎵',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
-  {icon:'🏎️',hue:'gold',label:'F1, F2 y F3',text:'La película decepcionó. El juego de recap en un restaurante, mientras esperábamos la comida, no.'},
+  {icon:'🍜',hue:'cyan',label:'Casi almorzar en la Roma',text:'Terminamos ahí sin plan, decidiendo qué comer más tiempo del que tardamos en comerlo.'},
+  {icon:'🤖',hue:'gold',label:'Preguntas a ChatGPT',text:'Un juego improvisado para matar el tiempo: contestar lo que fuera que se nos ocurriera preguntarle.'},
+  {icon:'☕',hue:'cyan',label:'Café en la Mexicana',text:'Cerrando esa rotación con café y con Vero, como debía ser.'},
+  {icon:'🎮',hue:'gold',label:'PewDiePie y Outlast',text:'Conversaciones sin ninguna razón particular. Solo porque sí.'},
+  {icon:'🐰',hue:'gold',label:'Todo lo que dijera Jungkook',text:'Cualquier cosa que lo mencionara, enviada sin razón ni disculpa.'},
+  {icon:'😬',hue:'gold',label:'Santos Bravos',text:'Una experiencia que ninguno de los dos pidió y que ninguno de los dos olvida.'},
+  {icon:'🪖',hue:'cyan',label:'Esperando a los bitis',text:'Contando los días para que el servicio militar terminara, como si fuera nuestro.'},
+  {icon:'📸',hue:'gold',label:'El trend de las fotos con Gemini',text:'Caímos en la moda exactamente al mismo tiempo que todo el mundo.'},
+  {icon:'🍰',hue:'cyan',label:'Cheesecake después de examen',text:'El premio obligatorio después de sobrevivir a cualquier examen.'},
+  {icon:'😩',hue:'gold',label:'Los miércoles con Arechiga',text:'Una clase que ninguno de los dos toleraba a esa hora, cada semana.'},
+  {icon:'😭',hue:'violet',label:'Llorar con Business Proposal',text:'11/10, sin exagerar. Lloramos como si nos hubiera pasado a nosotros.'},
+  {icon:'📺',hue:'violet',label:'Recomendaciones de kdramas',text:'Una lista que nunca se termina de completar, empezando por Twinkling Watermelon.'},
+  {icon:'🌮',hue:'gold',label:'Sopecitos pendientes',text:'Una deuda que sigue sin cobrarse. Los esquites también.'},
+  {icon:'🙄',hue:'gold',label:'Funar a Nat',text:'Un clásico. Cada vez que hacía falta, y a veces sin que hiciera falta.'},
+  {icon:'🃏',hue:'gold',label:'Las Twai',text:'Un juego, una excusa, una tarde entera resuelta sin darnos cuenta.'},
+  {icon:'🎥',hue:'gold',label:'La película de F1',text:'No cumplió las expectativas. Ninguna de las dos, la verdad.'},
+  {icon:'🏎️',hue:'gold',label:'El recap de F1, F2 y F3',text:'Jugado en un restaurante, mientras esperábamos la comida. Ese sí funcionó.'},
   {icon:'🍗',hue:'gold',label:'El mega plato de pollo',text:'En SSAM pediste un plato entero y fue lo único que comiste. Nunca lo voy a olvidar.'},
   {icon:'📞',hue:'cyan',label:'Teléfono Negro 2',text:'Después de comer, al cine — porque un año sin ver algo random juntos no cuenta.'},
+  {icon:'👥',hue:'cyan',label:'Con Fonsi y Melvin',text:'Otro día cualquiera en la central de MI, justo antes de que sonara el código.'},
   {icon:'🚨',hue:'cyan',label:'El código pediátrico',text:'Salí disparado a media plática por un paciente que acababa de llegar. Así era y así seguirá siendo.'},
   {icon:'💜',hue:'rose',label:'Best bestie bestie',text:'No sé en qué momento exacto una interacción tan aleatoria se convirtió en esto: la persona con la que hablo todos los días.'},
   {icon:'🙏',hue:'rose',label:'Gracias por dejarme ser así',text:'Sin filtro, sin esconder nada. Por confiar, por escuchar, por quedarte cerca incluso en lo que pesa.'},
@@ -1976,26 +2010,40 @@ function interludeHTML(a,col){
   </div>`;
 }
 
-const hueOf=hex=>{ const [r,g,b]=hex2rgb(hex).map(v=>v/255); const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;
-  if(!d) return 0;
-  let h = mx===r ? ((g-b)/d)%6 : mx===g ? (b-r)/d+2 : (r-g)/d+4;
-  h*=60; return h<0?h+360:h; };
+// tono + saturación + luz reales del color; los grises/casi grises (poca saturación,
+// donde el tono es puro ruido numérico) se agrupan aparte, ordenados por luz, en vez de
+// caer en cualquier punto al azar del espectro — eso era lo que se veía "fuera de lugar"
+function hexToHSL(hex){
+  const [r,g,b]=hex2rgb(hex).map(v=>v/255); const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,l=(mx+mn)/2;
+  let h=0,s=0;
+  if(d){ s=d/(1-Math.abs(2*l-1));
+    h = mx===r ? ((g-b)/d)%6 : mx===g ? (b-r)/d+2 : (r-g)/d+4; h*=60; if(h<0)h+=360; }
+  return [h,s,l];
+}
+function mosaicColorKey(hex){
+  const [h,s,l]=hexToHSL(hex);
+  return s<0.12 ? l-10 : h+(1-s)*0.001;
+}
 function renderMosaic(){
+  applyMosZoom(mosZoomV);
   const f=$('#mosFilters');
   f.innerHTML=`<button class="chip${mosFilter<0?' on':''}" data-mf="-1">Todos</button>`
     +ACTV.map(a=>`<button class="chip${mosFilter===a.ai?' on':''}" data-mf="${a.ai}" style="--a:${actColor(a)}">${esc(a.n)}</button>`).join('')
     +`<button class="chip${mosFilter===-2?' on':''}" data-mf="-2">♥ Favoritas</button>`
     +`<button class="chip${mosFilter===-3?' on':''}" data-mf="-3">Sin escuchar</button>`
     +`<span class="msp"></span>`
-    +`<button class="chip${mosSort==='color'?' on':''}" id="mosSortBtn">◑ Ordenar por color</button>`;
+    +`<button class="chip${mosSort==='idx'?' on':''}" data-ms="idx">Orden</button>`
+    +`<button class="chip${mosSort==='color'?' on':''}" data-ms="color">◑ Color</button>`
+    +`<button class="chip${mosSort==='random'?' on':''}" data-ms="random">🎲 Aleatorio</button>`;
   let list=SONGS;
   if(mosFilter>=0) list=SONGS.filter(s=>s.ai===mosFilter);
   if(mosFilter===-2) list=SONGS.filter(s=>fav(s.key));
   if(mosFilter===-3) list=SONGS.filter(s=>!heard(s.key));
-  if(mosSort==='color') list=[...list].sort((a,b)=>hueOf(a.pal.a)-hueOf(b.pal.a));
+  if(mosSort==='color') list=[...list].sort((a,b)=>mosaicColorKey(a.pal.a)-mosaicColorKey(b.pal.a));
+  if(mosSort==='random') list=[...list].sort(()=>Math.random()-.5);
   $('#mosN').textContent=SONGS.length;
   const el=$('#mosaic');
-  el.classList.toggle('reveal',mosSort==='color');
+  el.classList.toggle('reveal',mosSort!=='idx');
   el.innerHTML=list.map((s,i)=>`
     <div class="tile${heard(s.key)?' heard':''}" data-key="${esc(s.key)}" style="${styleVars(s)};animation-delay:${Math.min(i*14,700)}ms">
       ${s.vid?`<img loading="lazy" src="${cover(s)}" alt="">`:''}
@@ -2003,9 +2051,17 @@ function renderMosaic(){
       <div class="tile-d"></div>
       <div class="tile-i"><b>${esc(s.t)}</b><span>${esc(s.ar)}</span>${ALB[s.base||s.key]&&ALB[s.base||s.key].al?`<span style="opacity:.7">${esc(ALB[s.base||s.key].al)}${ALB[s.base||s.key].yr?' · '+ALB[s.base||s.key].yr:''}</span>`:''}</div>
     </div>`).join('') || '<div class="empty">Nada aquí todavía.</div>';
-  if($('#mosSortBtn')) $('#mosSortBtn').onclick=()=>{ mosSort=mosSort==='color'?'idx':'color'; renderMosaic(); };
+  $('#mosFilters').querySelectorAll('[data-ms]').forEach(b=>b.onclick=()=>{ mosSort=b.dataset.ms; renderMosaic(); });
 }
-let mosFilter=-1, mosSort='idx';
+let mosFilter=-1, mosSort='idx', mosZoomV=150;
+function applyMosZoom(v){
+  mosZoomV=v;
+  const el=$('#mosaic'); if(!el)return;
+  el.style.setProperty('--tile-min',v+'px');
+  el.style.setProperty('--tile-gap',(v<90?'.35rem':'.8rem'));
+  el.classList.toggle('tiny',v<90);
+}
+$('#mosZoom').oninput=e=>applyMosZoom(+e.target.value);
 
 function renderSearch(q){
   q=(q||'').trim().toLowerCase();
@@ -2130,9 +2186,15 @@ function renderMemories(){
   const seen=new Set(ST.edits.memSeen||[]);
   el.innerHTML=MEMORIES.map((m,i)=>{
     const c=FALLBACK[m.hue].a;
-    const dur=(9+seeded(i*3.7)*7).toFixed(1);
-    const delay=(seeded(i*5.1)*9).toFixed(2);
-    return `<div class="mem-bubble${seen.has(i)?' seen':''}" data-mi="${i}" style="--c:${c};animation-duration:${dur}s;animation-delay:-${delay}s">
+    const dur=(8+seeded(i*3.7)*11).toFixed(1);
+    const del=(-seeded(i*5.1)*14).toFixed(2);
+    const gdur=(4.5+seeded(i*6.6)*4).toFixed(1);
+    const gdel=(-seeded(i*7.4)*6).toFixed(2);
+    const dx=(6+seeded(i*2.3)*13).toFixed(0), dy=(6+seeded(i*8.9)*13).toFixed(0);
+    const rot=(2+seeded(i*4.4)*4).toFixed(1);
+    const style=`--c:${c};--dur:${dur}s;--del:${del}s;--gdur:${gdur}s;--gdel:${gdel}s;`
+      +`--dx:${dx}px;--dy:${dy}px;--rot:${rot}deg`;
+    return `<div class="mem-bubble${seen.has(i)?' seen':''}" data-mi="${i}" style="${style}">
       <span class="mem-ic">${m.icon}</span><span class="mem-lb">${esc(m.label)}</span>
     </div>`;
   }).join('');
@@ -2197,7 +2259,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08h · recuerdos-burbujas';
+const BUILD='v 14-08i · burbujas+mosaico';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

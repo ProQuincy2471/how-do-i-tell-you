@@ -25,6 +25,10 @@ if(process.env.ONLY){ const o=JSON.parse(process.env.ONLY);
 else if(process.env.LIMIT) songs.length=+process.env.LIMIT;
 console.error('canciones:',songs.length);
 
+// Clave pública del cliente web de music.youtube.com (WEB_REMIX): la misma
+// que usa el propio sitio en su JS de cara al público, y la que traen de
+// fábrica herramientas como ytmusicapi/yt-dlp. No es una credencial de esta
+// cuenta ni da acceso a nada privado — por eso no hace falta rotarla.
 const KEY='AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30';
 const CTX={client:{clientName:'WEB_REMIX',clientVersion:'1.20240401.01.00',hl:'en',gl:'US'}};
 const P={songs:'EgWKAQIIAWoKEAkQBRAKEAMQBA==', videos:'EgWKAQIQAWoKEAkQBRAKEAMQBA=='};

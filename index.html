@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="cache-control" content="no-cache">
 <title>How do I tell you? ...</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#05060d">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="How do I tell you?">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -611,6 +619,12 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
   .view{padding-bottom:15rem}
   #cfind{display:none}.cact u{display:none}
   .m-cover{width:84px}
+  /* en pantallas angostas, las herramientas ya no flotan sobre la lista de nebulosas:
+     bajan a formar su propia fila, y las etiquetas largas se recortan en vez de desbordar */
+  #cui{overflow-x:hidden}
+  #ctools{position:static;flex-direction:row;flex-wrap:wrap;margin-top:.4rem;max-width:100%}
+  .cact{max-width:76vw}
+  .cact-lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
@@ -2351,7 +2365,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 14-08q · letras-pulido';
+const BUILD='v 17-08 · pwa+movil';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -3144,7 +3158,7 @@ function paintActChips(){
   $('#cacts').innerHTML=ACTV.map(a=>{
     const tot=a.songs.length, got=a.songs.filter(s=>heard(s.key)).length, col=actColor(a);
     return `<button class="cact${CST.focusAct===a.ai?' on':''}" data-a="${a.ai}">
-      <i style="background:${col};color:${col}"></i>${esc(a.n)} · ${esc(a.name)} <u>${got}/${tot}</u></button>`;
+      <i style="background:${col};color:${col}"></i><span class="cact-lb">${esc(a.n)} · ${esc(a.name)}</span> <u>${got}/${tot}</u></button>`;
   }).join('');
   $$('#cacts .cact').forEach(b=>b.onclick=()=>focusAct(+b.dataset.a));
   $('#cprog i').style.width=(SONGS.length?ST.heard.length/SONGS.length*100:0)+'%';
@@ -4790,6 +4804,12 @@ applyPalette(SONGS[0]);
 console.log('%cHow do I tell you? ...','font-family:Georgia;font-size:22px;color:#e8c88a');
 console.log('%cversión de la página: '+BUILD,'color:#8fb7d8');
 console.log('%cDe Jordan, para Ana · '+SONGS.length+' canciones · cada una con el color de su portada','color:#f0a7b8');
+
+// PWA: solo si la página llegó por http(s) — con abrir.command en local sigue
+// sirviendo Cache-Control: no-store como siempre, esto es aparte y no lo toca
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
 </script>
 </body>
 </html>

@@ -13,6 +13,24 @@ en 6 grupos. Los grupos se llaman **Nebulosa I–VI**; internamente los datos di
 `"Acto I"` y la función `relabel()` sustituye el prefijo según `ST.prefs.label`
 (las opciones están en `LABELS`). No hay que tocar los datos para renombrarlos.
 
+## Dónde vive
+
+Repo: **github.com/ProQuincy2471/how-do-i-tell-you** (público, cuenta `ProQuincy2471`
+vía `gh`). El remoto se llama `origin`, rama `main`. Publicado también con
+**GitHub Pages** en https://proquincy2471.github.io/how-do-i-tell-you/ — se
+redespliega solo con cada push a `main`, así que esa URL siempre es la versión
+más reciente, instalable como PWA desde el celular (Agregar a pantalla de inicio).
+
+Después de cada tanda de cambios que el usuario pida guardar: `git commit` y
+**`git push origin main`** — el usuario quiere que GitHub siempre tenga lo último
+corriendo, no solo el commit local.
+
+La app es también una **PWA**: `manifest.json` + `sw.js` (service worker
+red-primero, caché solo como respaldo sin conexión — nunca al revés, para no
+repetir el problema de contenido viejo que el `no-store` del servidor local ya
+resuelve). Los íconos están en `icons/`, generados con Pillow
+(fondo oscuro + estrella dorada, mismo lenguaje visual que el resto de la app).
+
 ## Cómo se abre
 
 Doble clic en **`abrir.command`**. Levanta un servidor local en

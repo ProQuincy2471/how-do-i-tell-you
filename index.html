@@ -538,6 +538,58 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 
 
 
+
+/* hilo de la historia */
+.mem-thread{position:absolute;top:0;left:0;z-index:0;pointer-events:none;overflow:visible}
+.mem-thread path{fill:none;stroke:rgba(244,239,230,.13);stroke-width:1.2;stroke-dasharray:3 6;transition:stroke .8s,stroke-width .8s}
+.mem-thread path.lit{stroke:var(--gold);stroke-width:1.8;stroke-dasharray:none;filter:drop-shadow(0 0 5px var(--gold))}
+.mem-bubble{z-index:1}
+/* ── más tipos de ficha ── */
+/* notificación */
+.k-notif{text-align:left;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 14%,#10121c),#0a0b14 70%)}
+.k-notif .nf-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.9rem;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.k-notif .nf-app{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--c);color:#06070d}.k-notif .nf-app svg{width:16px;height:16px}
+.k-notif .nf-top b{font-weight:500;color:var(--paper)}.k-notif .nf-top em{margin-left:auto;font-style:normal;color:var(--c)}
+.k-notif .mem-no{display:none}.k-notif .mem-art{display:none}.k-notif .mem-tag{display:none}
+.k-notif .mem-card-lb{font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--paper);margin-bottom:.35rem}
+.k-notif .mem-card-txt{padding:.85rem 1rem;border-radius:16px;background:rgba(255,255,255,.07);animation:chatIn .6s .3s both}
+/* calendario */
+.k-calendar{--ink2:#2a2018;background:#f6f0e4;border:none;border-radius:14px;padding:0 0 1.2rem;overflow:hidden;box-shadow:0 22px 50px rgba(0,0,0,.55),0 0 50px color-mix(in srgb,var(--c) 22%,transparent)}
+.k-calendar .cal-top{background:color-mix(in srgb,var(--c) 70%,#a02830);color:#fff;font-size:.7rem;letter-spacing:.34em;padding:.7rem;margin:0 0 1rem;text-align:center;font-weight:600}
+.k-calendar .mem-no{display:none}.k-calendar .mem-art .kp{color:#2a2018;filter:none;width:84px;height:84px}
+.k-calendar .mem-art{margin:0 auto;width:110px;height:110px;align-items:center;border-radius:50%;border:2.5px solid color-mix(in srgb,var(--c) 70%,#a02830);padding:0;margin-bottom:.9rem}
+.k-calendar .mem-tag{display:none}.k-calendar .mem-card-lb,.k-calendar .mem-card-txt,.k-calendar .mem-mine,.k-calendar .mem-nav{margin-left:1.6rem;margin-right:1.6rem}
+.k-calendar .mem-card-lb{color:#2a2018}.k-calendar .mem-mine span{color:#8a7a62}
+.k-calendar .mem-mine textarea{background:rgba(0,0,0,.04);border-color:#b8a98c;color:#2a2018}.k-calendar .pill{color:#2a2018;border-color:#b8a98c}
+/* cassette */
+.k-cassette{background:linear-gradient(160deg,#17151a,#0b0a0e);border-radius:16px}
+.k-cassette .cas{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.7rem 1rem;margin:0 0 1rem;border-radius:12px;background:#e9dfc8;color:#2a2018;border:2px solid #2a2018}
+.k-cassette .cas b{font-family:'Caveat',cursive;font-size:1.35rem;font-weight:700;flex:1;text-align:center;line-height:1.1}
+.k-cassette .cas .sp{width:30px;height:30px;border-radius:50%;border:3px solid #2a2018;background:radial-gradient(circle,#2a2018 28%,transparent 30%);animation:memSpin 6s linear infinite;flex:none}
+.k-cassette .mem-art .kp{width:70px;height:70px}
+.k-cassette .mem-tag{display:none}.k-cassette .mem-card-lb{display:none}
+/* pase de abordar */
+.k-pass{--ink2:#1c2230;background:#eaf0f4;border:none;border-radius:16px;padding:1.1rem 1.4rem 1.2rem;font-family:ui-monospace,'SF Mono',Menlo,monospace;box-shadow:0 22px 50px rgba(0,0,0,.55),0 0 50px color-mix(in srgb,var(--c) 22%,transparent)}
+.k-pass .mem-no{display:none}
+.k-pass .ps-top{display:flex;justify-content:space-between;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:#59637a;border-bottom:1.5px dashed #aab4c6;padding-bottom:.7rem;margin-bottom:.9rem}
+.k-pass .ps-top em{font-style:normal;color:var(--c);filter:brightness(.7)}
+.k-pass .mem-art .kp{color:#1c2230;filter:none;width:72px;height:72px}.k-pass .kp .f{fill:rgba(28,34,48,.1)}
+.k-pass .mem-tag{font-family:inherit;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#59637a}
+.k-pass .mem-card-lb{font-family:inherit;font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em}
+.k-pass .mem-card-txt{font-size:.8rem}
+.k-pass .ps-bar{height:34px;margin:.6rem 0 1rem;background:repeating-linear-gradient(90deg,#1c2230 0 2px,transparent 2px 5px,#1c2230 5px 6px,transparent 6px 10px,#1c2230 10px 13px,transparent 13px 16px);order:99;opacity:.85}
+.k-pass .mem-mine span{color:#59637a}.k-pass .mem-mine textarea{background:rgba(0,0,0,.04);border-color:#aab4c6;color:#1c2230}.k-pass .pill{color:#1c2230;border-color:#aab4c6}
+/* postal */
+.k-postcard{--ink2:#2a2018;background:#f3ead8;border:none;border-radius:6px;padding:1.6rem 1.6rem 1.2rem;box-shadow:0 22px 50px rgba(0,0,0,.55),0 0 50px color-mix(in srgb,var(--c) 22%,transparent);
+  background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(42,32,24,.09) 31px 32px)}
+.k-postcard::before{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:1.5px dashed rgba(42,32,24,.25);border-radius:3px;pointer-events:none}
+.k-postcard .pc-stamp{position:absolute;top:1.2rem;right:1.2rem;width:58px;height:70px;border:2px dashed #2a2018;padding:8px;color:var(--c);filter:brightness(.7);background:rgba(255,255,255,.35);transform:rotate(3deg)}
+.k-postcard .pc-stamp svg{width:100%;height:100%}
+.k-postcard .pc-mark{position:absolute;top:2.6rem;right:5.4rem;width:62px;height:62px;border-radius:50%;border:2px solid rgba(42,32,24,.4);display:grid;place-items:center;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;line-height:1.5;color:rgba(42,32,24,.55);transform:rotate(-12deg)}
+.k-postcard .mem-no{text-align:left;color:#8a7a62}.k-postcard .mem-art{display:none}.k-postcard .mem-tag{text-align:left;font-size:1.3rem;color:#6a5b2a;margin-top:1.6rem}
+.k-postcard .mem-card-lb{text-align:left;font-family:'Caveat',cursive;font-size:2rem;font-weight:700;color:#2a2018;margin-bottom:.6rem}
+.k-postcard .mem-card-txt{text-align:left;font-family:'Caveat',cursive;font-size:1.3rem;line-height:32px;color:#2a2018}
+.k-postcard .mem-mine span{color:#8a7a62}.k-postcard .mem-mine textarea{background:rgba(255,255,255,.4);border-color:#b8a98c;color:#2a2018}.k-postcard .pill{color:#2a2018;border-color:#b8a98c}
 /* ══ Nuevo aire: color propio por sección, encabezados, entrada escalonada ══ */
 @property --vacc{syntax:'<color>';inherits:true;initial-value:#e8c88a}
 :root{--vacc:#e8c88a;transition:--vacc 1.4s ease}
@@ -1515,48 +1567,48 @@ const MEM_META = {
   'Desayunos random':['sunrise','receipt','cafetería del ABC'],             // lo esporádico que se volvió costumbre
   'El acento del norte':['audio-waveform','chat','sin decirlo'],            // su voz, y lo que nunca dije de ella
   'Su cumpleaños':['cake','polaroid','dos semanas después'],
-  'Nunca pedí el número':['send','chat','DM de Instagram'],                 // todo por mensajes
+  'Nunca pedí el número':['send','notif','DM de Instagram'],                 // todo por mensajes
   'IVE en el cine':['ticket','ticket','función · sala oscura'],
   'Stray Kids':['mic-vocal','ticket','concierto'],
   'AJU NICE':['megaphone','ticket','SEVENTEEN · en vivo'],                  // gritarlo sin vergüenza
   'VR concert de TXT':['glasses','ticket','concierto virtual'],
   'Gracie en pantalla':['monitor-play','ticket','otro más a la lista'],
-  'Reels a las 3am':['moon-star','chat','3:00 a.m.'],
+  'Reels a las 3am':['moon-star','notif','3:00 a.m.'],
   '«Ana» en el Starbucks':['coffee','receipt','chocolate y panecito'],
   'Exámenes de ciru':['notebook-pen','note','ciru'],
-  'Mingyu prestado':['calendar-heart','note','miércoles'],                  // un día de la semana que era de alguien
+  'Mingyu prestado':['calendar-heart','calendar','miércoles'],                  // un día de la semana que era de alguien
   'Los espíritus de Aranzola':['ghost','polaroid','depa de Vero'],
   'La araña de Polanco':['bug','polaroid','aquí no pasó nada'],
   '¿Te sientes bien?':['heart-pulse','note','la clase'],                    // la preocupación repetida
   'Ronchas de Xoco':['microscope','note','caso abierto'],                   // el misterio sin resolver
   'Las cuatro llantas':['car','polaroid','día histórico'],
   'Post-its anti-ansiedad':['sticky-note','note','por si acaso'],
-  'Super Tuna':['disc-3','card','Jin'],                                     // una canción que cambió de sonido por ti
-  'Pseudo almuerzo en la Roma':['utensils','receipt','con «pseudo» incluido'],
+  'Super Tuna':['disc-3','cassette','Jin'],                                     // una canción que cambió de sonido por ti
+  'Pseudo almuerzo en la Roma':['utensils','pass','con «pseudo» incluido'],
   'Preguntas a ChatGPT':['dices','chat','para matar el tiempo'],            // un juego improvisado
-  'Café en la Mexicana':['circle-check','receipt','con Vero'],              // cerrar bien una etapa
+  'Café en la Mexicana':['circle-check','pass','con Vero'],              // cerrar bien una etapa
   'PewDiePie y Outlast':['messages-square','chat','porque sí'],             // conversar sin razón
-  'Todo lo que dijera Jungkook':['share-2','chat','sin razón ni disculpa'], // mandar cosas porque sí
+  'Todo lo que dijera Jungkook':['share-2','notif','sin razón ni disculpa'], // mandar cosas porque sí
   'Santos Bravos':['drama','polaroid','nadie lo pidió'],                    // una experiencia tragicómica
   'Los bitis':['hourglass','note','pendientes del servicio'],
   'El trend de las fotos con Gemini':['wand-sparkles','polaroid','como todo el mundo'],
   'Cheesecake después de examen':['trophy','receipt','el premio'],
-  'Los miércoles con Arechiga':['alarm-clock','note','cada semana'],
+  'Los miércoles con Arechiga':['alarm-clock','calendar','cada semana'],
   'Llorar con Business Proposal':['heart-crack','film','11/10'],
   'Recomendaciones de kdramas':['list-checks','film','lista infinita'],
   'Twinkling Watermelon':['circle-play','film','la primera'],
   'Sopecitos pendientes':['receipt','receipt','deuda abierta'],
-  'Funar a Nat':['annoyed','chat','un clásico'],
+  'Funar a Nat':['annoyed','notif','un clásico'],
   'Las Twai':['spade','card','el gafete'],
   'La película de F1':['thumbs-down','ticket','función'],
   'El recap de F1, F2 y F3':['flag','receipt','esperando la comida'],
   'El mega plato de pollo':['drumstick','receipt','SSAM'],
   'Teléfono Negro 2':['popcorn','ticket','función'],
   'El código pediátrico':['siren','note','central de MI'],
-  'Tus aventuras inesperadas':['compass','chat','último momento'],
-  'Best bestie bestie':['heart-handshake','card','todos los días'],
-  'Gracias por dejarme ser así':['hand-heart','card','sin filtro'],
-  'Sigue siendo tú':['volume-2','card','el deseo']                          // que nada le baje el volumen
+  'Tus aventuras inesperadas':['compass','notif','último momento'],
+  'Best bestie bestie':['heart-handshake','postcard','todos los días'],
+  'Gracias por dejarme ser así':['hand-heart','postcard','sin filtro'],
+  'Sigue siendo tú':['volume-2','postcard','el deseo']                          // que nada le baje el volumen
 };
 // cómo se mueve cada escena y qué flota a su alrededor (por ícono)
 const KMOVE = { bug:'swing', ghost:'float', heart:'beat', 'heart-pulse':'beat', 'hand-heart':'beat', 'heart-handshake':'beat', 'heart-crack':'bob',
@@ -2699,34 +2751,42 @@ let MEM_PHYS=[], memRafId=null, memFieldH=0, MEM_PTR=null, memIO=null, memWhispe
 function layoutMemories(){
   const el=$('#memField'); if(!el)return;
   const w=el.clientWidth||600, n=MEMORIES.length;
-  // tamaños muy distintos (los recuerdos núcleo, los más grandes) y mucho aire entre ellos
-  const rMax=Math.max(30,Math.min(66,w*.072)), gap=rMax*.62;
-  const R=MEMORIES.map((m,i)=>CORE_MEM.has(m.label)?rMax*1.18:rMax*(.52+seeded(i*9.9)*.48));
-  const order=R.map((r,i)=>i).sort((a,b)=>R[b]-R[a]);
-  const area=R.reduce((t,r)=>t+Math.PI*(r+gap/2)**2,0);
-  let H=area/(w*.36)+rMax*2, pos;
-  for(let pass=0;pass<30;pass++){
-    pos=new Array(n); const placed=[]; let ok=true, c=0;
-    for(const i of order){
-      const r=R[i]; let done=false;
-      for(let t=0;t<260&&!done;t++){
-        const x=r+seeded(++c*12.9898+i)*(w-2*r), y=r+seeded(++c*78.233+i*3)*(H-2*r);
-        if(placed.every(q=>Math.hypot(q.x-x,q.y-y)>=q.r+r+gap)){ placed.push({x,y,r}); pos[i]={x,y}; done=true; }
+  // el orden es el de la historia: de arriba a abajo, un hilo que serpentea. Los tamaños varían y la x se desvía al azar (con semilla)
+  const rMax=Math.max(30,Math.min(64,w*.07)), gap=rMax*.95;
+  const R=MEMORIES.map((m,i)=>CORE_MEM.has(m.label)?rMax*1.16:rMax*(.55+seeded(i*9.9)*.45));
+  const amp=Math.max(0,(w-2*rMax*1.2)/2*.9);
+  const placed=[]; const P=[];
+  for(let i=0;i<n;i++){
+    const r=R[i], cx=w/2+Math.sin(i*.52+.7)*amp*.8;
+    let best=null;
+    for(let t=0;t<14;t++){
+      const x=Math.max(r,Math.min(w-r,cx+(seeded(i*13.7+t*3.1)-.5)*amp*.9));
+      let y=(placed.length?Math.max(r,placed[placed.length-1].y-rMax*.2):r);
+      for(let k=0;k<400;k++,y+=5){
+        if(placed.every(q=>Math.hypot(q.x-x,q.y-y)>=q.r+r+gap)) break;
       }
-      if(!done){ ok=false; break; }
+      if(!best||y<best.y-4) best={x,y};
     }
-    if(ok) break;
-    H*=1.07;
+    placed.push({x:best.x,y:best.y,r}); P.push({x:best.x,y:best.y});
   }
-  memFieldH=H;
-  el.style.height=H.toFixed(0)+'px';
-  MEM_PHYS=MEMORIES.map((m,i)=>{
-    const r=R[i], q=pos[i]||{x:w/2,y:H/2};
-    return {r,homeX:q.x,homeY:q.y,x:q.x,y:q.y,
-      ampX:1.5+seeded(i*3.3)*2.5, ampY:1.5+seeded(i*7.7)*2.5,
-      spX:.00004+seeded(i*4.4)*.00005, spY:.00004+seeded(i*8.8)*.00005,
-      phX:seeded(i*1.7)*7, phY:seeded(i*5.5)*7};
-  });
+  const H=Math.max(...placed.map(q=>q.y+q.r))+rMax*.8;
+  memFieldH=H; el.style.height=H.toFixed(0)+'px';
+  MEM_PHYS=MEMORIES.map((m,i)=>({r:R[i],homeX:P[i].x,homeY:P[i].y,x:P[i].x,y:P[i].y,
+    ampX:1.5+seeded(i*3.3)*2.5, ampY:1.5+seeded(i*7.7)*2.5,
+    spX:.00004+seeded(i*4.4)*.00005, spY:.00004+seeded(i*8.8)*.00005,
+    phX:seeded(i*1.7)*7, phY:seeded(i*5.5)*7}));
+}
+function memThreadHTML(w){
+  const seen=new Set(ST.edits.memSeen||[]); let d='';
+  for(let i=0;i<MEM_PHYS.length-1;i++){
+    const a=MEM_PHYS[i], b=MEM_PHYS[i+1], dy=(b.homeY-a.homeY);
+    d+=`<path data-a="${i}" class="${seen.has(i)&&seen.has(i+1)?'lit':''}" d="M${a.homeX.toFixed(1)} ${a.homeY.toFixed(1)}C${a.homeX.toFixed(1)} ${(a.homeY+dy*.55).toFixed(1)} ${b.homeX.toFixed(1)} ${(b.homeY-dy*.55).toFixed(1)} ${b.homeX.toFixed(1)} ${b.homeY.toFixed(1)}"/>`;
+  }
+  return `<svg class="mem-thread" id="memThread" width="${w}" height="${memFieldH.toFixed(0)}" aria-hidden="true">${d}</svg>`;
+}
+function litThread(){
+  const seen=new Set(ST.edits.memSeen||[]);
+  $$('#memThread path').forEach(p=>p.classList.toggle('lit',seen.has(+p.dataset.a)&&seen.has(+p.dataset.a+1)));
 }
 function renderMemories(){
   const el=$('#memField'); if(!el)return;
@@ -2746,6 +2806,7 @@ function renderMemories(){
       <span class="mem-lb">${esc(m.label)}</span>
     </div>`;
   }).join('');
+  el.insertAdjacentHTML('beforeend',memThreadHTML(el.clientWidth||600));
   el.querySelectorAll('.mem-bubble').forEach(b=>{
     const go=()=>{ b.classList.add('pop'); setTimeout(()=>b.classList.remove('pop'),700); openMemory(+b.dataset.mi,b); };
     b.onclick=go; b.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); e.stopPropagation(); go(); } };
@@ -2823,6 +2884,15 @@ function nextUnseenMemory(){
   for(let k=1;k<=n;k++){ const j=(memOpen+k)%n; if(!seen.has(j)) return j; }
   return (memOpen+1)%n;
 }
+function memDeco(kind,meta,i,m){
+  const no=String(i+1).padStart(2,'0');
+  if(kind==='notif') return `<div class="nf-top"><span class="nf-app">${kp('messages-square')}</span><b>Mensajes</b><em>${esc(meta.tag)}</em></div>`;
+  if(kind==='calendar') return `<div class="cal-top">${esc((meta.tag||'').toUpperCase())}</div>`;
+  if(kind==='cassette') return `<div class="cas"><i class="sp"></i><b>${esc(m.label)}</b><i class="sp"></i></div>`;
+  if(kind==='pass') return `<div class="ps-top"><span>Pase de recuerdo</span><em>N.º ${no}</em></div><div class="ps-bar"></div>`;
+  if(kind==='postcard') return `<div class="pc-stamp">${kp(meta.obj)}</div><div class="pc-mark">con cariño<br>· ${no} ·</div>`;
+  return '';
+}
 function showMemory(i,swap){
   const m=MEMORIES[i], meta=memMeta(m), n=MEMORIES.length;
   memOpen=i;
@@ -2830,12 +2900,14 @@ function showMemory(i,swap){
   if(!ST.edits.memSeen.includes(i)){ ST.edits.memSeen.push(i); save(); renderMemProgress();
     if(ST.edits.memSeen.length===n) toast('Encontraste los '+n+' recuerdos ✧'); }
   const b=document.querySelector(`.mem-bubble[data-mi="${i}"]`); if(b)b.classList.add('seen');
+  litThread();
   const c=FALLBACK[m.hue].a, card=$('#memCard');
   $('#memOverlay').style.setProperty('--c',c);
   const mine=(ST.edits.memNotes||{})[i]||'';
   const left=n-ST.edits.memSeen.length;
   card.className='mem-card k-'+meta.kind;
   card.innerHTML=`<div class="mem-no">Recuerdo Nº ${String(i+1).padStart(2,'0')} <i>/ ${n}</i></div>
+    ${memDeco(meta.kind,meta,i,m)}
     <div class="mem-art">${kp(meta.obj)}</div>
     ${meta.tag?`<div class="mem-tag">${esc(meta.tag)}</div>`:''}
     <div class="mem-card-lb">${esc(m.label)}</div>
@@ -2897,7 +2969,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-10 · aire nuevo II';
+const BUILD='v 13-10 · hilo';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');

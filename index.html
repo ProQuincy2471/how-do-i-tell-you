@@ -389,7 +389,7 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .mem-overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:90;display:flex;align-items:center;justify-content:center;
   background:rgba(4,5,10,.84);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transition:opacity .35s;padding:1.2rem}
 .mem-overlay.on{opacity:1}
-.mem-card{--ink2:rgba(244,239,230,.88);width:min(420px,100%);max-height:calc(100vh - 2.4rem);max-height:calc(100dvh - 2.4rem);overflow-y:auto;
+.mem-card{--ink2:rgba(244,239,230,.88);width:min(420px,100%);max-height:calc(100vh - 2.4rem);max-height:calc(100dvh - 2.4rem);overflow-y:auto;overflow-x:hidden;
   border-radius:22px;padding:1.6rem 1.8rem 1.4rem;text-align:center;position:relative;
   background:radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--c) 22%,#0b0d16),#0b0d16 70%);
   border:1px solid color-mix(in srgb,var(--c) 50%,transparent);
@@ -2432,20 +2432,20 @@ let MEM_PHYS=[], memRafId=null, memFieldH=0;
 function layoutMemories(){
   const el=$('#memField'); if(!el)return;
   const w=el.clientWidth||600, n=MEMORIES.length;
-  const baseR=Math.max(32,Math.min(58,w/13));
-  const cols=Math.max(3,Math.floor(w/(baseR*2.5)));
-  const cellW=w/cols, cellH=baseR*2.5;
+  // celdas que SIEMPRE caben: el radio máximo sale del ancho de la celda, así ni en móvil se montan
+  const cols=w<460?4:w<720?6:w<1000?8:10;
+  const cellW=w/cols, cellH=cellW*1.04, baseR=cellW*.47;
   const rows=Math.ceil(n/cols);
-  memFieldH=rows*cellH+baseR*1.6;
+  memFieldH=rows*cellH+cellW*.3;
   el.style.height=memFieldH.toFixed(0)+'px';
   MEM_PHYS=MEMORIES.map((m,i)=>{
     const col=i%cols, row=(i/cols)|0;
-    const r=baseR*(0.68+seeded(i*9.9)*0.6);
+    const r=baseR*(0.8+seeded(i*9.9)*0.2);
     const jx=(seeded(i*2.1)-.5)*(cellW-r*2)*.9, jy=(seeded(i*6.3)-.5)*(cellH-r*2)*.9;
     const homeX=Math.max(r,Math.min(w-r,col*cellW+cellW/2+jx));
     const homeY=Math.max(r,Math.min(memFieldH-r,row*cellH+cellH/2+jy));
     return {r,homeX,homeY,x:homeX,y:homeY,
-      ampX:6+seeded(i*3.3)*10, ampY:6+seeded(i*7.7)*10,
+      ampX:3+seeded(i*3.3)*5, ampY:3+seeded(i*7.7)*5,
       spX:.00018+seeded(i*4.4)*.00035, spY:.00015+seeded(i*8.8)*.00035,
       phX:seeded(i*1.7)*7, phY:seeded(i*5.5)*7};
   });
@@ -2458,8 +2458,8 @@ function renderMemories(){
     const c=FALLBACK[m.hue].a, p=MEM_PHYS[i], d=(p.r*2).toFixed(0);
     // el ícono nunca crece más allá de este rango, sin importar el radio de la burbuja
     // ni cuánto "peso visual" tenga el glifo — así no hay uno gigante y otro diminuto
-    const icPx=Math.max(24,Math.min(38,p.r*0.78)).toFixed(0);
-    const lbPx=Math.max(8.5,Math.min(11.5,p.r*0.23)).toFixed(1);
+    const icPx=Math.max(22,Math.min(40,p.r*0.62)).toFixed(0);
+    const lbPx=Math.max(8,Math.min(12,p.r*0.21)).toFixed(1);
     const mine=(ST.edits.memNotes||{})[i];
     return `<div class="mem-bubble${seen.has(i)?' seen':''}" data-mi="${i}" style="--c:${c};width:${d}px;height:${d}px">
       <span class="mem-ic" style="width:${icPx}px;height:${icPx}px">${kp(memMeta(m).obj)}</span><span class="mem-lb" style="font-size:${lbPx}px">${esc(m.label)}</span>

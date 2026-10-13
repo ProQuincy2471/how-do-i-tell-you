@@ -554,6 +554,21 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .k-film .mem-tag::before{content:'▶ ';font-size:.7em}
 
 
+/* ── Constelación: minimapa y recorrido ── */
+#cmini{position:absolute;right:.9rem;bottom:2.2rem;width:176px;height:116px;pointer-events:auto;cursor:crosshair;border-radius:12px;
+  border:1px solid var(--line);background:rgba(5,6,13,.62);backdrop-filter:blur(8px);touch-action:none}
+#ctour{position:absolute;left:50%;bottom:2.4rem;transform:translate(-50%,16px);width:min(540px,calc(100% - 1.8rem));opacity:0;pointer-events:none;
+  padding:1.1rem 1.3rem;border-radius:18px;border:1px solid color-mix(in srgb,var(--tc,var(--gold)) 50%,transparent);
+  background:rgba(6,7,14,.88);backdrop-filter:blur(14px);transition:opacity .5s,transform .5s;text-align:center;z-index:3}
+#ctour.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#ctour em{font-style:normal;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--dimmer)}
+#ctour h4{font-family:var(--serif);font-weight:400;font-size:1.6rem;line-height:1.1;margin:.3rem 0 .4rem;color:var(--tc,var(--gold))}
+#ctour p{font-size:.8rem;line-height:1.6;color:var(--dim);margin-bottom:.7rem}
+#ctour .ct-bar{height:3px;border-radius:3px;background:var(--line);margin:0 auto .8rem;max-width:260px;overflow:hidden}
+#ctour .ct-bar i{display:block;height:100%;background:var(--tc,var(--gold));transition:width .8s}
+#ctour .ct-b{display:flex;gap:.45rem;justify-content:center;flex-wrap:wrap}
+.cact.done u{color:var(--gold)}
+@media(max-width:640px){#cmini{width:118px;height:78px;bottom:3rem}#ctour{bottom:3.6rem;padding:.9rem 1rem}#ctour h4{font-size:1.3rem}#ctour p{display:none}}
 /* ── Voces: la partitura ── */
 .voz-stats{display:flex;flex-wrap:wrap;gap:1.6rem 2.4rem;margin:-1rem 0 1.8rem}
 .voz-stats b{display:block;font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1}
@@ -986,11 +1001,14 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
             <button class="ctool" data-tool="album">◉ Color de álbum</button>
             <button class="ctool" data-tool="grid">⊞ Retícula</button>
             <button class="ctool on" data-tool="sky">✦ Cielo real</button>
+            <button class="ctool" data-tool="tour">▶ Recorrido</button>
             <button class="ctool" data-tool="fit">⤢ Todo</button>
             <button class="ctool" data-tool="next" title="Atajo: n">→ Siguiente sin escuchar</button>
           </div>
+          <canvas id="cmini" width="176" height="116" title="Mapa del cielo · toca para ir"></canvas>
           <div id="cfind"><input id="cq" placeholder="buscar estrella…" autocomplete="off"><div id="cqres"></div></div>
         </div>
+        <div id="ctour"></div>
         <div id="cprog"><i></i><b></b></div>
       </div>
       <div class="const-legend"></div>
@@ -2830,7 +2848,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-10 · iconos reales';
+const BUILD='v 13-10 · cielo';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -3633,6 +3651,50 @@ function focusAct(ai){
   else CST.tgt={x:a._c.x,y:a._c.y,z:Math.min(CST.W,CST.H)/(a._c.r*2.45)};
   paintActChips();
 }
+
+/* minimapa: todo el cielo, tus estrellas encendidas y el recuadro de lo que estás viendo */
+function miniDraw(){
+  const m=$('#cmini'); if(!m||!CST.nodes.length||!$('#v-const').classList.contains('on'))return;
+  const g=m.getContext('2d'), w=m.width, h=m.height, bx=SKY_W/2*1.03, by=SKY_H/2*1.03;
+  const mx=x=>(x+bx)/(2*bx)*w, my=y=>(y+by)/(2*by)*h;
+  g.clearRect(0,0,w,h);
+  CST.nodes.forEach(n=>{
+    const on=heard(n.s.key); g.fillStyle=on?n.s.pal.a:'rgba(244,239,230,.3)';
+    g.beginPath(); g.arc(mx(n.x),my(n.y),on?2.1:1.2,0,6.283); g.fill();
+  });
+  const [x0,y0]=S2W(0,0),[x1,y1]=S2W(CST.W,CST.H);
+  g.strokeStyle='rgba(232,200,138,.9)'; g.lineWidth=1.4;
+  const rx=Math.max(0,mx(x0)), ry=Math.max(0,my(y0));
+  g.strokeRect(rx,ry,Math.min(w,mx(x1))-rx,Math.min(h,my(y1))-ry);
+}
+(function(){
+  const m=$('#cmini'); let down=false;
+  const go=e=>{ const r=m.getBoundingClientRect(), bx=SKY_W/2*1.03, by=SKY_H/2*1.03;
+    CST.tgt.x=((e.clientX-r.left)/r.width)*2*bx-bx; CST.tgt.y=((e.clientY-r.top)/r.height)*2*by-by; CST.focusAct=-1; paintActChips(); };
+  m.addEventListener('pointerdown',e=>{ down=true; try{m.setPointerCapture(e.pointerId)}catch(_){} go(e); });
+  m.addEventListener('pointermove',e=>{ if(down) go(e); });
+  ['pointerup','pointercancel'].forEach(ev=>m.addEventListener(ev,()=>{ down=false; }));
+})();
+/* recorrido: un vuelo guiado por cada nebulosa, con su epígrafe */
+const TOUR={on:false,i:0};
+function tourGo(i){
+  const n=ACTV.length; TOUR.on=true; TOUR.i=(i+n)%n;
+  const a=ACTV[TOUR.i]; if(!a||!a._c){ return; }
+  CST.focusAct=TOUR.i; CST.tgt={x:a._c.x,y:a._c.y,z:Math.min(CST.W,CST.H)/(a._c.r*2.45)}; paintActChips();
+  const got=a.songs.filter(x=>heard(x.key)).length, tot=a.songs.length, col=actColor(a), box=$('#ctour');
+  box.style.setProperty('--tc',col);
+  box.innerHTML=`<em>Recorrido · ${TOUR.i+1} de ${n}</em><h4>${esc(a.n)} · ${esc(a.name)}</h4>
+    <p>${esc(a.epi||'')}</p><div class="ct-bar"><i style="width:${tot?Math.round(got/tot*100):0}%"></i></div>
+    <div class="ct-b"><button class="pill" id="ctPrev">←</button><button class="pill solid" id="ctPlay">▶ Escuchar una (${got}/${tot})</button>
+    <button class="pill" id="ctNext">${TOUR.i===n-1?'Terminar':'Siguiente'} →</button><button class="pill" id="ctExit">Salir</button></div>`;
+  box.classList.add('on');
+  $('#ctPrev').onclick=()=>tourGo(TOUR.i-1);
+  $('#ctNext').onclick=()=>{ if(TOUR.i===n-1) tourEnd(); else tourGo(TOUR.i+1); };
+  $('#ctExit').onclick=tourEnd;
+  $('#ctPlay').onclick=()=>{ const pool=a.songs.filter(x=>!heard(x.key)), p=pool.length?pool:a.songs; const pick=p[(Math.random()*p.length)|0];
+    setShuffle(false); play(pick.key); setTimeout(()=>{ if(TOUR.on) tourGo(TOUR.i); },600); };
+}
+function tourEnd(){ TOUR.on=false; $('#ctour').classList.remove('on'); CST.focusAct=-1; fitConst(); paintActChips(); }
 function flyTo(key,zoom){
   const n=CST.nodes.find(n=>n.s.key===key); if(!n)return;
   CST.tgt={x:n.x,y:n.y,z:zoom||1.6};
@@ -3659,7 +3721,7 @@ function flyToNextUnheard(){
 function paintActChips(){
   $('#cacts').innerHTML=ACTV.map(a=>{
     const tot=a.songs.length, got=a.songs.filter(s=>heard(s.key)).length, col=actColor(a);
-    return `<button class="cact${CST.focusAct===a.ai?' on':''}" data-a="${a.ai}">
+    return `<button class="cact${CST.focusAct===a.ai?' on':''}${tot&&got===tot?' done':''}" data-a="${a.ai}">
       <i style="background:${col};color:${col}"></i><span class="cact-lb">${esc(a.n)} · ${esc(a.name)}</span> <u>${got}/${tot}</u></button>`;
   }).join('');
   $$('#cacts .cact').forEach(b=>b.onclick=()=>focusAct(+b.dataset.a));
@@ -3691,7 +3753,10 @@ function drawConst(){
     if(document.hidden||!$('#v-const').classList.contains('on')||stageOn){ CST.raf=null; return; }
     CST.raf=requestAnimationFrame(step);
     const W=CST.W,H=CST.H;
-    CST.cam.x+=(CST.tgt.x-CST.cam.x)*.07;CST.cam.y+=(CST.tgt.y-CST.cam.y)*.07;CST.cam.z+=(CST.tgt.z-CST.cam.z)*.07;
+    // suavizado por tiempo, no por cuadro: igual de calmado a 60 que a 144 Hz
+    const dtc=Math.min(50,t-(CST._t||t)); CST._t=t; const kc=1-Math.pow(1-.06,dtc/16.7);
+    CST.cam.x+=(CST.tgt.x-CST.cam.x)*kc;CST.cam.y+=(CST.tgt.y-CST.cam.y)*kc;CST.cam.z+=(CST.tgt.z-CST.cam.z)*kc;
+    if((CST._f=(CST._f||0)+1)%4===0) miniDraw();
     const Z=CST.cam.z; x.clearRect(0,0,W,H);
     drawRealSky(x,W,H,Z,t,Math.min(devicePixelRatio,2));
     ACTV.forEach(a=>{
@@ -3953,10 +4018,13 @@ document.addEventListener('visibilitychange',()=>{
 });
 (function(){
   const c=$('#const'),tip=$('#ctip');
-  const pick=(mx,my)=>{
+  const pick=(mx,my,prev)=>{
     let best=null,bd=1e9;
     CST.nodes.forEach(n=>{const [sx,sy]=W2S(n.x,n.y);const d=(sx-mx)**2+(sy-my)**2;if(d<bd){bd=d;best=n;}});
-    return bd<Math.max(260,900*CST.cam.z)?best:null;
+    const lim=Math.min(900,Math.max(260,500*Math.sqrt(CST.cam.z)));
+    if(prev&&best!==prev){ const [px,py]=W2S(prev.x,prev.y); const pd=(px-mx)**2+(py-my)**2;
+      if(pd<lim*1.5&&pd<bd*2+80) return prev; }          // se queda con la que ya tenía mientras siga cerca
+    return bd<lim?best:null;
   };
   c.addEventListener('pointerdown',e=>{CST.drag={x:e.clientX,y:e.clientY,cx:CST.tgt.x,cy:CST.tgt.y};CST.moved=false;
     try{c.setPointerCapture(e.pointerId)}catch(_){}});
@@ -3977,7 +4045,7 @@ document.addEventListener('visibilitychange',()=>{
       CST.cam.x=CST.tgt.x;CST.cam.y=CST.tgt.y;
       c.style.cursor='grabbing';tip.style.opacity=0;return;
     }
-    const n=pick(mx,my);CST.hover=n;
+    const n=pick(mx,my,CST.hover);CST.hover=n;
     // ¿sobre qué constelación real está el cursor?
     if(!n&&SKY_CONPATH&&ST.prefs.realSky!==false){
       const [wx,wy]=S2W(mx,my);
@@ -4018,13 +4086,17 @@ document.addEventListener('visibilitychange',()=>{
     e.preventDefault();
     const r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
     const [wx,wy]=S2W(mx,my);
-    const nz=Math.min(4.5,Math.max(.12,CST.tgt.z*(e.deltaY>0?.88:1.14)));
+    // exponencial y proporcional al gesto: un trackpad manda decenas de eventos pequeños y antes cada uno daba un salto fijo
+    let d=e.deltaY; if(e.deltaMode===1) d*=16; else if(e.deltaMode===2) d*=100;
+    d=Math.max(-90,Math.min(90,d));
+    const nz=Math.min(4.5,Math.max(.12,CST.tgt.z*Math.exp(-d*(e.ctrlKey?.009:.0011))));
     CST.tgt.x=wx-(mx-CST.W/2)/nz; CST.tgt.y=wy-(my-CST.H/2)/nz; CST.tgt.z=nz;
     CST.focusAct=-1; paintActChips();
   },{passive:false});
   $$('#ctools .ctool').forEach(b=>b.onclick=()=>{
     const t=b.dataset.tool;
-    if(t==='fit'){CST.focusAct=-1;fitConst();paintActChips();return;}
+    if(t==='tour'){ if(TOUR.on) tourEnd(); else tourGo(0); b.classList.toggle('on',TOUR.on); return; }
+    if(t==='fit'){ if(TOUR.on) tourEnd(); CST.focusAct=-1;fitConst();paintActChips();return;}
     if(t==='next'){flyToNextUnheard();return;}
     if(t==='path'){CST.showPath=!CST.showPath;b.classList.toggle('on',CST.showPath);
       toast(CST.showPath?(ST.heard.length>1?'Tu camino, en el orden en que las escuchaste':'Escucha al menos dos para trazarlo'):'Camino oculto');}

@@ -473,6 +473,30 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .k-film .mem-art{border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c) 18%,#0b0d16),#07080d);
   padding:1.2rem 0;margin-bottom:.8rem;border-radius:3px}
 .k-film .mem-tag::before{content:'▶ ';font-size:.7em}
+
+/* ── Para hoy: una canción según cómo llegas ── */
+.hoy-card{display:flex;align-items:center;gap:1rem;width:100%;text-align:left;margin:0 0 1.6rem;padding:1rem 1.2rem;border-radius:18px;
+  border:1px solid color-mix(in srgb,var(--gold) 35%,transparent);background:linear-gradient(120deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent 70%);transition:.3s}
+.hoy-card:hover{border-color:var(--gold);transform:translateY(-1px)}
+.hoy-card b{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--gold)}
+.hoy-card em{font-style:normal;font-size:.78rem;color:var(--dim)}
+.hoy-card u{margin-left:auto;text-decoration:none;color:var(--gold);font-size:1.2rem}
+.hoy-ic{width:44px;height:44px;color:var(--gold);flex:none}.hoy-ic .kp{width:100%;height:100%}
+.hoy-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:92;display:flex;align-items:center;justify-content:center;padding:1.2rem;
+  background:rgba(4,5,10,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transition:opacity .4s}
+.hoy-ov.on{opacity:1}
+.hoy-box{width:min(520px,100%);max-height:calc(100vh - 2.4rem);max-height:calc(100dvh - 2.4rem);overflow-y:auto;scrollbar-width:none;text-align:center}
+.hoy-box h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,6vw,2.5rem);line-height:1.1;margin-bottom:.5rem}
+.hoy-box p{font-size:.85rem;color:var(--dim);margin-bottom:1.5rem}
+.hoy-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.hoy-opt{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1rem .7rem;border-radius:16px;
+  border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 8%,transparent);transition:.3s;
+  opacity:0;transform:translateY(10px);animation:fadeUp .7s forwards}
+.hoy-opt:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,transparent);transform:translateY(-2px)}
+.hoy-opt .kp{width:38px;height:38px;color:var(--c)}
+.hoy-opt b{font-family:var(--serif);font-weight:400;font-size:1.05rem;line-height:1.2}
+.hoy-opt span{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+@media(max-width:420px){.hoy-grid{gap:.5rem}.hoy-opt{padding:.8rem .5rem}}
 @media(max-width:420px){.mem-card{padding:1.3rem 1.2rem 1.1rem}.k-ticket .mem-art::before{left:calc(-1.2rem - 12px)}.k-ticket .mem-art::after{right:calc(-1.2rem - 12px)}}
 .ps-btn{background:none;border:1px solid var(--line);color:var(--dimmer);border-radius:100px;
   padding:.3rem .8rem;font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
@@ -790,6 +814,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
       <span class="navsep"></span>
       <button data-v="search" class="ico" title="Buscar  ( / )">⌕</button>
       <button data-v="you" class="ico" title="Tú y esto">◐</button>
+      <button id="hoyBtn" class="ico" title="Para hoy: ¿cómo llegas?  ( h )">☾</button>
       <button id="shuffleBtn" class="ico" title="Reproducir en aleatorio  ( r )">✧</button>
       <button id="editBtn" class="ico edit" title="Editar  ( e )">✎</button>
     </nav>
@@ -867,6 +892,8 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
     <section class="view" id="v-you">
       <h2 class="vtitle">Tú y esto</h2>
       <p class="vsub">Todo esto se guarda solo en este dispositivo. Nadie más lo ve.</p>
+      <button class="hoy-card" id="hoyCard"><span class="hoy-ic"></span>
+        <span><b>Para hoy</b><em>Dime cómo llegas y te busco una canción. Sin prisa.</em></span><u>→</u></button>
       <div class="stats" id="statsBox"></div>
       <div class="barwrap"><i id="progBar" style="width:0"></i></div>
       <h3 style="font-family:var(--serif);font-size:1.5rem;margin-bottom:.4rem">Tu paleta</h3>
@@ -2579,7 +2606,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-10 · aire nuevo';
+const BUILD='v 13-10 · para hoy';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -4034,6 +4061,43 @@ $('#seek').onclick=e=>{ if(!YTP||!YTP.getDuration)return;
   YTP.seekTo((YTP.getDuration()||0)*p,true); };
 $('#seek').onmousemove=e=>{ const r=e.currentTarget.getBoundingClientRect();
   $('#seekHead').style.left=(e.clientX-r.left)+'px'; };
+
+/* ── Para hoy ──────────────────────────────────────────────────────────────
+   Cada ánimo lleva a una Nebulosa (el recorrido ya tiene su propio arco) y
+   suena una canción de ahí que aún no hayas escuchado.                      */
+const HOY=[
+  {o:'luna',     t:'Cansada, sin ganas de nada', ai:2, c:'#7fd8e8'},
+  {o:'manos',    t:'Quiero sentirme acompañada', ai:1, c:'#f0a7b8'},
+  {o:'acento',   t:'No sé qué siento',           ai:0, c:'#9b8cf0'},
+  {o:'ojos',     t:'Estoy dudando de algo',      ai:3, c:'#e8c88a'},
+  {o:'chispa',   t:'Con energía, ¡pónganme algo!', ai:4, c:'#f0a7b8'},
+  {o:'corazon',  t:'Extrañando, un poco',        ai:5, c:'#9b8cf0'}
+];
+function openHoy(){
+  if($('#hoyOv'))return;
+  const hr=new Date().getHours();
+  const q = hr<6 ? 'Es muy tarde, o muy temprano.' : hr<12 ? 'Buenos días.' : hr<19 ? 'Buenas tardes.' : 'Buenas noches.';
+  document.body.insertAdjacentHTML('beforeend',`<div class="hoy-ov" id="hoyOv"><div class="hoy-box">
+    <h3>${q}<br>¿Cómo llegas hoy?</h3><p>Sin respuesta correcta. Elige lo que más se parezca.</p>
+    <div class="hoy-grid">${HOY.map((m,i)=>{ const a=ACTV[m.ai]; return `<button class="hoy-opt" data-i="${i}" style="--c:${m.c};animation-delay:${.1+i*.08}s">
+      ${kp(m.o)}<b>${esc(m.t)}</b><span>${a?esc(a.n):''}</span></button>`; }).join('')}</div>
+    <button class="pill" id="hoyX" style="margin-top:1.4rem">Ahora no</button></div></div>`);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>$('#hoyOv').classList.add('on')));
+  const close=()=>{ const o=$('#hoyOv'); if(!o)return; document.removeEventListener('keydown',esc_); o.classList.remove('on'); setTimeout(()=>o.remove(),400); };
+  const esc_=e=>{ if(e.key==='Escape'){ e.stopPropagation(); close(); } };
+  document.addEventListener('keydown',esc_,true);
+  $('#hoyX').onclick=close;
+  $('#hoyOv').onclick=e=>{ if(e.target.id==='hoyOv') close(); };
+  $$('.hoy-opt').forEach(b=>b.onclick=()=>{
+    const m=HOY[+b.dataset.i], a=ACTV[m.ai]; if(!a||!a.songs.length){ close(); return; }
+    const pool=a.songs.filter(x=>!heard(x.key)), p=pool.length?pool:a.songs;
+    const pick=p[(Math.random()*p.length)|0];
+    close(); setShuffle(false); play(pick.key);
+    toast('Para hoy · '+pick.t+' · '+a.n+' — '+a.name);
+  });
+}
+$('#hoyBtn').onclick=openHoy;
+$('#hoyCard').onclick=openHoy; $('#hoyCard .hoy-ic').innerHTML=kp('luna');
 $('#shuffleBtn').onclick=()=>{
   if(!SONGS.length)return;
   const pool=SONGS.filter(s=>!heard(s.key)); const p=pool.length?pool:SONGS;
@@ -5007,6 +5071,7 @@ addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')next();
   if(e.key==='ArrowLeft')prev();
   if(e.key==='r')$('#shuffleBtn').click();
+  if(e.key==='h')openHoy();
   if(e.key==='v')$('#dOpen').click();
   if(e.key==='f'){ stageOn?closeStage():openStage(); }
   if(e.key==='e')$('#editBtn').click();

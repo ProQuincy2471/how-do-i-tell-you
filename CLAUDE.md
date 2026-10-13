@@ -105,6 +105,21 @@ lista las canciones que aún no tienen, con enlaces de búsqueda por canción
 `ST.edits.songs[key].og/.es`, igual que el editor ✎; la constante `LYRICS` del
 HTML solo sirve para dejar letras por defecto en el código.
 
+## Íconos, recuerdos y navegación (renovación de oct-2026)
+
+- **Íconos: Lucide** (lucide.dev, ISC), incrustados como SVG en la constante `KP` — sin red. No dibujar
+  íconos a mano. Para cada recuerdo el ícono se elige por el **sentido completo** del recuerdo, no por una
+  palabra suelta del texto (ver comentarios en `MEM_META`). Para añadir uno: bajar el SVG de
+  `cdn.jsdelivr.net/npm/lucide-static@latest/icons/<nombre>.svg` y meter su interior en `KP`.
+- **Carta → recuerdos**: esferas de cristal con tamaños distintos y posiciones al azar con semilla
+  (muestreo con distancia mínima, `layoutMemories`); solo un balanceo lento en `memLoop`. No volver a
+  meter relajación por pares ni imán al cursor: era lo que se sentía como sacudidas.
+- **Voces** es una *partitura*: filas = artistas, columnas = Nebulosas, puntos = canciones.
+- **Constelación**: zoom exponencial y hover con histéresis (el cursor no salta de estrella en estrella);
+  minimapa (`#cmini`) y recorrido guiado (`TOUR`).
+- **Navegación**: rutas con hash (`#voces`…), atrás/adelante, memoria de pestaña y scroll, teclas 1–6,
+  barra de pestañas inferior en móvil (`#tabbar`, ≤760px).
+
 ## Trampas conocidas
 
 - `cur` es la canción **enfocada** (cambia al abrir una ficha); `playing` es la

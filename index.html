@@ -396,7 +396,7 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   font-family:var(--serif);font-size:.95rem;color:var(--paper);opacity:0;transition:opacity .3s,transform .3s}
 .mem-bubble:hover,.mem-bubble.near{z-index:9}
 .mem-bubble:hover .mem-lb,.mem-bubble:focus-visible .mem-lb{opacity:1;transform:translate(-50%,0)}
-.mem-bubble:hover .orb,.mem-bubble.near .orb{transform:scale(1.13);box-shadow:0 0 36px color-mix(in srgb,var(--c) 55%,transparent),inset 0 0 22px color-mix(in srgb,var(--c) 35%,transparent),inset -7px -9px 18px rgba(0,0,0,.45)}
+.mem-bubble:hover .orb{transform:scale(1.1);box-shadow:0 0 36px color-mix(in srgb,var(--c) 55%,transparent),inset 0 0 22px color-mix(in srgb,var(--c) 35%,transparent),inset -7px -9px 18px rgba(0,0,0,.45)}
 /* sin abrir: un anillo respira; ya abiertos: la esfera se aquieta */
 .mem-bubble::before{content:'';position:absolute;top:-5px;left:-5px;right:-5px;bottom:-5px;border-radius:50%;pointer-events:none;
   border:1.5px solid color-mix(in srgb,var(--c) 70%,transparent);opacity:0;animation:memRing 3.4s ease-out infinite;animation-delay:var(--rd,0s)}
@@ -483,7 +483,7 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .mem-no{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:color-mix(in srgb,var(--ink2) 55%,transparent);margin-bottom:.9rem}
 .mem-no i{font-style:normal;opacity:.6}
 .mem-art{position:relative;display:flex;justify-content:center;padding-bottom:.7rem}
-.mem-art .kp{width:104px;height:104px;color:var(--c);filter:drop-shadow(0 0 14px color-mix(in srgb,var(--c) 55%,transparent))}
+.mem-art .kp{width:96px;height:96px;color:var(--c);filter:drop-shadow(0 0 14px color-mix(in srgb,var(--c) 55%,transparent))}
 .mem-card .kp *{stroke-dasharray:1;stroke-dashoffset:1}
 .mem-overlay.on .mem-card .kp *{animation:kpDraw 1.3s .2s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes kpDraw{to{stroke-dashoffset:0}}
@@ -552,6 +552,78 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .k-film .mem-art{border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c) 18%,#0b0d16),#07080d);
   padding:1.2rem 0;margin-bottom:.8rem;border-radius:3px}
 .k-film .mem-tag::before{content:'▶ ';font-size:.7em}
+
+
+/* ── Voces: la partitura ── */
+.voz-stats{display:flex;flex-wrap:wrap;gap:1.6rem 2.4rem;margin:-1rem 0 1.8rem}
+.voz-stats b{display:block;font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1}
+.voz-stats b.sm{font-size:1.3rem;line-height:1.2;max-width:12em}
+.voz-stats span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
+.voz-tools{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-bottom:.9rem}
+.voz-sort{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.score{border-top:1px solid var(--line)}
+.sc-head,.sc-row{display:grid;grid-template-columns:minmax(150px,230px) repeat(6,minmax(0,1fr));align-items:center}
+.sc-head{position:sticky;top:-1px;z-index:4;padding:.6rem 0;background:rgba(5,6,13,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.sc-head div{padding:0 .3rem;overflow:hidden}
+.sc-head b{display:block;font-size:.66rem;letter-spacing:.18em;font-weight:500}
+.sc-head em{display:block;font-style:normal;font-family:var(--serif);font-size:.74rem;color:var(--dimmer);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-row{position:relative;min-height:54px;border-bottom:1px solid rgba(244,239,230,.05)}
+.sc-row::before{content:'';position:absolute;left:230px;right:0;top:50%;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--vc) 35%,transparent),transparent);pointer-events:none}
+.sc-name{display:flex;align-items:center;gap:.7rem;text-align:left;padding:.4rem .6rem .4rem 0;min-width:0;transition:.3s}
+.sc-name b{font-family:var(--serif);font-weight:400;font-size:1.05rem;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.sc-name u{text-decoration:none;font-size:.6rem;color:var(--dimmer);margin-left:auto;flex:none}
+.sc-name:hover b{color:var(--vc)}
+.sc-cv{width:34px;height:34px;border-radius:50%;overflow:hidden;flex:none;display:block;border:1px solid color-mix(in srgb,var(--vc) 50%,transparent);background:rgba(255,255,255,.05)}
+.sc-cv img,.sc-cv .cv0{width:100%;height:100%;object-fit:cover;display:block}
+.sc-cell{display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center;padding:.3rem;position:relative}
+.sc-cell.on{background:linear-gradient(180deg,transparent,rgba(255,255,255,.025),transparent)}
+.nt{display:block;width:13px;height:13px;border-radius:50%;border:1.5px solid var(--n);background:transparent;cursor:pointer;transition:.25s;position:relative;z-index:1;flex:none}
+.nt.h{background:var(--n);box-shadow:0 0 10px var(--n)}
+.sc-cell .nt:hover{transform:scale(1.5)}
+.faces{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.9rem}
+.face{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;padding:1rem;border-radius:18px;border:1px solid var(--line);text-align:left;position:relative;overflow:hidden;transition:.3s}
+.face::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;opacity:.13;background:radial-gradient(circle at 20% 0%,var(--vc),transparent 65%)}
+.face:hover{transform:translateY(-3px);border-color:var(--vc)}
+.fc-stack{display:flex;margin-bottom:.55rem;padding-left:10px;position:relative;z-index:1}
+.fc-stack img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid #0a0b14;margin-left:-10px}
+.face b{font-family:var(--serif);font-weight:400;font-size:1.2rem;line-height:1.15;position:relative}
+.fc-n{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--vc);position:relative}
+.fc-dots{display:flex;gap:4px;margin-top:.5rem;position:relative}
+.fc-dots i{width:15px;height:4px;border-radius:3px;background:rgba(244,239,230,.1)}.fc-dots i.on{background:var(--vc)}
+.solo-grp{margin-bottom:1.8rem}
+.solo-grp h4{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin-bottom:.7rem}
+.solo-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.solo-chip{display:flex;align-items:center;gap:.6rem;padding:.35rem .9rem .35rem .35rem;border-radius:100px;border:1px solid color-mix(in srgb,var(--vc) 35%,transparent);text-align:left;transition:.3s;max-width:100%}
+.solo-chip:hover{border-color:var(--vc);background:color-mix(in srgb,var(--vc) 10%,transparent)}
+.solo-chip .sc-cv{width:30px;height:30px}
+.solo-chip b{display:block;font-weight:400;font-size:.8rem;line-height:1.2}
+.solo-chip em{display:block;font-style:normal;font-size:.62rem;color:var(--dimmer);max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vdr-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:65;background:rgba(4,5,10,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .35s;display:flex;justify-content:flex-end}
+.vdr-ov.on{opacity:1}
+.vdr{width:min(460px,100%);height:100%;overflow-y:auto;padding:1.6rem 1.4rem 8rem;background:linear-gradient(180deg,color-mix(in srgb,var(--vc) 14%,#0a0b14),#0a0b14 40%);
+  border-left:1px solid color-mix(in srgb,var(--vc) 35%,transparent);transform:translateX(30px);transition:transform .5s cubic-bezier(.2,.9,.2,1);position:relative;scrollbar-width:none}
+.vdr-ov.on .vdr{transform:none}
+.vdr-x{position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);color:var(--dim);z-index:2}
+.vdr-x:hover{color:var(--vc);border-color:var(--vc)}
+.vdr-stack{display:flex;padding-left:26px;margin:1.2rem 0 1rem}
+.vdr-stack img{width:92px;height:92px;border-radius:50%;object-fit:cover;border:3px solid #0a0b14;margin-left:-26px;box-shadow:0 8px 24px rgba(0,0,0,.5);animation:fadeUp .7s calc(var(--i)*.12s) both}
+.vdr h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,5vw,2.4rem);line-height:1.05;margin-bottom:.5rem}
+.vdr-sub{font-size:.84rem;color:var(--dim);line-height:1.6;margin-bottom:1.2rem}
+.vdr-staff{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:1.3rem}
+.vdr-staff div{min-height:62px;border-radius:10px;border:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px;align-content:center;justify-content:center;padding:.3rem;position:relative}
+.vdr-staff div.on{border-color:color-mix(in srgb,currentColor 45%,transparent);background:color-mix(in srgb,currentColor 8%,transparent)}
+.vdr-staff em{position:absolute;top:3px;left:0;right:0;text-align:center;font-style:normal;font-size:.5rem;letter-spacing:.14em;color:var(--dimmer)}
+.vdr-staff div.on em{color:currentColor}
+.vdr-staff .nt{margin-top:.6rem;cursor:default}
+.vdr-act{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+@media(max-width:640px){
+  .sc-head,.sc-row{grid-template-columns:104px repeat(6,minmax(0,1fr))}
+  .sc-row::before{left:104px}
+  .sc-cv{display:none}.sc-name b{font-size:.88rem;white-space:normal}.sc-name u{display:none}
+  .sc-head em{display:none}.sc-head b{font-size:.56rem;letter-spacing:.08em}
+  .nt{width:11px;height:11px}.sc-cell{gap:3px;padding:.2rem 0}
+  .vdr{padding-bottom:9rem}
+}
 
 /* ── Para hoy: una canción según cómo llegas ── */
 .hoy-card{display:flex;align-items:center;gap:1rem;width:100%;text-align:left;margin:0 0 1.6rem;padding:1rem 1.2rem;border-radius:18px;
@@ -933,12 +1005,19 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
     </section>
 
     <section class="view" id="v-maps">
-      <h2 class="vtitle">Quién suena aquí</h2>
-      <p class="vsub">Los artistas de la playlist, del que más aparece al que menos. El tamaño es cuántas canciones aporta; el color, el de su primer disco aquí.</p>
-      <div class="mos-filters" id="mapTabs">
-        <button class="chip on" data-map="core">Los que más</button>
-        <button class="chip" data-map="all">Todos</button>
+      <h2 class="vtitle">Voces</h2>
+      <p class="vsub">No siempre supe cómo decírtelo, así que presté voces. Esta es la partitura de quién habló, y en qué momento de la historia entró cada una.</p>
+      <div id="vozStats"></div>
+      <div class="voz-tools">
+        <div class="searchbar" style="flex:1;min-width:180px;margin:0"><span style="color:var(--dimmer)">⌕</span>
+          <input id="mapQ" placeholder="Buscar una voz…" autocomplete="off"></div>
+        <div class="mos-filters" id="mapTabs" style="margin:0">
+          <button class="chip on" data-vm="score">Partitura</button>
+          <button class="chip" data-vm="faces">Retratos</button>
+          <button class="chip" data-vm="solo">Una sola vez</button>
+        </div>
       </div>
+      <div class="voz-sort" id="vozSort"></div>
       <div id="mapBody"></div>
     </section>
 
@@ -1356,92 +1435,73 @@ const MEMORIES = [
    Cada recuerdo es una cosa dibujada (no un emoji) con su propio "formato":
    boleto, recibo, polaroid, chat, post-it o cinta de película. Todo SVG de
    línea, 64×64, con el color del recuerdo — sin imágenes externas.          */
-const KP = {
-  cruce:'<path d="M8 52 52 12"/><path d="M12 14 54 52"/><circle class="f" cx="32" cy="33" r="5"/><path d="M50 8v6M47 11h6M12 44v6M9 47h6"/>',
-  mascara:'<path class="f" d="M14 28c0-3 4-5 18-5s18 2 18 5v8c0 8-8 12-18 12s-18-4-18-12z"/><path d="M20 32h24M20 37h24M20 42h24"/><path d="M14 30C8 30 8 22 14 20M50 30c6 0 6-8 0-10"/><path d="M12 18c4-10 36-10 40 0"/>',
-  audifonos:'<path d="M12 40V32a20 20 0 0 1 40 0v8"/><rect class="f" x="8" y="38" width="10" height="16" rx="4"/><rect class="f" x="46" y="38" width="10" height="16" rx="4"/><path class="wv" d="M4 40c-2 4-2 8 0 12"/><path class="wv w2" d="M60 40c2 4 2 8 0 12"/>',
-  croissant:'<path class="f" d="M8 42c2-14 14-24 24-24s22 10 24 24c-6 2-10-4-12-4s-6 6-12 6-10-6-12-6-8 6-12 4z"/><path d="M24 22l-4 16M32 20v18M40 22l4 16"/>',
-  acento:'<path class="f" d="M10 12h44v26H30l-10 10V38H10z"/><path d="M18 22q4-4 8 0t8 0t8 0M18 30h20"/>',
-  pastel:'<path class="f" d="M12 34h40v18H12z"/><path d="M12 43q5 4 10 0t10 0t10 0t10 0"/><path d="M32 34V25"/><path class="flame" d="M32 23c-3-3 0-7 0-7s3 4 0 7z"/>',
-  chat:'<path class="f" d="M8 10h32v20H22l-8 7v-7H8z"/><path class="f" d="M26 36h30v16h-6v7l-8-7H26z"/><path d="M15 18h18M15 24h10"/><path class="dt" d="M33 44h.1"/><path class="dt d2" d="M40 44h.1"/><path class="dt d3" d="M47 44h.1"/>',
-  claqueta:'<path class="f" d="M10 28h44v26H10z"/><path d="M10 28l4-12h40l-4 12M22 16l-4 12M34 16l-4 12M46 16l-4 12"/>',
-  micro:'<rect class="f" x="24" y="8" width="16" height="28" rx="8"/><path d="M16 30a16 16 0 0 0 32 0M32 46v10M24 56h16"/><path class="wv" d="M9 22c-3 4-3 10 0 14"/><path class="wv w2" d="M55 22c3 4 3 10 0 14"/>',
-  megafono:'<path class="f" d="M10 26h10l22-12v36L20 38H10z"/><path d="M20 38l4 14h6l-4-14"/><path class="wv" d="M48 24c4 3 4 13 0 16"/><path class="wv w2" d="M53 19c7 6 7 20 0 26"/>',
-  vr:'<path class="f" d="M8 24h48a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H42l-6-6h-8l-6 6H8a2 2 0 0 1-2-2V26a2 2 0 0 1 2-2z"/><path d="M46 8v6M43 11h6"/>',
-  pantalla:'<rect class="f" x="8" y="12" width="48" height="32" rx="3"/><path d="M24 54h16M32 44v10M28 21l12 7-12 7z"/>',
-  luna:'<path class="f" d="M40 10a22 22 0 1 0 14 34A18 18 0 0 1 40 10z"/><path class="tw" d="M50 12l1.5 4 4 1.5-4 1.5L50 23l-1.5-4-4-1.5 4-1.5z"/><path class="tw t2" d="M18 14l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/>',
-  taza:'<path class="f" d="M12 24h30v16a10 10 0 0 1-10 10H22a10 10 0 0 1-10-10z"/><path d="M42 28h4a6 6 0 0 1 0 12h-4"/><path class="steam" d="M22 8c-2 4 2 6 0 10"/><path class="steam s2" d="M31 8c-2 4 2 6 0 10"/>',
-  examen:'<path class="f" d="M14 8h28l10 10v38H14z"/><path d="M42 8v10h10M22 28h20M22 36h20"/><path d="M26 47l4 4 10-10"/>',
-  nota:'<path d="M26 44V14l24-6v30"/><circle class="f" cx="19" cy="46" r="7"/><circle class="f" cx="43" cy="40" r="7"/>',
-  fantasma:'<path class="f" d="M14 54V30a18 18 0 0 1 36 0v24l-6-5-6 5-6-5-6 5-6-5z"/><circle cx="26" cy="30" r="2"/><circle cx="38" cy="30" r="2"/>',
-  arana:'<circle class="f" cx="32" cy="34" r="8"/><path d="M32 6v20M25 31L10 22M25 36L8 40M26 41L12 54M39 31l15-9M39 36l17 4M38 41l14 13"/>',
-  esteto:'<path d="M18 8v14a10 10 0 0 0 20 0V8M28 32v6a10 10 0 0 0 20 0v-2"/><circle class="f" cx="48" cy="32" r="5"/>',
-  chile:'<path class="f" d="M18 20c12-2 28 6 28 22 0 8-8 12-14 12 8-10 4-28-14-28z"/><path d="M18 20c-2-4 0-9 5-10"/>',
-  carro:'<path class="f" d="M8 42V32l6-12h28l8 12h6v10z"/><path d="M16 32h34"/><circle class="f whl" cx="20" cy="44" r="6"/><circle class="f whl" cx="44" cy="44" r="6"/><path class="whl" d="M20 40v8M16 44h8M44 40v8M40 44h8"/>',
-  postit:'<path class="f" d="M12 12h40v30L40 54H12z"/><path d="M40 54V42h12M20 24h24M20 32h16"/>',
-  pez:'<path class="f" d="M8 32c10-14 28-14 36 0-8 14-26 14-36 0z"/><path d="M44 32l12-10v20z"/><circle cx="20" cy="30" r="1.8"/>',
-  plato:'<circle class="f" cx="34" cy="32" r="14"/><circle cx="34" cy="32" r="8"/><path d="M8 12v14M12 12v14M16 12v14M12 26v26M56 12c-4 4-4 18 0 20v20"/>',
-  robot:'<rect class="f" x="14" y="22" width="36" height="26" rx="6"/><path d="M32 22v-8M14 34h-4M50 34h4M24 41h16"/><circle cx="32" cy="12" r="2"/><circle cx="25" cy="32" r="2.2"/><circle cx="39" cy="32" r="2.2"/>',
-  sirena:'<path class="f" d="M18 48V34a14 14 0 0 1 28 0v14z"/><path d="M12 48h40v6H12z"/><path class="blink" d="M32 8v6M12 16l4 4M52 16l-4 4M6 32h6M52 32h6"/>',
-  tele:'<rect class="f" x="8" y="18" width="48" height="32" rx="4"/><path d="M24 8l8 10 8-10M22 57h20"/>',
-  sandia:'<path class="f" d="M8 28a24 24 0 0 0 48 0z"/><path d="M14 28a18 18 0 0 0 36 0"/><path d="M24 36v2M32 40v2M40 36v2"/>',
-  taco:'<path class="f" d="M8 46a24 24 0 0 1 48 0z"/><path d="M16 40c4-6 8 2 12-4s8 2 12-2 6 2 8-2"/>',
-  cartas:'<rect class="f" x="12" y="14" width="26" height="36" rx="3" transform="rotate(-10 25 32)"/><rect x="26" y="14" width="26" height="36" rx="3" transform="rotate(10 39 32)"/><path d="M39 26l4 6-4 6-4-6z"/>',
-  bandera:'<path d="M14 8v48"/><path class="f" d="M14 10h34v24H14z"/><path d="M14 18h34M14 26h34M26 10v24M38 10v24"/>',
-  pollo:'<path class="f" d="M32 10c14 0 22 10 20 22-2 8-10 10-14 6L26 50l-6-6 12-12c-6-6-6-22 0-22z"/><path d="M14 48l-6 6M20 54l-6 6"/>',
-  telefono:'<path class="f" d="M14 12l8-2 6 14-6 4c3 6 7 10 14 14l4-6 14 6-2 8C26 52 10 36 14 12z"/>',
-  gente:'<circle class="f" cx="22" cy="22" r="8"/><circle class="f" cx="44" cy="26" r="7"/><path d="M8 54c0-12 8-18 14-18s14 6 14 18M36 54c0-8 4-13 8-13s12 5 12 13"/>',
-  montana:'<path class="f" d="M6 48C12 22 24 12 30 30s14 14 18-8l10 2"/><path d="M6 56h52"/>',
-  corazon:'<path class="f" d="M32 54S8 40 8 24a12 12 0 0 1 24-2 12 12 0 0 1 24 2c0 16-24 30-24 30z"/>',
-  manos:'<path d="M8 38c8 0 12 6 16 12h16c4-6 8-12 16-12"/><path class="f" d="M32 32S22 26 22 19a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 7-10 13-10 13z"/>',
-  chispa:'<path class="f" d="M32 6c2 14 8 20 22 26-14 6-20 12-22 26-2-14-8-20-22-26 14-6 20-12 22-26z"/>',
-  camara:'<rect class="f" x="8" y="20" width="48" height="32" rx="5"/><circle cx="32" cy="36" r="9"/><path d="M22 20l3-6h14l3 6"/>',
-  rebanada:'<path class="f" d="M8 38 56 26v16L8 52z"/><path d="M8 38v14M22 35v14"/><circle cx="40" cy="20" r="4"/>',
-  casco:'<path class="f" d="M10 38a22 22 0 0 1 44 0z"/><path d="M8 38h48v6H8zM32 16v6"/>',
-  control:'<path class="f" d="M14 22h36c6 0 10 8 10 18s-6 10-10 6l-6-6H20l-6 6c-4 4-10 4-10-6s4-18 10-18z"/><path d="M20 30v8M16 34h8M42 32h.1M48 36h.1"/>',
-  conejo:'<path class="f" d="M24 34c-6-8-6-24 0-26s6 16 4 24M40 34c6-8 6-24 0-26s-6 16-4 24"/><ellipse class="f" cx="32" cy="44" rx="16" ry="12"/><path d="M26 44h.1M38 44h.1"/>',
-  mueca:'<circle class="f" cx="32" cy="32" r="22"/><path d="M22 26h.1M42 26h.1M20 38h24M25 36v4M30 36v4M35 36v4M40 36v4"/>',
-  lloro:'<circle class="f" cx="32" cy="32" r="22"/><path d="M22 28q3-3 6 0M36 28q3-3 6 0M24 44q8-6 16 0M24 34c-2 6 1 8 0 8"/>',
-  ojos:'<circle class="f" cx="32" cy="32" r="22"/><path d="M22 24h.1M42 24h.1M22 20l.1 0M23 44h18"/><circle cx="23" cy="22" r="2.4"/><circle cx="41" cy="22" r="2.4"/>'
-};
-const kp = k => `<svg class="kp" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(KP[k]||KP.chispa).replace(/<(path|circle|rect|ellipse) /g,'<$1 pathLength="1" ')}</svg>`;
+/* ── Íconos: Lucide (lucide.dev · licencia ISC), incrustados — sin red ni imágenes ──
+   Cada recuerdo usa el que representa su sentido completo, no una palabra suelta del texto. */
+const KP = {"shuffle":"<path d=\"m18 14 4 4-4 4\" /><path d=\"m18 2 4 4-4 4\" /><path d=\"M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22\" /><path d=\"M2 6h1.972a4 4 0 0 1 3.6 2.2\" /><path d=\"M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45\" />","eye":"<path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" /><circle cx=\"12\" cy=\"12\" r=\"3\" />","headphones":"<path d=\"M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3\" />","croissant":"<path d=\"M10.2 18H4.774a1.5 1.5 0 0 1-1.352-.97 11 11 0 0 1 .132-6.487\" /><path d=\"M18 10.2V4.774a1.5 1.5 0 0 0-.97-1.352 11 11 0 0 0-6.486.132\" /><path d=\"M18 5a4 3 0 0 1 4 3 2 2 0 0 1-2 2 10 10 0 0 0-5.139 1.42\" /><path d=\"M5 18a3 4 0 0 0 3 4 2 2 0 0 0 2-2 10 10 0 0 1 1.42-5.14\" /><path d=\"M8.709 2.554a10 10 0 0 0-6.155 6.155 1.5 1.5 0 0 0 .676 1.626l9.807 5.42a2 2 0 0 0 2.718-2.718l-5.42-9.807a1.5 1.5 0 0 0-1.626-.676\" />","speech":"<path d=\"M8.8 20v-4.1l1.9.2a2.3 2.3 0 0 0 2.164-2.1V8.3A5.37 5.37 0 0 0 2 8.25c0 2.8.656 3.054 1 4.55a5.77 5.77 0 0 1 .029 2.758L2 20\" /><path d=\"M19.8 17.8a7.5 7.5 0 0 0 .003-10.603\" /><path d=\"M17 15a3.5 3.5 0 0 0-.025-4.975\" />","cake":"<path d=\"M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8\" /><path d=\"M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1\" /><path d=\"M2 21h20\" /><path d=\"M7 8v3\" /><path d=\"M12 8v3\" /><path d=\"M17 8v3\" /><path d=\"M7 4h.01\" /><path d=\"M12 4h.01\" /><path d=\"M17 4h.01\" />","messages-square":"<path d=\"M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\" /><path d=\"M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1\" />","clapperboard":"<path d=\"m12.296 3.464 3.02 3.956\" /><path d=\"M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z\" /><path d=\"M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" /><path d=\"m6.18 5.276 3.1 3.899\" />","mic-vocal":"<path d=\"m11 7.601-5.994 8.19a1 1 0 0 0 .1 1.298l.817.818a1 1 0 0 0 1.314.087L15.09 12\" /><path d=\"M16.5 21.174C15.5 20.5 14.372 20 13 20c-2.058 0-3.928 2.356-6 2-2.072-.356-2.775-3.369-1.5-4.5\" /><circle cx=\"16\" cy=\"7\" r=\"5\" />","megaphone":"<path d=\"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z\" /><path d=\"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14\" /><path d=\"M8 6v8\" />","glasses":"<circle cx=\"6\" cy=\"15\" r=\"4\" /><circle cx=\"18\" cy=\"15\" r=\"4\" /><path d=\"M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2\" /><path d=\"M2.5 13 5 7c.7-1.3 1.4-2 3-2\" /><path d=\"M21.5 13 19 7c-.7-1.3-1.5-2-3-2\" />","monitor-play":"<path d=\"M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z\" /><path d=\"M12 17v4\" /><path d=\"M8 21h8\" /><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\" />","moon-star":"<path d=\"M18 5h4\" /><path d=\"M20 3v4\" /><path d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\" />","coffee":"<path d=\"M10 2v2\" /><path d=\"M14 2v2\" /><path d=\"M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1\" /><path d=\"M6 2v2\" />","file-check":"<path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /><path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /><path d=\"m9 15 2 2 4-4\" />","music":"<path d=\"M9 18V5l12-2v13\" /><circle cx=\"6\" cy=\"18\" r=\"3\" /><circle cx=\"18\" cy=\"16\" r=\"3\" />","ghost":"<path d=\"M15 10v1\" /><path d=\"M7.528 20.472a1.6 1.6 0 012.277 0l1.057 1.056a1.6 1.6 0 002.276 0l1.057-1.056a1.6 1.6 0 012.277 0l1.114 1.114a1.4 1.4 0 002.414-1V10a8 8 0 00-16 0v10.586a1.4 1.4 0 002.414 1z\" /><path d=\"M9 10v1\" />","bug":"<path d=\"M12 20v-9\" /><path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\" /><path d=\"M14.12 3.88 16 2\" /><path d=\"M21 21a4 4 0 0 0-3.81-4\" /><path d=\"M21 5a4 4 0 0 1-3.55 3.97\" /><path d=\"M22 13h-4\" /><path d=\"M3 21a4 4 0 0 1 3.81-4\" /><path d=\"M3 5a4 4 0 0 0 3.55 3.97\" /><path d=\"M6 13H2\" /><path d=\"m8 2 1.88 1.88\" /><path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\" />","stethoscope":"<path d=\"M11 2v2\" /><path d=\"M5 2v2\" /><path d=\"M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\" /><path d=\"M8 15a6 6 0 0 0 12 0v-3\" /><circle cx=\"20\" cy=\"10\" r=\"2\" />","flame":"<path d=\"M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4\" />","car":"<path d=\"M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2\" /><circle cx=\"7\" cy=\"17\" r=\"2\" /><path d=\"M9 17h6\" /><circle cx=\"17\" cy=\"17\" r=\"2\" />","sticky-note":"<path d=\"M21 9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z\" /><path d=\"M15 3v5a1 1 0 0 0 1 1h5\" />","fish":"<path d=\"M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z\" /><path d=\"M18 12v.5\" /><path d=\"M16 17.93a9.77 9.77 0 0 1 0-11.86\" /><path d=\"M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33\" /><path d=\"M10.46 7.26C10.2 5.88 9.17 4.24 8 3h5.8a2 2 0 0 1 1.98 1.67l.23 1.4\" /><path d=\"m16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98\" />","utensils":"<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\" /><path d=\"M7 2v20\" /><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7\" />","bot":"<path d=\"M12 8V4H8\" /><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\" /><path d=\"M2 14h2\" /><path d=\"M20 14h2\" /><path d=\"M15 13v2\" /><path d=\"M9 13v2\" />","siren":"<path d=\"M7 18v-6a5 5 0 1 1 10 0v6\" /><path d=\"M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z\" /><path d=\"M21 12h1\" /><path d=\"M18.5 4.5 18 5\" /><path d=\"M2 12h1\" /><path d=\"M12 2v1\" /><path d=\"m4.929 4.929.707.707\" /><path d=\"M12 12v6\" />","tv":"<path d=\"m17 2-5 5-5-5\" /><rect width=\"20\" height=\"15\" x=\"2\" y=\"7\" rx=\"2\" />","citrus":"<path d=\"M21.66 17.67a1.08 1.08 0 0 1-.04 1.6A12 12 0 0 1 4.73 2.38a1.1 1.1 0 0 1 1.61-.04z\" /><path d=\"M19.65 15.66A8 8 0 0 1 8.35 4.34\" /><path d=\"m14 10-5.5 5.5\" /><path d=\"M14 17.85V10H6.15\" />","sandwich":"<path d=\"m2.37 11.223 8.372-6.777a2 2 0 0 1 2.516 0l8.371 6.777\" /><path d=\"M21 15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.25\" /><path d=\"M3 15a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9\" /><path d=\"m6.67 15 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2\" /><rect width=\"20\" height=\"4\" x=\"2\" y=\"11\" rx=\"1\" />","spade":"<path d=\"M12 18v4\" /><path d=\"M2 14.499a5.5 5.5 0 0 0 9.591 3.675.6.6 0 0 1 .818.001A5.5 5.5 0 0 0 22 14.5c0-2.29-1.5-4-3-5.5l-5.492-5.312a2 2 0 0 0-3-.02L5 8.999c-1.5 1.5-3 3.2-3 5.5\" />","flag":"<path d=\"M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528\" />","drumstick":"<path d=\"M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.5 3.43 135 0 0-6.23 6.23\" /><path d=\"m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59\" />","phone":"<path d=\"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384\" />","users":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /><path d=\"M16 3.128a4 4 0 0 1 0 7.744\" /><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /><circle cx=\"9\" cy=\"7\" r=\"4\" />","compass":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z\" />","heart":"<path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\" />","hand-heart":"<path d=\"M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16\" /><path d=\"m14.45 13.39 5.05-4.694C20.196 8 21 6.85 21 5.75a2.75 2.75 0 0 0-4.797-1.837.276.276 0 0 1-.406 0A2.75 2.75 0 0 0 11 5.75c0 1.2.802 2.248 1.5 2.946L16 11.95\" /><path d=\"m2 15 6 6\" /><path d=\"m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a1 1 0 0 0-2.75-2.91\" />","sparkles":"<path d=\"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z\" /><path d=\"M20 2v4\" /><path d=\"M22 4h-4\" /><circle cx=\"4\" cy=\"20\" r=\"2\" />","camera":"<path d=\"M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z\" /><circle cx=\"12\" cy=\"13\" r=\"3\" />","cake-slice":"<path d=\"M16 13H3\" /><path d=\"M16 17H3\" /><path d=\"m7.2 7.9-3.388 2.5A2 2 0 0 0 3 12.01V20a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.654c0-2-2.44-6.026-6.44-8.026a1 1 0 0 0-1.082.057L10.4 5.6\" /><circle cx=\"9\" cy=\"7\" r=\"2\" />","shield":"<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" />","gamepad-2":"<line x1=\"6\" x2=\"10\" y1=\"11\" y2=\"11\" /><line x1=\"8\" x2=\"8\" y1=\"9\" y2=\"13\" /><line x1=\"15\" x2=\"15.01\" y1=\"12\" y2=\"12\" /><line x1=\"18\" x2=\"18.01\" y1=\"10\" y2=\"10\" /><path d=\"M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z\" />","rabbit":"<path d=\"M13 16a3 3 0 0 1 2.24 5\" /><path d=\"M18 12h.01\" /><path d=\"M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3\" /><path d=\"M20 8.54V4a2 2 0 1 0-4 0v3\" /><path d=\"M7.612 12.524a3 3 0 1 0-1.6 4.3\" />","meh":"<path d=\"M15 10V9\" /><path d=\"M8 16h8\" /><path d=\"M9 10V9\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","frown":"<path d=\"M15 10V9\" /><path d=\"M9 10V9\" /><path d=\"M9 16a5 5 0 016 0\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","annoyed":"<path d=\"M14 10h2\" /><path d=\"M8 10h2\" /><path d=\"M8 16h8\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","merge":"<path d=\"m8 6 4-4 4 4\" /><path d=\"M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22\" /><path d=\"m20 22-5-5\" />","sunrise":"<path d=\"M12 2v8\" /><path d=\"m4.93 10.93 1.41 1.41\" /><path d=\"M2 18h2\" /><path d=\"M20 18h2\" /><path d=\"m19.07 10.93-1.41 1.41\" /><path d=\"M22 22H2\" /><path d=\"m8 6 4-4 4 4\" /><path d=\"M16 18a4 4 0 0 0-8 0\" />","audio-waveform":"<path d=\"M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2\" />","send":"<path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\" /><path d=\"m21.854 2.147-10.94 10.939\" />","ticket":"<path d=\"M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z\" /><path d=\"M13 5v2\" /><path d=\"M13 17v2\" /><path d=\"M13 11v2\" />","audio-lines":"<path d=\"M2 10v3\" /><path d=\"M6 6v11\" /><path d=\"M10 3v18\" /><path d=\"M14 8v7\" /><path d=\"M18 5v13\" /><path d=\"M22 10v3\" />","calendar-heart":"<path d=\"M12.127 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v5.125\" /><path d=\"M14.62 17.8A2.25 2.25 0 1118 14.836a2.25 2.25 0 113.38 2.966l-2.626 2.856a.998.998 0 01-1.507 0z\" /><path d=\"M16 2v3\" /><path d=\"M3 9h18\" /><path d=\"M8 2v3\" />","heart-pulse":"<path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\" /><path d=\"M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27\" />","microscope":"<path d=\"M6 18h8\" /><path d=\"M3 22h18\" /><path d=\"M14 22a7 7 0 1 0 0-14h-1\" /><path d=\"M9 14h2\" /><path d=\"M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z\" /><path d=\"M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\" />","disc-3":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"M6 12c0-1.7.7-3.2 1.8-4.2\" /><circle cx=\"12\" cy=\"12\" r=\"2\" /><path d=\"M18 12c0 1.7-.7 3.2-1.8 4.2\" />","dices":"<rect width=\"12\" height=\"12\" x=\"2\" y=\"10\" rx=\"2\" ry=\"2\" /><path d=\"m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6\" /><path d=\"M6 18h.01\" /><path d=\"M10 14h.01\" /><path d=\"M15 6h.01\" /><path d=\"M18 9h.01\" />","circle-check":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"m16 9-5.5 5.5L8 12\" />","share-2":"<circle cx=\"18\" cy=\"5\" r=\"3\" /><circle cx=\"6\" cy=\"12\" r=\"3\" /><circle cx=\"18\" cy=\"19\" r=\"3\" /><line x1=\"8.59\" x2=\"15.42\" y1=\"13.51\" y2=\"17.49\" /><line x1=\"15.41\" x2=\"8.59\" y1=\"6.51\" y2=\"10.49\" />","drama":"<path d=\"M10 11h.01\" /><path d=\"M14 6h.01\" /><path d=\"M18 6h.01\" /><path d=\"M6.5 13.1h.01\" /><path d=\"M22 5c0 9-4 12-6 12s-6-3-6-12c0-2 2-3 6-3s6 1 6 3\" /><path d=\"M17.4 9.9c-.8.8-2 .8-2.8 0\" /><path d=\"M10.1 7.1C9 7.2 7.7 7.7 6 8.6c-3.5 2-4.7 3.9-3.7 5.6 4.5 7.8 9.5 8.4 11.2 7.4.9-.5 1.9-2.1 1.9-4.7\" /><path d=\"M9.1 16.5c.3-1.1 1.4-1.7 2.4-1.4\" />","hourglass":"<path d=\"M5 22h14\" /><path d=\"M5 2h14\" /><path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\" /><path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\" />","wand-sparkles":"<path d=\"m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72\" /><path d=\"m14 7 3 3\" /><path d=\"M5 6v4\" /><path d=\"M19 14v4\" /><path d=\"M10 2v2\" /><path d=\"M7 8H3\" /><path d=\"M21 16h-4\" /><path d=\"M11 3H9\" />","trophy":"<path d=\"M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2\" /><path d=\"M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2\" /><path d=\"M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3\" /><path d=\"M4 22h16\" /><path d=\"M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z\" /><path d=\"M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3\" />","alarm-clock":"<circle cx=\"12\" cy=\"13\" r=\"8\" /><path d=\"M12 9v4l2 2\" /><path d=\"M5 3 2 6\" /><path d=\"m22 6-3-3\" /><path d=\"M6.38 18.7 4 21\" /><path d=\"M17.64 18.67 20 21\" />","heart-crack":"<path d=\"M12.409 5.824c-.702.792-1.15 1.496-1.415 2.166l2.153 2.156a.5.5 0 0 1 0 .707l-2.293 2.293a.5.5 0 0 0 0 .707L12 15\" /><path d=\"M13.508 20.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.677.6.6 0 0 0 .818.001A5.5 5.5 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5z\" />","list-checks":"<path d=\"M13 5h8\" /><path d=\"M13 12h8\" /><path d=\"M13 19h8\" /><path d=\"m3 17 2 2 4-4\" /><path d=\"m3 7 2 2 4-4\" />","circle-play":"<path d=\"M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","receipt":"<path d=\"M12 17V7\" /><path d=\"M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8\" /><path d=\"M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z\" />","thumbs-down":"<path d=\"M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z\" /><path d=\"M17 14V2\" />","popcorn":"<path d=\"M18 8a2 2 0 0 0 0-4 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0 0 4\" /><path d=\"M10 22 9 8\" /><path d=\"m14 22 1-14\" /><path d=\"M20 8c.5 0 .9.4.8 1l-2.6 12c-.1.5-.7 1-1.2 1H7c-.6 0-1.1-.4-1.2-1L3.2 9c-.1-.6.3-1 .8-1Z\" />","heart-handshake":"<path d=\"M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762\" />","volume-2":"<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" /><path d=\"M16 9a5 5 0 0 1 0 6\" /><path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\" />","message-circle-question":"<path d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\" /><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" /><path d=\"M12 17h.01\" />","notebook-pen":"<path d=\"M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4\" /><path d=\"M2 6h4\" /><path d=\"M2 10h4\" /><path d=\"M2 14h4\" /><path d=\"M2 18h4\" /><path d=\"M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z\" />","cloud-fog":"<path d=\"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242\" /><path d=\"M16 17H7\" /><path d=\"M17 21H9\" />","split":"<path d=\"M16 3h5v5\" /><path d=\"M8 3H3v5\" /><path d=\"M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3\" /><path d=\"m15 9 6-6\" />","zap":"<path d=\"M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z\" />"};
+const kp = k => `<svg class="kp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(KP[k]||KP.sparkles).replace(/<(path|circle|rect|ellipse|line|polyline|polygon) /g,'<$1 pathLength="1" ')}</svg>`;
 
 // etiqueta → [objeto, formato, nota corta]. Las notas salen de lo que cada texto ya dice.
 const MEM_META = {
-  'El cruce':['cruce','card','piso MI · el ABC'], 'El primer día':['mascara','polaroid','primer día'],
-  '¿Te gusta el kpop?':['audifonos','chat','la pregunta'], 'Desayunos random':['croissant','receipt','cafetería del ABC'],
-  'El acento del norte':['acento','chat','sin decirlo'], 'Su cumpleaños':['pastel','polaroid','dos semanas después'],
-  'Nunca pedí el número':['chat','chat','DM de Instagram'], 'IVE en el cine':['claqueta','ticket','función · sala oscura'],
-  'Stray Kids':['micro','ticket','concierto'], 'AJU NICE':['megafono','ticket','SEVENTEEN · en vivo'],
-  'VR concert de TXT':['vr','ticket','concierto virtual'], 'Gracie en pantalla':['pantalla','ticket','otro más a la lista'],
-  'Reels a las 3am':['luna','chat','3:00 a.m.'], '«Ana» en el Starbucks':['taza','receipt','chocolate y panecito'],
-  'Exámenes de ciru':['examen','note','ciru'], 'Mingyu prestado':['nota','note','miércoles'],
-  'Los espíritus de Aranzola':['fantasma','polaroid','depa de Vero'], 'La araña de Polanco':['arana','polaroid','aquí no pasó nada'],
-  '¿Te sientes bien?':['esteto','note','la clase'], 'Ronchas de Xoco':['chile','note','caso abierto'],
-  'Las cuatro llantas':['carro','polaroid','día histórico'], 'Post-its anti-ansiedad':['postit','note','por si acaso'],
-  'Super Tuna':['pez','card','Jin'], 'Casi almorzar en la Roma':['plato','receipt','sin plan'],
-  'Preguntas a ChatGPT':['robot','chat','para matar el tiempo'], 'Café en la Mexicana':['taza','receipt','con Vero'],
-  'PewDiePie y Outlast':['control','chat','porque sí'], 'Todo lo que dijera Jungkook':['conejo','chat','sin razón ni disculpa'],
-  'Santos Bravos':['mueca','polaroid','nadie lo pidió'], 'Esperando a los bitis':['casco','note','cuenta regresiva'],
-  'El trend de las fotos con Gemini':['camara','polaroid','como todo el mundo'], 'Cheesecake después de examen':['rebanada','receipt','el premio'],
-  'Los miércoles con Arechiga':['examen','note','cada semana'], 'Llorar con Business Proposal':['lloro','film','11/10'],
-  'Recomendaciones de kdramas':['tele','film','lista infinita'], 'Twinkling Watermelon':['sandia','film','la primera'],
-  'Sopecitos pendientes':['taco','receipt','deuda abierta'], 'Funar a Nat':['ojos','chat','un clásico'],
-  'Las Twai':['cartas','card','una tarde entera'], 'La película de F1':['bandera','ticket','función'],
-  'El recap de F1, F2 y F3':['bandera','receipt','esperando la comida'], 'El mega plato de pollo':['pollo','receipt','SSAM'],
-  'Teléfono Negro 2':['telefono','ticket','función'], 'Con Fonsi y Melvin':['gente','polaroid','central de MI'],
-  'El código pediátrico':['sirena','note','a media plática'], 'Tus aventuras inesperadas':['montana','chat','último momento'],
-  'Best bestie bestie':['corazon','card','todos los días'], 'Gracias por dejarme ser así':['manos','card','sin filtro'],
-  'Sigue siendo tú':['chispa','card','el deseo']
+  'El cruce':['merge','card','piso MI · el ABC'],                           // dos caminos que se juntan sin que ninguno lo supiera
+  'El primer día':['eye','polaroid','primer día'],                          // ni una palabra: una mirada cruzada
+  '¿Te gusta el kpop?':['message-circle-question','chat','la pregunta'],     // la pregunta que lo cambió todo
+  'Desayunos random':['sunrise','receipt','cafetería del ABC'],             // lo esporádico que se volvió costumbre
+  'El acento del norte':['audio-waveform','chat','sin decirlo'],            // su voz, y lo que nunca dije de ella
+  'Su cumpleaños':['cake','polaroid','dos semanas después'],
+  'Nunca pedí el número':['send','chat','DM de Instagram'],                 // todo por mensajes
+  'IVE en el cine':['ticket','ticket','función · sala oscura'],
+  'Stray Kids':['mic-vocal','ticket','concierto'],
+  'AJU NICE':['megaphone','ticket','SEVENTEEN · en vivo'],                  // gritarlo sin vergüenza
+  'VR concert de TXT':['glasses','ticket','concierto virtual'],
+  'Gracie en pantalla':['monitor-play','ticket','otro más a la lista'],
+  'Reels a las 3am':['moon-star','chat','3:00 a.m.'],
+  '«Ana» en el Starbucks':['coffee','receipt','chocolate y panecito'],
+  'Exámenes de ciru':['notebook-pen','note','ciru'],
+  'Mingyu prestado':['calendar-heart','note','miércoles'],                  // un día de la semana que era de alguien
+  'Los espíritus de Aranzola':['ghost','polaroid','depa de Vero'],
+  'La araña de Polanco':['bug','polaroid','aquí no pasó nada'],
+  '¿Te sientes bien?':['heart-pulse','note','la clase'],                    // la preocupación repetida
+  'Ronchas de Xoco':['microscope','note','caso abierto'],                   // el misterio sin resolver
+  'Las cuatro llantas':['car','polaroid','día histórico'],
+  'Post-its anti-ansiedad':['sticky-note','note','por si acaso'],
+  'Super Tuna':['disc-3','card','Jin'],                                     // una canción que cambió de sonido por ti
+  'Casi almorzar en la Roma':['utensils','receipt','sin plan'],
+  'Preguntas a ChatGPT':['dices','chat','para matar el tiempo'],            // un juego improvisado
+  'Café en la Mexicana':['circle-check','receipt','con Vero'],              // cerrar bien una etapa
+  'PewDiePie y Outlast':['messages-square','chat','porque sí'],             // conversar sin razón
+  'Todo lo que dijera Jungkook':['share-2','chat','sin razón ni disculpa'], // mandar cosas porque sí
+  'Santos Bravos':['drama','polaroid','nadie lo pidió'],                    // una experiencia tragicómica
+  'Esperando a los bitis':['hourglass','note','cuenta regresiva'],
+  'El trend de las fotos con Gemini':['wand-sparkles','polaroid','como todo el mundo'],
+  'Cheesecake después de examen':['trophy','receipt','el premio'],
+  'Los miércoles con Arechiga':['alarm-clock','note','cada semana'],
+  'Llorar con Business Proposal':['heart-crack','film','11/10'],
+  'Recomendaciones de kdramas':['list-checks','film','lista infinita'],
+  'Twinkling Watermelon':['circle-play','film','la primera'],
+  'Sopecitos pendientes':['receipt','receipt','deuda abierta'],
+  'Funar a Nat':['annoyed','chat','un clásico'],
+  'Las Twai':['spade','card','una tarde entera'],
+  'La película de F1':['thumbs-down','ticket','función'],
+  'El recap de F1, F2 y F3':['flag','receipt','esperando la comida'],
+  'El mega plato de pollo':['drumstick','receipt','SSAM'],
+  'Teléfono Negro 2':['popcorn','ticket','función'],
+  'Con Fonsi y Melvin':['users','polaroid','central de MI'],
+  'El código pediátrico':['siren','note','a media plática'],
+  'Tus aventuras inesperadas':['compass','chat','último momento'],
+  'Best bestie bestie':['heart-handshake','card','todos los días'],
+  'Gracias por dejarme ser así':['hand-heart','card','sin filtro'],
+  'Sigue siendo tú':['volume-2','card','el deseo']                          // que nada le baje el volumen
 };
-
-// cómo se mueve cada escena (todo el dibujo) y qué "flota" a su alrededor
-const KMOVE = { arana:'swing', fantasma:'float', corazon:'beat', chispa:'twinkle', cruce:'twinkle', luna:'float', taza:'bob', pastel:'bob',
-  carro:'drive', sirena:'bob', nota:'sway', micro:'bob', megafono:'sway', audifonos:'bob', claqueta:'clap', pez:'sway', robot:'bob',
-  manos:'beat', gente:'bob', pantalla:'pulse', vr:'pulse', tele:'pulse', camara:'pulse', conejo:'hop', control:'sway', lloro:'bob', mueca:'sway' };
-const KPART = { nota:'note', micro:'note', megafono:'note', audifonos:'note', control:'note', corazon:'heart', manos:'heart', gente:'heart',
-  chispa:'star', cruce:'star', luna:'star', pastel:'star', camara:'star', taza:'steam', plato:'steam', croissant:'steam', rebanada:'steam',
-  pollo:'steam', taco:'steam', fantasma:'bub', lloro:'drop', pez:'bub', robot:'dot', chat:'dot', carro:'dot', sirena:'star' };
+// cómo se mueve cada escena y qué flota a su alrededor (por ícono)
+const KMOVE = { bug:'swing', ghost:'float', heart:'beat', 'heart-pulse':'beat', 'hand-heart':'beat', 'heart-handshake':'beat', 'heart-crack':'bob',
+  sparkles:'twinkle', 'wand-sparkles':'twinkle', merge:'pulse', 'moon-star':'float', coffee:'bob', cake:'bob', car:'drive', siren:'pulse',
+  music:'sway', 'audio-lines':'pulse', 'audio-waveform':'pulse', 'volume-2':'pulse', 'mic-vocal':'bob', megaphone:'sway', headphones:'bob', clapperboard:'clap',
+  fish:'sway', bot:'bob', dices:'sway', rabbit:'hop', 'gamepad-2':'sway', hourglass:'sway', 'alarm-clock':'sway', send:'sway', compass:'sway', sunrise:'bob', zap:'pulse' };
+const KPART = { 'mic-vocal':'note', megaphone:'note', headphones:'note', music:'note', 'audio-lines':'note', 'audio-waveform':'note', 'disc-3':'note', 'volume-2':'note',
+  heart:'heart', 'hand-heart':'heart', 'heart-handshake':'heart', 'heart-pulse':'heart', 'calendar-heart':'heart',
+  sparkles:'star', 'wand-sparkles':'star', 'moon-star':'star', cake:'star', trophy:'star', zap:'star', 'circle-play':'star',
+  coffee:'steam', utensils:'steam', drumstick:'steam', croissant:'steam', popcorn:'steam', sunrise:'steam',
+  ghost:'bub', fish:'bub', 'heart-crack':'drop', frown:'drop', 'cloud-fog':'bub', bot:'dot', send:'dot', 'messages-square':'dot' };
 const PTSVG = {
   note:'<path d="M8 2v7.2A2.6 2.6 0 1 1 6.6 7V3.6L9.8 3z"/>',
   heart:'<path d="M6 10.6S1.2 7.4 1.2 4.4A2.4 2.4 0 0 1 6 3.8 2.4 2.4 0 0 1 10.8 4.4C10.8 7.4 6 10.6 6 10.6z"/>',
@@ -1455,7 +1515,7 @@ const CORE_MEM = new Set(['El cruce','¿Te gusta el kpop?','Best bestie bestie',
 // las cuatro hues son las "emociones" del campo de recuerdos
 const EMO = { rose:'Cariño', violet:'Fandom', cyan:'Rutina juntas', gold:'Risas y caos' };
 const memPts = o => { const g=PTSVG[KPART[o]||'dot']; return [0,1,2].map(k=>`<i class="pt" style="--x:${22+k*28+((k*37)%11)}%;--d:${(k*.7).toFixed(1)}s;--t:${(2.6+k*.5).toFixed(1)}s"><svg viewBox="0 0 12 12" fill="currentColor">${g}</svg></i>`).join(''); };
-const memMeta = m => { const x = MEM_META[m.label] || ['chispa','card','']; return {obj:x[0],kind:x[1],tag:x[2]}; };
+const memMeta = m => { const x = MEM_META[m.label] || ['sparkles','card','']; return {obj:x[0],kind:x[1],tag:x[2]}; };
 
 const YTIDS = {
   "Told You So (Lavern & VisionV Remix)||Martin Garrix, Jex, Lavern, VisionV":"A_sZ16eYp80",
@@ -2424,58 +2484,97 @@ function renderYou(){
     :'<div class="empty">Ninguna aún. Abre una canción y dale a ♡.</div>';
 }
 
-let mapTab='core';
+let mapTab='score';
 function artistIndex(){
   const by={};
   SONGS.forEach(s=>s.ar.split(',').map(x=>x.trim()).filter(Boolean).forEach(a=>{(by[a]=by[a]||[]).push(s);}));
   return Object.entries(by).sort((x,y)=>y[1].length-x[1].length||x[0].localeCompare(y[0]));
 }
 function renderMaps(){
-  const B=$('#mapBody');
-  $$('#mapTabs .chip').forEach(c=>c.classList.toggle('on',c.dataset.map===mapTab));
+  const B=$('#mapBody'); if(!B)return;
   const list=artistIndex();
-  const max=list.length?list[0][1].length:1;
-  const card=([a,ss])=>{
-    const col=ss[0].pal.a, got=ss.filter(s=>heard(s.key)).length;
-    const sz=.74+(ss.length/max)*1.15;
-    return `<button class="abub" data-artist="${esc(a)}" style="font-size:${sz}rem;border-color:${col}55">
-      <i style="width:8px;height:8px;border-radius:50%;background:${col};display:inline-block;box-shadow:0 0 10px ${col}"></i>
-      <b>${esc(a)}</b><span>${ss.length}${got?' · '+got+' ✓':''}</span></button>`;
-  };
-  if(mapTab==='core'){
-    const top=list.filter(([a,ss])=>ss.length>=2);
-    const solos=list.length-top.length;
-    B.innerHTML=`<div class="apodium">${top.slice(0,3).map(([a,ss],i)=>{
-        const col=ss[0].pal.a;
-        return `<div class="apod" style="--pc:${col}" data-artist="${esc(a)}">
-          <div class="apn">${i+1}</div>
-          <div class="apcovers">${ss.slice(0,6).map(s=>artOf(s)?`<img src="${artOf(s)}" alt="">`:'').join('')}</div>
-          <b>${esc(a)}</b><span>${ss.length} canciones</span>
-          <em>${esc(ss.slice(0,3).map(s=>s.t).join(' · '))}${ss.length>3?'…':''}</em>
-        </div>`;}).join('')}</div>
-      <div class="abubbles" style="margin-top:1.6rem">${top.slice(3).map(card).join('')}</div>
-      <p class="vsub" style="margin-top:1.6rem">${top.length} artistas aparecen más de una vez. Otros ${solos} suenan una sola vez —
-        están en <em>Todos</em>. Clic en cualquiera para ver sus canciones.</p>`;
+  const ACT_OF={}; ACTV.forEach(a=>a.songs.forEach(x=>ACT_OF[x.key]=a.ai));
+  const nA=ACTV.length;
+  const info=list.map(([name,ss])=>{
+    const per=Array.from({length:nA},()=>[]); ss.forEach(x=>{ const k=ACT_OF[x.key]; if(per[k]) per[k].push(x); });
+    const acts=per.map((v,i)=>v.length?i:-1).filter(i=>i>=0);
+    return {name,ss,per,first:acts[0]==null?99:acts[0],last:acts.length?acts[acts.length-1]:-1,nacts:acts.length,
+            got:ss.filter(x=>heard(x.key)).length,col:ss[0].pal.a};
+  });
+  const q=mapQuery;
+  const hit=v=>!q||v.name.toLowerCase().includes(q);
+  const repeat=info.filter(v=>v.ss.length>=2), solo=info.filter(v=>v.ss.length<2);
+  $$('#mapTabs .chip').forEach(c=>c.classList.toggle('on',c.dataset.vm===mapTab));
+  const top=repeat[0];
+  $('#vozStats').innerHTML=`<div class="voz-stats"><div><b>${info.length}</b><span>voces distintas</span></div>
+    <div><b>${repeat.length}</b><span>vuelven más de una vez</span></div><div><b>${solo.length}</b><span>solo una vez, pero estuvieron</span></div>
+    ${top?`<div><b class="sm">${esc(top.name)}</b><span>la voz más presente · ${top.ss.length}</span></div>`:''}</div>`;
+  const sortBox=$('#vozSort');
+  sortBox.style.display=(mapTab==='solo')?'none':'';
+  sortBox.innerHTML=[['count','Por presencia'],['entrada','Por orden de entrada'],['az','A–Z']].map(([k,l])=>`<button class="chip${mapSort===k?' on':''}" data-vs="${k}">${l}</button>`).join('');
+  const srt=arr=>[...arr].sort(mapSort==='az'?(x,y)=>x.name.localeCompare(y.name)
+    : mapSort==='entrada'?(x,y)=>x.first-y.first||y.ss.length-x.ss.length||x.name.localeCompare(y.name)
+    : (x,y)=>y.ss.length-x.ss.length||x.first-y.first||x.name.localeCompare(y.name));
+  const dot=x=>`<i class="nt${heard(x.key)?' h':''}" data-open="${esc(x.key)}" style="--n:${x.pal.a}" title="${esc(x.t)}"></i>`;
+  const cov=v=>{ const im=v.ss.map(x=>artOf(x)).find(Boolean); return im?`<img src="${im}" alt="" loading="lazy">`:'<span class="cv0"></span>'; };
+  if(mapTab==='score'){
+    const rows=srt(repeat.filter(hit));
+    B.innerHTML=`<div class="score">
+      <div class="sc-head"><span></span>${ACTV.map(a=>`<div style="color:${actColor(a)}"><b>${esc(a.n.replace(/^Nebulosa\s*/,'N·'))}</b><em>${esc(a.name)}</em></div>`).join('')}</div>
+      ${rows.map(v=>`<div class="sc-row" style="--vc:${v.col}">
+        <button class="sc-name" data-voice="${esc(v.name)}"><span class="sc-cv">${cov(v)}</span><b>${esc(v.name)}</b><u>${v.ss.length}</u></button>
+        ${v.per.map(ps=>`<div class="sc-cell${ps.length?' on':''}">${ps.map(dot).join('')}</div>`).join('')}
+      </div>`).join('')||'<div class="empty">Ninguna voz con ese nombre.</div>'}
+    </div>
+    <p class="vsub" style="margin-top:1.6rem">Cada punto es una canción: con luz si ya la escuchaste, vacío si falta. Toca un punto para abrirla o un nombre para ver su voz completa.</p>`;
+  } else if(mapTab==='faces'){
+    const rows=srt(repeat.filter(hit));
+    B.innerHTML=`<div class="faces">${rows.map(v=>`<button class="face" data-voice="${esc(v.name)}" style="--vc:${v.col}">
+      <span class="fc-stack">${v.ss.slice(0,3).map((x,i)=>artOf(x)?`<img src="${artOf(x)}" alt="" style="--i:${i}">`:'').join('')}</span>
+      <b>${esc(v.name)}</b><span class="fc-n">${v.ss.length} canciones${v.got?' · '+v.got+' ✓':''}</span>
+      <span class="fc-dots">${v.per.map(ps=>`<i class="${ps.length?'on':''}"></i>`).join('')}</span></button>`).join('')||'<div class="empty">Ninguna voz con ese nombre.</div>'}</div>`;
+  } else {
+    const groups=ACTV.map(a=>({a,v:solo.filter(v=>v.first===a.ai&&hit(v))})).filter(g=>g.v.length);
+    B.innerHTML=groups.map(g=>`<div class="solo-grp"><h4 style="color:${actColor(g.a)}">${esc(g.a.n)} · ${esc(g.a.name)}</h4>
+      <div class="solo-chips">${g.v.map(v=>`<button class="solo-chip" data-open="${esc(v.ss[0].key)}" style="--vc:${v.col}">
+        <span class="sc-cv">${cov(v)}</span><span><b>${esc(v.name)}</b><em>${esc(v.ss[0].t)}</em></span></button>`).join('')}</div></div>`).join('')
+      ||'<div class="empty">Ninguna voz con ese nombre.</div>';
   }
-  if(mapTab==='all'){
-    let shown=list;
-    if(mapQuery) shown=shown.filter(([a])=>a.toLowerCase().includes(mapQuery));
-    if(mapSort==='az') shown=[...shown].sort((x,y)=>x[0].localeCompare(y[0]));
-    B.innerHTML=`<div class="map-tools">
-        <div class="searchbar" style="flex:1;min-width:180px"><span style="color:var(--dimmer)">⌕</span>
-          <input id="mapQ" placeholder="Buscar artista…" autocomplete="off" value="${esc(mapQuery)}"></div>
-        <button class="chip${mapSort==='count'?' on':''}" data-msort="count">Por presencia</button>
-        <button class="chip${mapSort==='az'?' on':''}" data-msort="az">A–Z</button>
-      </div>
-      <div class="abubbles">${shown.map(card).join('') || '<div class="empty">Nada con ese nombre.</div>'}</div>
-      <p class="vsub" style="margin-top:1.6rem">${shown.length}${shown.length!==list.length?' de '+list.length:''} nombres distintos entre las ${SONGS.length} canciones.</p>`;
-    const qi=$('#mapQ');
-    qi.oninput=e=>{ mapQuery=e.target.value.trim().toLowerCase(); renderMaps(); };
-    qi.focus(); qi.setSelectionRange(qi.value.length,qi.value.length);
-    $$('#mapBody [data-msort]').forEach(b=>b.onclick=()=>{ mapSort=b.dataset.msort; renderMaps(); });
-  }
+  $('#mapQ').value=q; 
+  $$('#mapTabs [data-vm]').forEach(b=>b.onclick=()=>{ mapTab=b.dataset.vm; renderMaps(); });
+  $$('#vozSort [data-vs]').forEach(b=>b.onclick=()=>{ mapSort=b.dataset.vs; renderMaps(); });
+  $$('#mapBody [data-voice]').forEach(b=>b.onclick=()=>openVoice(b.dataset.voice));
+}
+function openVoice(name){
+  const ent=artistIndex().find(e=>e[0]===name); if(!ent)return;
+  const ss=ent[1], nA=ACTV.length;
+  const ACT_OF={}; ACTV.forEach(a=>a.songs.forEach(x=>ACT_OF[x.key]=a.ai));
+  const per=Array.from({length:nA},()=>[]); ss.forEach(x=>{ const k=ACT_OF[x.key]; if(per[k]) per[k].push(x); });
+  const acts=per.map((v,i)=>v.length?i:-1).filter(i=>i>=0);
+  const A=i=>ACTV[i], got=ss.filter(x=>heard(x.key)).length;
+  const line = acts.length===1 ? `Solo aparece en ${A(acts[0]).n}.`
+    : `Entra en ${A(acts[0]).n} y se queda hasta ${A(acts[acts.length-1]).n}.`;
+  const imgs=ss.map(x=>artOf(x)).filter(Boolean).slice(0,3);
+  $('#voiceDr')&&$('#voiceDr').remove();
+  document.body.insertAdjacentHTML('beforeend',`<div class="vdr-ov" id="voiceDr"><aside class="vdr" style="--vc:${ss[0].pal.a}">
+    <button class="vdr-x" id="vdrX" aria-label="Cerrar">✕</button>
+    <div class="vdr-stack">${imgs.map((u,i)=>`<img src="${u}" alt="" style="--i:${i}">`).join('')}</div>
+    <h3>${esc(name)}</h3>
+    <p class="vdr-sub">${ss.length} ${ss.length===1?'canción':'canciones'} · ${got} escuchada${got===1?'':'s'}. ${line}</p>
+    <div class="vdr-staff">${per.map((ps,i)=>`<div class="${ps.length?'on':''}" style="${ps.length?'color:'+actColor(A(i)):''}"><em>${esc(A(i).n.replace(/^Nebulosa\s*/,'N·'))}</em>${ps.map(x=>`<i class="nt${heard(x.key)?' h':''}" style="--n:${x.pal.a}"></i>`).join('')}</div>`).join('')}</div>
+    <div class="vdr-act"><button class="pill solid" id="vdrPlay">▶ Escuchar su voz</button><button class="pill" id="vdrSearch">Ver en Buscar</button></div>
+    <div class="rows" id="vdrRows">${ss.map((x,i)=>rowHTML(x,i+1)).join('')}</div></aside></div>`);
+  const ov=$('#voiceDr'); requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('on')));
+  const close=()=>{ document.removeEventListener('keydown',esc_,true); ov.classList.remove('on'); setTimeout(()=>ov.remove(),400); };
+  const esc_=e=>{ if(e.key==='Escape'&&!$('#modal').classList.contains('on')){ e.stopPropagation(); close(); } };
+  document.addEventListener('keydown',esc_,true);
+  ov.onclick=e=>{ if(e.target===ov) close(); };
+  $('#vdrX').onclick=close;
+  $('#vdrPlay').onclick=()=>{ close(); setShuffle(false); play((ss.find(x=>!heard(x.key))||ss[0]).key); };
+  $('#vdrSearch').onclick=()=>{ close(); go('search'); const q=$('#q'); q.value=name; renderSearch(q.value); };
 }
 let mapQuery='', mapSort='count';
+document.addEventListener('input',e=>{ if(e.target&&e.target.id==='mapQ'){ mapQuery=e.target.value.trim().toLowerCase(); const c=e.target.selectionStart; renderMaps(); const n=$('#mapQ'); n.focus(); n.setSelectionRange(c,c); } });
 let letterDone=false;
 function animLetter(){
   const box=$('#letterBody');
@@ -2533,22 +2632,33 @@ let MEM_PHYS=[], memRafId=null, memFieldH=0, MEM_PTR=null, memIO=null, memWhispe
 function layoutMemories(){
   const el=$('#memField'); if(!el)return;
   const w=el.clientWidth||600, n=MEMORIES.length;
-  // celdas que SIEMPRE caben: el radio máximo sale del ancho de la celda, así ni en móvil se montan
-  const cols=w<460?4:w<720?6:w<1000?8:10;
-  const cellW=w/cols, cellH=cellW*1.04, baseR=cellW*.47;
-  const rows=Math.ceil(n/cols);
-  memFieldH=rows*cellH+cellW*.3;
-  el.style.height=memFieldH.toFixed(0)+'px';
+  // tamaños muy distintos (los recuerdos núcleo, los más grandes) y mucho aire entre ellos
+  const rMax=Math.max(30,Math.min(66,w*.072)), gap=rMax*.62;
+  const R=MEMORIES.map((m,i)=>CORE_MEM.has(m.label)?rMax*1.18:rMax*(.52+seeded(i*9.9)*.48));
+  const order=R.map((r,i)=>i).sort((a,b)=>R[b]-R[a]);
+  const area=R.reduce((t,r)=>t+Math.PI*(r+gap/2)**2,0);
+  let H=area/(w*.36)+rMax*2, pos;
+  for(let pass=0;pass<30;pass++){
+    pos=new Array(n); const placed=[]; let ok=true, c=0;
+    for(const i of order){
+      const r=R[i]; let done=false;
+      for(let t=0;t<260&&!done;t++){
+        const x=r+seeded(++c*12.9898+i)*(w-2*r), y=r+seeded(++c*78.233+i*3)*(H-2*r);
+        if(placed.every(q=>Math.hypot(q.x-x,q.y-y)>=q.r+r+gap)){ placed.push({x,y,r}); pos[i]={x,y}; done=true; }
+      }
+      if(!done){ ok=false; break; }
+    }
+    if(ok) break;
+    H*=1.07;
+  }
+  memFieldH=H;
+  el.style.height=H.toFixed(0)+'px';
   MEM_PHYS=MEMORIES.map((m,i)=>{
-    const col=i%cols, row=(i/cols)|0;
-    const r=baseR*(CORE_MEM.has(m.label)?1:(0.68+seeded(i*9.9)*0.16));
-    const jx=(seeded(i*2.1)-.5)*(cellW-r*2)*.9, jy=(seeded(i*6.3)-.5)*(cellH-r*2)*.9;
-    const homeX=Math.max(r,Math.min(w-r,col*cellW+cellW/2+jx));
-    const homeY=Math.max(r,Math.min(memFieldH-r,row*cellH+cellH/2+jy));
-    return {r,homeX,homeY,x:homeX,y:homeY,
-      ampX:3+seeded(i*3.3)*5, ampY:3+seeded(i*7.7)*5,
-      spX:.00018+seeded(i*4.4)*.00035, spY:.00015+seeded(i*8.8)*.00035,
-      phX:seeded(i*1.7)*7, phY:seeded(i*5.5)*7, mx:0, my:0, near:false};
+    const r=R[i], q=pos[i]||{x:w/2,y:H/2};
+    return {r,homeX:q.x,homeY:q.y,x:q.x,y:q.y,
+      ampX:2+seeded(i*3.3)*4, ampY:2+seeded(i*7.7)*4,
+      spX:.00007+seeded(i*4.4)*.00011, spY:.00006+seeded(i*8.8)*.0001,
+      phX:seeded(i*1.7)*7, phY:seeded(i*5.5)*7};
   });
 }
 function renderMemories(){
@@ -2560,7 +2670,7 @@ function renderMemories(){
     // el ícono nunca crece más allá de este rango, sin importar el radio de la burbuja
     // ni cuánto "peso visual" tenga el glifo — así no hay uno gigante y otro diminuto
     const meta=memMeta(m), core=CORE_MEM.has(m.label);
-    const icPx=(p.r*1.05).toFixed(0);
+    const icPx=(p.r*1.0).toFixed(0);
     return `<div class="mem-bubble${seen.has(i)?' seen':''}${core?' core':''}" data-mi="${i}" data-h="${m.hue}" role="button" tabindex="0" aria-label="${esc(m.label)}"
       style="--c:${c};width:${d}px;height:${d}px;--rd:${(seeded(i*5.1)*3).toFixed(1)}s">
       <i class="rp"></i><div class="orb"><i class="sw" style="animation-delay:-${(seeded(i*3.7)*14).toFixed(1)}s"></i><i class="sh"></i>
@@ -2582,9 +2692,6 @@ function renderMemories(){
       const on=el.dataset.emo===bt.dataset.h; if(on) delete el.dataset.emo; else el.dataset.emo=bt.dataset.h;
       emoBox.querySelectorAll('button').forEach(x=>x.classList.toggle('on',!on&&x===bt)); });
   }
-  MEM_PTR=null;
-  el.onpointermove=e=>{ const r=el.getBoundingClientRect(); MEM_PTR={x:e.clientX-r.left,y:e.clientY-r.top}; };
-  el.onpointerleave=()=>{ MEM_PTR=null; };
   if(window.IntersectionObserver){
     if(memIO) memIO.disconnect();
     memIO=new IntersectionObserver(es=>es.forEach(x=>x.target.classList.toggle('vis',x.isIntersecting)),{rootMargin:'80px'});
@@ -2613,38 +2720,10 @@ function memLoop(t){
   const view=$('#v-letter'); if(!view||!view.classList.contains('on')) return;
   const field=$('#memField'); if(!field) return;
   const els=field.children; if(!els.length) return;
-  const n=MEM_PHYS.length;
-  // separación suave: si dos burbujas quedan más cerca que la suma de sus radios, se
-  // relajan poco a poco sus posiciones "home" — persiste en vez de temblar cada cuadro
-  for(let a=0;a<n;a++){
-    for(let b=a+1;b<n;b++){
-      const pa=MEM_PHYS[a],pb=MEM_PHYS[b];
-      const dx=pb.homeX-pa.homeX, dy=pb.homeY-pa.homeY;
-      const dist=Math.hypot(dx,dy)||.01;
-      const minD=(pa.r+pb.r)*1.04;
-      if(dist<minD){
-        const push=(minD-dist)*.05, ux=dx/dist, uy=dy/dist;
-        pa.homeX-=ux*push; pa.homeY-=uy*push;
-        pb.homeX+=ux*push; pb.homeY+=uy*push;
-      }
-    }
-  }
-  const w=field.clientWidth||600;
-  for(let i=0;i<n;i++){
-    const p=MEM_PHYS[i];
-    p.homeX=Math.max(p.r,Math.min(w-p.r,p.homeX));
-    p.homeY=Math.max(p.r,Math.min(memFieldH-p.r,p.homeY));
-    let tx=0,ty=0;
-    if(MEM_PTR){
-      const dx=MEM_PTR.x-(p.homeX+p.mx), dy=MEM_PTR.y-(p.homeY+p.my), dd=Math.hypot(dx,dy), R=p.r*2.4;
-      if(dd<R){ const k=1-dd/R; tx=dx*k*.26; ty=dy*k*.26; }
-      const nr=dd<p.r*1.2;
-      if(nr!==p.near){ p.near=nr; els[i].classList.toggle('near',nr); }
-    } else if(p.near){ p.near=false; els[i].classList.remove('near'); }
-    p.mx+=(tx-p.mx)*.12; p.my+=(ty-p.my)*.12;
-    p.x=p.homeX+p.mx+Math.sin(t*p.spX+p.phX)*p.ampX;
-    p.y=p.homeY+p.my+Math.cos(t*p.spY+p.phY)*p.ampY;
-    const el=els[i]; if(!el)continue;
+  for(let i=0;i<MEM_PHYS.length;i++){
+    const p=MEM_PHYS[i], el=els[i]; if(!el)continue;
+    p.x=p.homeX+Math.sin(t*p.spX+p.phX)*p.ampX;
+    p.y=p.homeY+Math.cos(t*p.spY+p.phY)*p.ampY;
     el.style.transform=`translate3d(${(p.x-p.r).toFixed(1)}px,${(p.y-p.r).toFixed(1)}px,0)`;
   }
 }
@@ -2751,7 +2830,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-10 · esferas';
+const BUILD='v 13-10 · iconos reales';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -4211,12 +4290,12 @@ $('#seek').onmousemove=e=>{ const r=e.currentTarget.getBoundingClientRect();
    Cada ánimo lleva a una Nebulosa (el recorrido ya tiene su propio arco) y
    suena una canción de ahí que aún no hayas escuchado.                      */
 const HOY=[
-  {o:'luna',     t:'Cansada, sin ganas de nada', ai:2, c:'#7fd8e8'},
-  {o:'manos',    t:'Quiero sentirme acompañada', ai:1, c:'#f0a7b8'},
-  {o:'acento',   t:'No sé qué siento',           ai:0, c:'#9b8cf0'},
-  {o:'ojos',     t:'Estoy dudando de algo',      ai:3, c:'#e8c88a'},
-  {o:'chispa',   t:'Con energía, ¡pónganme algo!', ai:4, c:'#f0a7b8'},
-  {o:'corazon',  t:'Extrañando, un poco',        ai:5, c:'#9b8cf0'}
+  {o:'moon-star',     t:'Cansada, sin ganas de nada', ai:2, c:'#7fd8e8'},
+  {o:'hand-heart',    t:'Quiero sentirme acompañada', ai:1, c:'#f0a7b8'},
+  {o:'cloud-fog',   t:'No sé qué siento',           ai:0, c:'#9b8cf0'},
+  {o:'split',     t:'Estoy dudando de algo',      ai:3, c:'#e8c88a'},
+  {o:'zap',   t:'Con energía, ¡pónganme algo!', ai:4, c:'#f0a7b8'},
+  {o:'heart',  t:'Extrañando, un poco',        ai:5, c:'#9b8cf0'}
 ];
 function openHoy(){
   if($('#hoyOv'))return;
@@ -4242,7 +4321,7 @@ function openHoy(){
   });
 }
 $('#hoyBtn').onclick=openHoy;
-$('#hoyCard').onclick=openHoy; $('#hoyCard .hoy-ic').innerHTML=kp('luna');
+$('#hoyCard').onclick=openHoy; $('#hoyCard .hoy-ic').innerHTML=kp('moon-star');
 $('#shuffleBtn').onclick=()=>{
   if(!SONGS.length)return;
   const pool=SONGS.filter(s=>!heard(s.key)); const p=pool.length?pool:SONGS;

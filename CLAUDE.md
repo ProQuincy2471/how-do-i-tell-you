@@ -120,6 +120,15 @@ HTML solo sirve para dejar letras por defecto en el código.
 - **Navegación**: rutas con hash (`#voces`…), atrás/adelante, memoria de pestaña y scroll, teclas 1–6,
   barra de pestañas inferior en móvil (`#tabbar`, ≤760px).
 
+## Versión 2.0: mundos (oct-2026)
+
+Cada pestaña es un *mundo* con su propio material; `go()` pone `body[data-v=…]` y el color de acento
+(`--vacc`, animado con `@property`). Claros: **Voces** y **Carta** (papel crema; los recuerdos viven en una
+banda oscura `.mem-band` dentro de la carta). Lo que flota encima (modales, dock, fichas, barra lateral) siempre
+usa la paleta oscura: se reinicia con `body>*:not(#shell)` — si añades un overlay nuevo, cuélgalo del `body`.
+Barra lateral izquierda en compu (`header` fijo, se expande al pasar el cursor), barra inferior en móvil.
+Tipografías: Fraunces (títulos), Bricolage Grotesque (UI), DM Mono (Letras), Caveat (a mano).
+
 ## Trampas conocidas
 
 - `cur` es la canción **enfocada** (cambia al abrir una ficha); `playing` es la

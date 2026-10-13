@@ -381,10 +381,10 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
   background:radial-gradient(circle at 50% 55%,color-mix(in srgb,var(--c) 16%,#0a0c16),#06070e 80%);
   border:1px solid color-mix(in srgb,var(--c) 55%,transparent);
   box-shadow:0 0 22px color-mix(in srgb,var(--c) 28%,transparent),inset 0 0 18px color-mix(in srgb,var(--c) 22%,transparent),inset -7px -9px 18px rgba(0,0,0,.5);
-  transition:transform .5s cubic-bezier(.2,.9,.2,1.2),box-shadow .5s}
+  transition:transform .7s cubic-bezier(.25,.8,.25,1),box-shadow .7s}
 .mem-bubble .sw{position:absolute;top:-35%;left:-35%;right:-35%;bottom:-35%;will-change:transform;opacity:.7;
   background:conic-gradient(from 0deg,color-mix(in srgb,var(--c) 55%,transparent),transparent 22%,color-mix(in srgb,var(--c) 28%,transparent) 48%,transparent 72%,color-mix(in srgb,var(--c) 55%,transparent));
-  filter:blur(12px);animation:memSpin 16s linear infinite}
+  filter:blur(12px);animation:memSpin 60s linear infinite}
 .mem-bubble .sh{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:50%;pointer-events:none;
   background:radial-gradient(ellipse 38% 24% at 34% 20%,rgba(255,255,255,.5),transparent 70%),radial-gradient(circle at 70% 85%,color-mix(in srgb,var(--c) 40%,transparent),transparent 45%)}
 .mem-ic{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;color:var(--c);transform-origin:50% 60%;
@@ -399,15 +399,15 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .mem-bubble:hover .orb{transform:scale(1.1);box-shadow:0 0 36px color-mix(in srgb,var(--c) 55%,transparent),inset 0 0 22px color-mix(in srgb,var(--c) 35%,transparent),inset -7px -9px 18px rgba(0,0,0,.45)}
 /* sin abrir: un anillo respira; ya abiertos: la esfera se aquieta */
 .mem-bubble::before{content:'';position:absolute;top:-5px;left:-5px;right:-5px;bottom:-5px;border-radius:50%;pointer-events:none;
-  border:1.5px solid color-mix(in srgb,var(--c) 70%,transparent);opacity:0;animation:memRing 3.4s ease-out infinite;animation-delay:var(--rd,0s)}
+  border:1.5px solid color-mix(in srgb,var(--c) 55%,transparent);opacity:0;animation:memRing 6s ease-out infinite;animation-delay:var(--rd,0s)}
 .mem-bubble.seen::before{display:none}
 .mem-bubble.seen .orb{border-color:color-mix(in srgb,var(--c) 28%,transparent)}
-.mem-bubble.seen .sw{animation-duration:40s;opacity:.4}
+.mem-bubble.seen .sw{animation-duration:120s;opacity:.4}
 .mem-bubble.seen .mem-ic{opacity:.85}
 .mem-bubble.seen::after{content:'';position:absolute;bottom:6%;right:12%;width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 9px var(--c);z-index:5}
 /* recuerdos núcleo, como en Inside Out: un anillo dorado que gira */
 .mem-bubble.core .orb{border-color:var(--gold);box-shadow:0 0 34px color-mix(in srgb,var(--gold) 45%,transparent),inset 0 0 22px color-mix(in srgb,var(--c) 35%,transparent),inset -7px -9px 18px rgba(0,0,0,.5)}
-.mem-bubble.core::before{display:block;top:-9px;left:-9px;right:-9px;bottom:-9px;border:0;opacity:1;animation:memSpin 9s linear infinite;
+.mem-bubble.core::before{display:block;top:-9px;left:-9px;right:-9px;bottom:-9px;border:0;opacity:1;animation:memSpin 40s linear infinite;
   background:conic-gradient(from 0deg,var(--gold),transparent 30%,transparent 55%,var(--gold) 80%,transparent);
   -webkit-mask:radial-gradient(circle,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(circle,transparent calc(100% - 3px),#000 calc(100% - 2px))}
 .mem-bubble.seen.core::before{display:block}
@@ -415,7 +415,7 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 .mem-bubble .pts{position:absolute;top:0;left:0;right:0;bottom:0;z-index:3;pointer-events:none;color:var(--c)}
 .mem-bubble .pt{position:absolute;bottom:8%;left:var(--x);width:11px;height:11px;opacity:0;animation:memPt var(--t) ease-out infinite;animation-delay:var(--d);animation-play-state:paused}
 .mem-bubble .pt svg{width:100%;height:100%;display:block}
-.mem-bubble.near .pt,.mem-bubble:hover .pt,.mem-bubble.core.vis .pt{animation-play-state:running}
+.mem-bubble.near .pt,.mem-bubble:hover .pt{animation-play-state:running}
 /* ondas de pop */
 .mem-bubble .rp{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:50%;border:2px solid var(--c);opacity:0;pointer-events:none}
 .mem-bubble.pop .rp{animation:memRipple .7s ease-out}
@@ -427,31 +427,13 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 /* el movimiento solo corre en lo que se ve en pantalla */
 .mem-bubble:not(.vis) *,.mem-bubble:not(.vis)::before{animation-play-state:paused!important}
 @keyframes memSpin{to{transform:rotate(360deg)}}
-@keyframes memRing{0%{transform:scale(.92);opacity:.7}100%{transform:scale(1.22);opacity:0}}
+@keyframes memRing{0%{transform:scale(.97);opacity:.4}100%{transform:scale(1.14);opacity:0}}
 @keyframes memPt{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.9}100%{transform:translateY(-95px) translateX(8px) scale(1.1);opacity:0}}
 @keyframes memRipple{from{transform:scale(1);opacity:.9}to{transform:scale(1.9);opacity:0}}
 @keyframes memPop{0%{transform:scale(1)}35%{transform:scale(1.32)}100%{transform:scale(1)}}
-/* movimientos de las escenas */
-.mem-ic[data-m=bob]{animation:mBob 3.6s ease-in-out infinite}
-.mem-ic[data-m=sway]{animation:mSway 4.2s ease-in-out infinite}
-.mem-ic[data-m=float]{animation:mFloat 5s ease-in-out infinite}
-.mem-ic[data-m=beat]{animation:mBeat 1.6s ease-in-out infinite}
-.mem-ic[data-m=twinkle]{animation:mTw 3s ease-in-out infinite}
-.mem-ic[data-m=pulse]{animation:mPulse 3.4s ease-in-out infinite}
-.mem-ic[data-m=swing]{animation:mSwing 3.2s ease-in-out infinite;transform-origin:50% 0}
-.mem-ic[data-m=drive]{animation:mDrive 2.6s ease-in-out infinite}
-.mem-ic[data-m=clap]{animation:mClap 3.4s ease-in-out infinite}
-.mem-ic[data-m=hop]{animation:mHop 2.4s ease-in-out infinite}
-@keyframes mBob{50%{transform:translateY(-6%)}}
-@keyframes mSway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
-@keyframes mFloat{50%{transform:translateY(-9%) rotate(3deg)}}
-@keyframes mBeat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.14)}28%{transform:scale(.97)}}
-@keyframes mTw{0%,100%{transform:scale(.92) rotate(0)}50%{transform:scale(1.1) rotate(12deg)}}
-@keyframes mPulse{50%{transform:scale(1.07)}}
-@keyframes mSwing{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}
-@keyframes mDrive{0%,100%{transform:translateX(-5%)}50%{transform:translateX(5%)}}
-@keyframes mClap{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-8deg)}90%{transform:rotate(3deg)}}
-@keyframes mHop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-10%)}}
+/* las escenas solo respiran: ningún vaivén, giro ni salto (eso era lo que se sentía como sacudidas) */
+.mem-ic{animation:mBreath 8s ease-in-out infinite;animation-delay:var(--rd,0s)}
+@keyframes mBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 /* partes internas */
 .kp .flame{transform-box:fill-box;transform-origin:50% 100%;animation:kFlame .7s ease-in-out infinite alternate}
 .kp .steam{animation:kSteam 2.4s ease-out infinite}.kp .steam.s2{animation-delay:-1.1s}
@@ -555,6 +537,52 @@ main::-webkit-scrollbar{width:5px}main::-webkit-scrollbar-thumb{background:var(-
 
 
 
+
+/* ══ Nuevo aire: color propio por sección, encabezados, entrada escalonada ══ */
+@property --vacc{syntax:'<color>';inherits:true;initial-value:#e8c88a}
+:root{--vacc:#e8c88a;transition:--vacc 1.4s ease}
+#veil{background:radial-gradient(70% 55% at 88% -8%,color-mix(in srgb,var(--vacc) 16%,transparent),transparent 62%),
+  radial-gradient(55% 45% at 4% 108%,color-mix(in srgb,var(--vacc) 11%,transparent),transparent 62%),
+  radial-gradient(120% 90% at 50% 112%,rgba(232,200,138,.09),transparent 62%)}
+nav button.on{color:var(--paper);background:color-mix(in srgb,var(--vacc) 16%,transparent);border-color:color-mix(in srgb,var(--vacc) 60%,transparent);
+  box-shadow:0 0 22px color-mix(in srgb,var(--vacc) 22%,transparent)}
+nav button.edit.on{color:#000}
+#tabbar button.on{color:var(--vacc)}
+#tabbar button.on::before{background:var(--vacc);box-shadow:0 0 12px var(--vacc)}
+.view.on{animation:none}
+.view.on>*{animation:vRise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*65ms)}
+@keyframes vRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.veyebrow{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.veyebrow .vnum{font-family:var(--serif);font-size:.95rem;letter-spacing:.08em;color:var(--vacc)}
+.veyebrow .vico{width:18px;height:18px;color:var(--vacc);display:block}.veyebrow .vico svg{width:100%;height:100%;display:block}
+.veyebrow .vrule{flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--vacc) 70%,transparent),transparent)}
+.vtitle{letter-spacing:-.015em}
+.vtitle::after{content:'';display:block;width:44px;height:2px;margin-top:.7rem;border-radius:2px;background:var(--vacc);box-shadow:0 0 14px var(--vacc)}
+.vsub{margin-top:.2rem}
+#thread{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none}
+#thread i{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,transparent,var(--vacc));box-shadow:0 0 10px var(--vacc)}
+/* Tú y esto */
+#statsBox{display:block!important}
+.barwrap{display:none}
+.you-hero{display:grid;grid-template-columns:auto 1fr;gap:2rem 2.6rem;align-items:center;padding:1.6rem;border-radius:26px;margin-bottom:2rem;
+  border:1px solid var(--line);background:linear-gradient(140deg,color-mix(in srgb,var(--vacc) 8%,transparent),rgba(255,255,255,.015))}
+.yr{position:relative;width:176px;height:176px}
+.yr svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.yr0{fill:none;stroke:var(--line);stroke-width:5}
+.yr1{fill:none;stroke:var(--vacc);stroke-width:5;stroke-linecap:round;stroke-dasharray:1;filter:drop-shadow(0 0 8px var(--vacc));transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)}
+.yr div{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.yr b{font-family:var(--serif);font-weight:400;font-size:3.2rem;line-height:1}
+.yr span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dimmer);margin-top:.3rem}
+.yacts{display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.ya{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:.8rem;align-items:center;font-size:.74rem;color:var(--dim)}
+.ya span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ya i{height:5px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;display:block}
+.ya u{display:block;height:100%;border-radius:5px;text-decoration:none;box-shadow:0 0 10px currentColor;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.ya em{font-style:normal;font-size:.62rem;color:var(--dimmer);min-width:3.2em;text-align:right}
+.ymini{grid-column:1/-1;display:flex;gap:2.4rem;flex-wrap:wrap;padding-top:1.2rem;border-top:1px solid var(--line)}
+.ymini b{display:block;font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1}
+.ymini span{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer)}
+@media(max-width:640px){.you-hero{grid-template-columns:1fr;justify-items:center;padding:1.2rem}.yr{width:150px;height:150px}.yacts{width:100%}.ymini{gap:1.4rem;justify-content:center}}
 /* ── barra de pestañas inferior (móvil) ── */
 #tabbar{display:none}
 @media(max-width:760px){
@@ -1419,55 +1447,54 @@ const LETTER2 = [
 const LETTER3_INTRO = `Esto último no cabía en párrafos — así que aquí va de otra forma. Cada burbuja es algo que de verdad pasó — ábrelas sin orden. Y si tú lo recuerdas distinto, escríbelo debajo: esta parte también es tuya.`;
 const LETTER3_SIG = `<span class='sig'>Por el año, Ana. Por lo que sí pasó, y por lo que sigue pasando.</span>`;
 const MEMORIES = [
-  {icon:'🌠',hue:'rose',label:'El cruce',text:'Un cambio de rotación al azar en piso MI, ABC — una optativa metida casi de casualidad con Ontañón y con Magaña. Ninguno sabía que el otro iba a importar.'},
-  {icon:'😷',hue:'rose',label:'El primer día',text:'Ni siquiera hablamos. Solo una mirada cruzada, una diadema sosteniendo un cubrebocas, y una cara de «no me hables» que no era personal.'},
-  {icon:'🎧',hue:'violet',label:'¿Te gusta el kpop?',text:'La pregunta que cambió todo, gritada con más energía de la que cabía en una frase. Contesté que sí, con miedo, como examen oral.'},
-  {icon:'🥐',hue:'cyan',label:'Desayunos random',text:'Cruces esporádicos en la cafetería del ABC, sin planearlos, que con el tiempo dejaron de ser esporádicos.'},
-  {icon:'🗣️',hue:'gold',label:'El acento del norte',text:'Juraste que me reía de tu acento. Nunca lo dije. Sigo sin haberlo dicho.'},
-  {icon:'🎂',hue:'rose',label:'Su cumpleaños',text:'Lo festejé con un pat en la cabeza, apenas dos semanas después de saber que existías.'},
-  {icon:'💬',hue:'gold',label:'Nunca pedí el número',text:'Todo empezó, y siguió, por DM de Instagram. Nada ortodoxo, pero funcionó.'},
-  {icon:'🎬',hue:'violet',label:'IVE en el cine',text:'Primera de muchas salidas a gritar canciones en la oscuridad de una sala.'},
-  {icon:'🎤',hue:'violet',label:'Stray Kids',text:'Otro concierto, otra excusa para no dormir esa noche.'},
-  {icon:'📣',hue:'violet',label:'AJU NICE',text:'Gritado sin vergüenza en el concierto de SEVENTEEN, como se debe.'},
-  {icon:'🥽',hue:'violet',label:'VR concert de TXT',text:'Un concierto que no era físico y de todos modos se sintió real.'},
-  {icon:'🎶',hue:'violet',label:'Gracie en pantalla',text:'Sentada ahí, otro concierto más en una lista que no para de crecer.'},
-  {icon:'🌌',hue:'gold',label:'Reels a las 3am',text:'Mensajes que llegaban de madrugada sin ningún aviso ni disculpa.'},
-  {icon:'☕',hue:'gold',label:'«Ana» en el Starbucks',text:'Fui por un chocolate y un panecito y terminé respondiendo a tu nombre. Te lo regresé después, a mi manera.'},
-  {icon:'📝',hue:'cyan',label:'Exámenes de ciru',text:'Me humillabas sin esfuerzo y sin mala intención. Bueno, tal vez con un poco.'},
-  {icon:'🎼',hue:'gold',label:'Mingyu prestado',text:'Los miércoles eran de Mingyu. Nunca pregunté por qué, nunca hizo falta.'},
-  {icon:'👻',hue:'gold',label:'Los espíritus de Aranzola',text:'Una silla explotó en el depa de Vero. Decidimos, oficialmente, que eso nunca pasó.'},
-  {icon:'🕷️',hue:'gold',label:'La araña de Polanco',text:'Igual que la silla: fingimos demencia y aquí no pasó nada.'},
-  {icon:'🩺',hue:'cyan',label:'¿Te sientes bien?',text:'La doña de esa clase cuyo nombre siempre se me olvida, preguntando lo mismo cada vez.'},
-  {icon:'🌶️',hue:'gold',label:'Ronchas de Xoco',text:'Un misterio médico que ninguno de los dos resolvió nunca.'},
-  {icon:'🚗',hue:'gold',label:'Las cuatro llantas',text:'Había días en que hasta el coche cooperando se sentía como una noticia que merecía anunciarse.'},
-  {icon:'🗒️',hue:'rose',label:'Post-its anti-ansiedad',text:'Un juguito de regalo que todavía no uso, guardado por si acaso.'},
-  {icon:'🐟',hue:'rose',label:'Super Tuna',text:'Una canción de Jin que suena distinta desde que quedó asociada contigo.'},
-  {icon:'🍴',hue:'cyan',label:'Casi almorzar en la Roma',text:'Terminamos ahí sin plan, decidiendo qué comer más tiempo del que tardamos en comerlo.'},
-  {icon:'🤖',hue:'gold',label:'Preguntas a ChatGPT',text:'Un juego improvisado para matar el tiempo: contestar lo que fuera que se nos ocurriera preguntarle.'},
-  {icon:'🍵',hue:'cyan',label:'Café en la Mexicana',text:'Cerrando esa rotación con café y con Vero, como debía ser.'},
-  {icon:'🎮',hue:'gold',label:'PewDiePie y Outlast',text:'Conversaciones sin ninguna razón particular. Solo porque sí.'},
-  {icon:'🐰',hue:'gold',label:'Todo lo que dijera Jungkook',text:'Cualquier cosa que lo mencionara, enviada sin razón ni disculpa.'},
-  {icon:'😬',hue:'gold',label:'Santos Bravos',text:'Una experiencia que ninguno de los dos pidió y que ninguno de los dos olvida.'},
-  {icon:'🪖',hue:'cyan',label:'Esperando a los bitis',text:'Contando los días para que el servicio militar terminara, como si fuera nuestro.'},
-  {icon:'📸',hue:'gold',label:'El trend de las fotos con Gemini',text:'Caímos en la moda exactamente al mismo tiempo que todo el mundo.'},
-  {icon:'🍰',hue:'cyan',label:'Cheesecake después de examen',text:'El premio obligatorio después de sobrevivir a cualquier examen.'},
-  {icon:'😩',hue:'gold',label:'Los miércoles con Arechiga',text:'Una clase que ninguno de los dos toleraba a esa hora, cada semana.'},
-  {icon:'😭',hue:'violet',label:'Llorar con Business Proposal',text:'11/10, sin exagerar. Lloramos como si nos hubiera pasado a nosotros.'},
-  {icon:'📺',hue:'violet',label:'Recomendaciones de kdramas',text:'Una lista que nunca se termina de completar.'},
-  {icon:'🍉',hue:'violet',label:'Twinkling Watermelon',text:'La primera de esa lista de kdramas. Las que siguieron ya ni se cuentan.'},
-  {icon:'🌮',hue:'gold',label:'Sopecitos pendientes',text:'Una deuda que sigue sin cobrarse. Los esquites también.'},
-  {icon:'🙄',hue:'gold',label:'Funar a Nat',text:'Un clásico. Cada vez que hacía falta, y a veces sin que hiciera falta.'},
-  {icon:'🃏',hue:'gold',label:'Las Twai',text:'Un juego, una excusa, una tarde entera resuelta sin darnos cuenta.'},
-  {icon:'🎥',hue:'gold',label:'La película de F1',text:'No cumplió las expectativas. Ninguna de las dos, la verdad.'},
-  {icon:'🏎️',hue:'gold',label:'El recap de F1, F2 y F3',text:'Jugado en un restaurante, mientras esperábamos la comida. Ese sí funcionó.'},
-  {icon:'🍗',hue:'gold',label:'El mega plato de pollo',text:'En SSAM pediste un plato entero y fue lo único que comiste. Nunca lo voy a olvidar.'},
-  {icon:'📞',hue:'cyan',label:'Teléfono Negro 2',text:'Después de comer, al cine — porque un año sin ver algo random juntos no cuenta.'},
-  {icon:'👥',hue:'cyan',label:'Con Fonsi y Melvin',text:'Otro día cualquiera en la central de MI, justo antes de que sonara el código.'},
-  {icon:'🚨',hue:'cyan',label:'El código pediátrico',text:'Salí disparado a media plática por un paciente que acababa de llegar. Así era y así seguirá siendo.'},
-  {icon:'🎢',hue:'rose',label:'Tus aventuras inesperadas',text:'Nunca fue molestia que me contaras tus historias con sorpresas de último momento. Al contrario: siempre quise saber más.'},
-  {icon:'💜',hue:'rose',label:'Best bestie bestie',text:'No sé en qué momento exacto una interacción tan aleatoria se convirtió en esto: la persona con la que hablo todos los días.'},
-  {icon:'🙏',hue:'rose',label:'Gracias por dejarme ser así',text:'Sin filtro, sin esconder nada. Por confiar, por escuchar, por quedarte cerca incluso en lo que pesa.'},
-  {icon:'✨',hue:'rose',label:'Sigue siendo tú',text:'Que nada le baje el volumen a lo que te hace tú. Ese es el deseo, siempre.'}
+  {hue:'rose',label:'El cruce',text:'Un cambio de rotación, piso MI en el ABC, y alguien que metió su optativa con Ontañón y con Magaña. Nadie lo planeó.'},
+  {hue:'rose',label:'El primer día',text:'Ni nos hablamos. Solo una mirada de casualidad: tú con tu diadema sosteniendo el cubrebocas y cara de «te voy a matar». Yo todavía no sabía quién eras.'},
+  {hue:'violet',label:'¿Te gusta el kpop?',text:'Segunda semana, en la resi de MI, y de la nada: «¿TE GUSTA EL KPOP?», con toda la emoción del mundo. Yo, tímido como soy, contesté que sí con un poco de miedo. Luego dijiste que nos íbamos a llevar muy bien.'},
+  {hue:'cyan',label:'Desayunos random',text:'Toparnos en la cafetería del ABC en las mañanas. Eran interacciones sueltas, de esas de «ah, hola».'},
+  {hue:'gold',label:'El acento del norte',text:'Un día me reí por algo y me preguntaste si era por tu acento del norte. Nunca dije eso. Y no, no era por eso.'},
+  {hue:'rose',label:'Su cumpleaños',text:'Me enteré de rebote de que era tu cumpleaños. Llevaba como dos semanas de saber que existías, y solo te felicité y te di un pat pat en la cabeza.'},
+  {hue:'gold',label:'Nunca pedí el número',text:'Por pena nunca te pedí tu teléfono ni tu WhatsApp. Todo fue por DM de Instagram. Poco ortodoxo, pero así fue.'},
+  {hue:'violet',label:'IVE en el cine',text:'Fuimos a ver el concierto de IVE al cine. De ahí para adelante, la lista de cosas que vimos o fuimos a hacer no paró.'},
+  {hue:'violet',label:'Stray Kids',text:'El concierto de Stray Kids. De las salidas que ya se quedaron en la lista de «¿te acuerdas cuando fuimos a…?».'},
+  {hue:'violet',label:'AJU NICE',text:'El «AJU NICEEEE» en el concierto de SEVENTEEN en el cine. Gritado sin ninguna pena.'},
+  {hue:'violet',label:'VR concert de TXT',text:'El VR concert de TXT. Un concierto en VR que igual cuenta como salida.'},
+  {hue:'violet',label:'Gracie en pantalla',text:'Tú sentada en el concierto de Gracie. Otra más para la lista.'},
+  {hue:'gold',label:'Reels a las 3am',text:'Mis ataques de mandarte 8521 reels a las 3 de la mañana. Sin avisar y sin pedir perdón.'},
+  {hue:'gold',label:'«Ana» en el Starbucks',text:'Me dijiste que fuera a recoger un chocolate y un panecito al Starbucks, y fui como «Ana». Tiempo después te lo regresé en otra forma.'},
+  {hue:'cyan',label:'Exámenes de ciru',text:'Me humillabas en todos los exámenes de ciru. Cada vez.'},
+  {hue:'gold',label:'Mingyu prestado',text:'Los miércoles me prestabas a Mingyu. Todavía me da risa que eso fuera un acuerdo.'},
+  {hue:'gold',label:'Los espíritus de Aranzola',text:'La vez que explotó la silla en el depa de Vero. Culpa de los espíritus de Aranzola, obvio.'},
+  {hue:'gold',label:'La araña de Polanco',text:'Lo de la araña en Polanco. Quedamos en fingir demencia: eso nunca pasó.'},
+  {hue:'cyan',label:'¿Te sientes bien?',text:'El «HOLA, ¿TE SIENTES BIEN?» de la doña de esa clase. Siempre me confundo con el nombre de la materia.'},
+  {hue:'gold',label:'Ronchas de Xoco',text:'Tus mega ronchotas de Xoco. Todavía no sé qué fue eso.'},
+  {hue:'gold',label:'Las cuatro llantas',text:'Me escribiste «buenos días, hoy sí tengo mis 4 llantas». Me acuerdo más de lo que debería.'},
+  {hue:'rose',label:'Post-its anti-ansiedad',text:'Los post-its de juguito anti ansiedad que nos diste. Todavía no me los acabo porque no quiero usarlos.'},
+  {hue:'rose',label:'Super Tuna',text:'Super Tuna, de Jin. De las canciones que ya vienen con recuerdo incluido.'},
+  {hue:'cyan',label:'Pseudo almuerzo en la Roma',text:'Fuimos hasta la Roma a pseudo almorzar. Con ese «pseudo» lo digo todo.'},
+  {hue:'gold',label:'Preguntas a ChatGPT',text:'Nos pusimos a contestar preguntas de ChatGPT, solo porque sí.'},
+  {hue:'cyan',label:'Café en la Mexicana',text:'Café en la Mexicana con Vero para cerrar esa rotación.'},
+  {hue:'gold',label:'PewDiePie y Outlast',text:'Hablar de PewDiePie y de Outlast. Why the fk not.'},
+  {hue:'gold',label:'Todo lo que dijera Jungkook',text:'Mandarte cualquier cosa que dijera Jungkook. Why the fk not.'},
+  {hue:'gold',label:'Santos Bravos',text:'La terrible experiencia de Santos Bravos. RIP nuestros ojos y oídos.'},
+  {hue:'cyan',label:'Los bitis',text:'Estar pendientes de cuándo salían los bitis del servicio. Sí, también eso fue tema.'},
+  {hue:'gold',label:'El trend de las fotos con Gemini',text:'Cuando empezó el trend de hacer las fotos con Gemini.'},
+  {hue:'cyan',label:'Cheesecake después de examen',text:'El Cheesecake después de los exámenes.'},
+  {hue:'gold',label:'Los miércoles con Arechiga',text:'Los miércoles en la mañana con Arechiga. Ninguna de las dos lo soportaba.'},
+  {hue:'violet',label:'Llorar con Business Proposal',text:'Llorar viendo Business Proposal. 11/10.'},
+  {hue:'violet',label:'Recomendaciones de kdramas',text:'Y después vinieron más recomendaciones de kdramas, y las que faltan.'},
+  {hue:'violet',label:'Twinkling Watermelon',text:'Twinkling Watermelon, de esas recomendaciones de kdramas.'},
+  {hue:'gold',label:'Sopecitos pendientes',text:'Siguen pendientes unos buenos sopecitos. Y tus esquites.'},
+  {hue:'gold',label:'Funar a Nat',text:'Todas las veces que me escribiste para funar a Nat.'},
+  {hue:'violet',label:'Las Twai',text:'No sé si fue mi compu, mi cel, mi iPad o el gafete de las Twai lo que te hizo preguntar. Sea lo que sea, funcionó.'},
+  {hue:'gold',label:'La película de F1',text:'Fuimos a ver la de F1. Tengo que ser honesto: no cumplió mis expectativas.'},
+  {hue:'gold',label:'El recap de F1, F2 y F3',text:'El recap de las carreras de F1, F2 y F3, jugado en un restaurante mientras esperábamos la comida.'},
+  {hue:'gold',label:'El mega plato de pollo',text:'En SSAM pediste un «mega plato de pollo» y fue lo único que comiste.'},
+  {hue:'cyan',label:'Teléfono Negro 2',text:'Y de ahí, a ver Teléfono Negro 2.'},
+  {hue:'cyan',label:'El código pediátrico',text:'Estabas con Fonsi y con Melvin en la central de MI (creo, no me acuerdo exacto) y sonó el código ABC pediátrico de mi pacientito. Salí disparado.'},
+  {hue:'rose',label:'Tus aventuras inesperadas',text:'«¿A que no crees lo que me acaba de pasar?» Nunca fue molestia que me contaras tus aventuras con sorpresas de último momento. Al contrario: quería saber más.'},
+  {hue:'rose',label:'Best bestie bestie',text:'No pensé que algo tan random se iba a convertir en esto: mi best bestie bestie, y una de las personas más valiosas de mi vida.'},
+  {hue:'rose',label:'Gracias por dejarme ser así',text:'Gracias por dejarme ser yo, sin filtros y sin esconderme. Por no juzgarme, por escucharme y por confiar en mí.'},
+  {hue:'rose',label:'Sigue siendo tú',text:'Que nada ni nadie te apague la chispa. Sigue siendo como eres.'}
 ];
 
 /* ── Los recuerdos como objetos ───────────────────────────────────────────
@@ -1505,13 +1532,13 @@ const MEM_META = {
   'Las cuatro llantas':['car','polaroid','día histórico'],
   'Post-its anti-ansiedad':['sticky-note','note','por si acaso'],
   'Super Tuna':['disc-3','card','Jin'],                                     // una canción que cambió de sonido por ti
-  'Casi almorzar en la Roma':['utensils','receipt','sin plan'],
+  'Pseudo almuerzo en la Roma':['utensils','receipt','con «pseudo» incluido'],
   'Preguntas a ChatGPT':['dices','chat','para matar el tiempo'],            // un juego improvisado
   'Café en la Mexicana':['circle-check','receipt','con Vero'],              // cerrar bien una etapa
   'PewDiePie y Outlast':['messages-square','chat','porque sí'],             // conversar sin razón
   'Todo lo que dijera Jungkook':['share-2','chat','sin razón ni disculpa'], // mandar cosas porque sí
   'Santos Bravos':['drama','polaroid','nadie lo pidió'],                    // una experiencia tragicómica
-  'Esperando a los bitis':['hourglass','note','cuenta regresiva'],
+  'Los bitis':['hourglass','note','pendientes del servicio'],
   'El trend de las fotos con Gemini':['wand-sparkles','polaroid','como todo el mundo'],
   'Cheesecake después de examen':['trophy','receipt','el premio'],
   'Los miércoles con Arechiga':['alarm-clock','note','cada semana'],
@@ -1520,13 +1547,12 @@ const MEM_META = {
   'Twinkling Watermelon':['circle-play','film','la primera'],
   'Sopecitos pendientes':['receipt','receipt','deuda abierta'],
   'Funar a Nat':['annoyed','chat','un clásico'],
-  'Las Twai':['spade','card','una tarde entera'],
+  'Las Twai':['spade','card','el gafete'],
   'La película de F1':['thumbs-down','ticket','función'],
   'El recap de F1, F2 y F3':['flag','receipt','esperando la comida'],
   'El mega plato de pollo':['drumstick','receipt','SSAM'],
   'Teléfono Negro 2':['popcorn','ticket','función'],
-  'Con Fonsi y Melvin':['users','polaroid','central de MI'],
-  'El código pediátrico':['siren','note','a media plática'],
+  'El código pediátrico':['siren','note','central de MI'],
   'Tus aventuras inesperadas':['compass','chat','último momento'],
   'Best bestie bestie':['heart-handshake','card','todos los días'],
   'Gracias por dejarme ser así':['hand-heart','card','sin filtro'],
@@ -2509,13 +2535,14 @@ function renderSearch(q){
 
 function renderYou(){
   const h=ST.heard.length, f=ST.favs.length, pct=SONGS.length?Math.round(h/SONGS.length*100):0;
-  $('#statsBox').innerHTML=`
-    <div class="stat"><b>${h}</b><span>escuchadas de ${SONGS.length}</span></div>
-    <div class="stat"><b>${pct}%</b><span>del recorrido</span></div>
-    <div class="stat"><b>${f}</b><span>favoritas</span></div>
-    <div class="stat"><b>${SONGS.filter(s=>(s.note||'').trim()).length}</b><span>con nota</span></div>
-    ${ACTV.map(a=>{const g=a.songs.filter(s=>heard(s.key)).length;
-      return `<div class="stat" style="border-color:${actColor(a)}44"><b style="font-size:1.5rem;color:${actColor(a)}">${g}<span style="display:inline;font-size:.9rem;color:var(--dimmer)">/${a.songs.length}</span></b><span>${esc(a.name)}</span></div>`}).join('')}`;
+  const notes=SONGS.filter(s=>(s.note||'').trim()).length, mem=(ST.edits.memSeen||[]).length;
+  $('#statsBox').innerHTML=`<div class="you-hero">
+    <div class="yr"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="yr0" cx="60" cy="60" r="52"/><circle class="yr1" cx="60" cy="60" r="52" pathLength="1" style="stroke-dashoffset:1"/></svg>
+      <div><b>${h}</b><span>de ${SONGS.length} · ${pct}%</span></div></div>
+    <div class="yacts">${ACTV.map(a=>{ const g=a.songs.filter(x=>heard(x.key)).length, t=a.songs.length, c=actColor(a);
+      return `<div class="ya" style="color:${c}"><span style="color:var(--dim)">${esc(a.n)} · ${esc(a.name)}</span><i><u style="width:${t?(g/t*100).toFixed(1):0}%;background:${c}"></u></i><em>${g}/${t}</em></div>`; }).join('')}</div>
+    <div class="ymini"><div><b>${f}</b><span>favoritas</span></div><div><b>${notes}</b><span>con nota</span></div><div><b>${mem}<small style="font-size:.9rem;color:var(--dimmer)">/${MEMORIES.length}</small></b><span>recuerdos abiertos</span></div></div></div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ const r=$('.yr1'); if(r) r.style.strokeDashoffset=(1-pct/100).toFixed(3); }));
   $('#progBar').style.width=pct+'%';
   $('#palstrip').innerHTML=ST.heard.map(k=>{const s=BYKEY[k];
     return s?`<i style="background:${s.pal.a}" title="${esc(s.t)}" data-key="${esc(k)}"></i>`:''}).join('')
@@ -2696,8 +2723,8 @@ function layoutMemories(){
   MEM_PHYS=MEMORIES.map((m,i)=>{
     const r=R[i], q=pos[i]||{x:w/2,y:H/2};
     return {r,homeX:q.x,homeY:q.y,x:q.x,y:q.y,
-      ampX:2+seeded(i*3.3)*4, ampY:2+seeded(i*7.7)*4,
-      spX:.00007+seeded(i*4.4)*.00011, spY:.00006+seeded(i*8.8)*.0001,
+      ampX:1.5+seeded(i*3.3)*2.5, ampY:1.5+seeded(i*7.7)*2.5,
+      spX:.00004+seeded(i*4.4)*.00005, spY:.00004+seeded(i*8.8)*.00005,
       phX:seeded(i*1.7)*7, phY:seeded(i*5.5)*7};
   });
 }
@@ -2870,7 +2897,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 13-10 · navegación';
+const BUILD='v 13-10 · aire nuevo II';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -3092,7 +3119,19 @@ let curView='acts'; const SCR={};
 (function(){ const tb=$('#tabbar'); if(!tb)return;
   tb.innerHTML=Object.keys(NAVICON).map(v=>`<button data-v="${v}" aria-label="${NAVLBL[v]}">${kp(NAVICON[v])}<span>${NAVLBL[v]}</span></button>`).join('');
 })();
+const ACC={acts:'#e8c88a',const:'#7fd8e8',mosaic:'#f0a7b8',maps:'#9b8cf0',letter:'#f0a7b8',lyr:'#e8c88a',search:'#7fd8e8',you:'#e8c88a'};
+const EYE={const:['02','star','Constelación'],mosaic:['03','layout-grid','Mosaico'],maps:['04','mic-vocal','Voces'],letter:['05','mail','Carta'],lyr:['06','text-quote','Letras'],search:['·','sparkles','Buscar'],you:['·','heart','Tú y esto']};
+function dressView(v){
+  const el=$('#v-'+v); if(!el)return;
+  const e=EYE[v], t=el.querySelector('.vtitle');
+  if(e&&t&&!el.querySelector('.veyebrow')) t.insertAdjacentHTML('beforebegin',`<div class="veyebrow"><span class="vnum">${e[0]}</span><span class="vico">${kp(e[1])}</span><span>${e[2]}</span><i class="vrule"></i></div>`);
+  [...el.children].forEach((c,i)=>c.style.setProperty('--i',Math.min(i,10)));
+}
+(function(){ const hd=document.querySelector('header'); if(!hd)return; hd.insertAdjacentHTML('beforeend','<div id="thread"><i></i></div>');
+  const m=document.getElementById('main'), bar=hd.querySelector('#thread i');
+  m.addEventListener('scroll',()=>{ const max=m.scrollHeight-m.clientHeight; bar.style.transform='scaleX('+(max>0?Math.min(1,m.scrollTop/max):0).toFixed(3)+')'; },{passive:true}); })();
 function go(v,fromHash){
+  document.documentElement.style.setProperty('--vacc',ACC[v]||'#e8c88a');
   if(v!=='const') stopConstLoop();
   SCR[curView]=$('#main').scrollTop; curView=v;
   $$('nav button[data-v],#tabbar button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
@@ -3101,6 +3140,7 @@ function go(v,fromHash){
   $('#main').scrollTop=(fromHash!==true&&(v==='acts'||v==='maps'||v==='mosaic'||v==='lyr'||v==='you'))?(SCR[v]||0):0;
   if(!fromHash){ try{ const h='#'+HASH[v]; if(location.hash!==h) history.pushState(null,'',h); }catch(e){} }
   try{ localStorage.setItem('hditu_view',v); }catch(e){}
+  dressView(v);
   if(v==='const') drawConst();
   if(v==='letter') animLetter();
   if(v==='you') renderYou();

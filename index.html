@@ -1162,6 +1162,11 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
 .q-r>div{min-width:0;flex:1}
 @media(max-width:640px){.dsep{display:none}#queue{right:.4rem;width:calc(100% - .8rem)}}
 @media(max-width:760px){html #dock{bottom:var(--tabh)}html #toast{bottom:calc(var(--tabh) + 7rem)}html #dock .dock-row{padding:.6rem .8rem}}
+
+.qchips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.qchips .chip u{text-decoration:none;color:var(--dimmer);margin-left:.3rem}
+.prog-foot{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:3.5rem;padding-top:1.4rem;border-top:1px solid var(--line);font-size:.72rem;color:var(--dimmer)}
+.prog-foot span{margin-right:auto}
 </style>
 </head>
 <body>
@@ -1192,7 +1197,6 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
       <button data-v="lyr">Letras</button>
       <span class="navsep"></span>
       <button data-v="search" class="ico" title="Buscar  ( / )">⌕</button>
-      <button data-v="you" class="ico" title="Tú y esto">◐</button>
       <button id="shuffleBtn" class="ico" title="Reproducir en aleatorio  ( r )">✧</button>
       <button id="editBtn" class="ico edit" title="Editar  ( e )">✎</button>
     </nav>
@@ -1253,10 +1257,13 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
 
     <section class="view" id="v-search">
       <h2 class="vtitle">Buscar</h2>
-      <p class="vsub">Por canción, por artista o por acto. Escribe <em>nota</em>, <em>letra</em> o <em>favorita</em> para filtrar.</p>
+      <p class="vsub">Por canción, por artista o por nebulosa. O toca un atajo: favoritas, con nota, sin escuchar…</p>
       <div class="searchbar"><span style="color:var(--dimmer)">⌕</span>
         <input id="q" placeholder="Taylor Swift, ILLENIUM, TWICE, soft spot…" autocomplete="off"><span class="kbd">esc</span></div>
       <div id="results" class="rows"></div>
+      <div class="prog-foot"><span id="progTxt"></span>
+        <button class="pill" id="resetProg">Borrar mi progreso</button>
+        <button class="pill" id="markAll">Marcar todas como escuchadas</button></div>
     </section>
 
     <section class="view" id="v-letter">
@@ -1277,20 +1284,7 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
       <div id="lyrList"></div>
     </section>
 
-    <section class="view" id="v-you">
-      <h2 class="vtitle">Tú y esto</h2>
-      <p class="vsub">Todo esto se guarda solo en este dispositivo. Nadie más lo ve.</p>
-      <div id="statsBox"></div>
-      <h3 class="yh">Tus favoritas</h3>
-      <div id="favs" class="rows"></div>
-      <h3 class="yh">Tus notas</h3>
-      <div id="notesList" class="rows"></div>
-      <div style="margin-top:2.4rem;display:flex;gap:.5rem;flex-wrap:wrap">
-        <button class="pill" id="resetProg">Borrar mi progreso</button>
-        <button class="pill" id="markAll">Marcar todas como escuchadas</button>
-      </div>
-    </section>
-  </main>
+      </main>
   <div id="tabbar" role="navigation" aria-label="Secciones"></div>
 </div>
 
@@ -2690,35 +2684,23 @@ $('#mosZoom').oninput=e=>applyMosZoom(+e.target.value);
 function renderSearch(q){
   q=(q||'').trim().toLowerCase();
   let list=[];
-  if(!q){ $('#results').innerHTML='<div class="empty">Escribe algo…</div>'; return; }
-  if(q==='nota'||q==='notas') list=SONGS.filter(s=>(s.note||'').trim());
-  else if(q==='letra'||q==='letras') list=SONGS.filter(s=>(s.og||'').trim());
+  const heardN=ST.heard.length, N=SONGS.length;
+  const pt=$('#progTxt'); if(pt) pt.textContent='Escuchadas: '+heardN+' de '+N;
+  if(!q){
+    const cnt={favoritas:ST.favs.length,'con nota':SONGS.filter(s=>(s.note||'').trim()).length,'con letra':SONGS.filter(s=>(s.og||'').trim()).length,
+      'sin escuchar':N-heardN,escuchadas:heardN};
+    $('#results').innerHTML='<div class="qchips">'+Object.entries(cnt).map(([k,v])=>`<button class="chip" data-qf="${k}">${k==='favoritas'?'♥ ':''}${k} <u>${v}</u></button>`).join('')+'</div>';
+    $$('#results [data-qf]').forEach(b=>b.onclick=()=>{ const i=$('#q'); i.value=b.dataset.qf; i.focus(); renderSearch(i.value); });
+    return;
+  }
+  if(q==='nota'||q==='notas'||q==='con nota') list=SONGS.filter(s=>(s.note||'').trim());
+  else if(q==='letra'||q==='letras'||q==='con letra') list=SONGS.filter(s=>(s.og||'').trim());
   else if(q==='favorita'||q==='favoritas'||q==='♥') list=SONGS.filter(s=>fav(s.key));
+  else if(q==='sin escuchar') list=SONGS.filter(s=>!heard(s.key));
+  else if(q==='escuchada'||q==='escuchadas') list=SONGS.filter(s=>heard(s.key));
   else list=SONGS.filter(s=>(s.t+' '+s.ar+' '+s.act+' '+s.actn+' '+(s.note||'')).toLowerCase().includes(q));
   $('#results').innerHTML=list.length? list.map((s,i)=>rowHTML(s,i+1)).join('')
     : `<div class="empty">Nada con «${esc(q)}». Prueba con un artista.</div>`;
-}
-
-function renderYou(){
-  const h=ST.heard.length, f=ST.favs.length, n=SONGS.length, pct=n?Math.round(h/n*100):0;
-  const notes=SONGS.filter(x=>(x.note||'').trim()), mem=(ST.edits.memSeen||[]).length;
-  const nx=SONGS.find(x=>!heard(x.key));
-  const nextCard=nx?`<div class="you-next"><div class="yn-l">${h?'Sigue en tu recorrido':'Para empezar'}</div>
-      <div class="yn-b">${artOf(nx)?`<img src="${artOf(nx)}" alt="">`:''}<div><b>${esc(nx.t)}</b><span>${esc(nx.ar)} · ${esc(nx.actn)}</span></div>
-      <button class="pill solid" data-play="${esc(nx.key)}">▶ Escuchar</button></div></div>`
-    :`<div class="you-next"><div class="yn-l">Recorrido completo</div><div class="yn-b"><div><b>Las escuchaste todas</b><span>Gracias por quedarte hasta aquí.</span></div></div></div>`;
-  $('#statsBox').innerHTML=`<div class="you-hero">
-    <div class="yr"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="yr0" cx="60" cy="60" r="52"/><circle class="yr1" cx="60" cy="60" r="52" pathLength="1" style="stroke-dashoffset:1"/></svg>
-      <div><b>${h}</b><span>de ${n} · ${pct}%</span></div></div>
-    <div class="you-main">${nextCard}
-      <div class="yacts">${ACTV.map(a=>{ const g=a.songs.filter(x=>heard(x.key)).length, t=a.songs.length;
-        return `<div class="ya"><span>${esc(a.n)} · ${esc(a.name)}</span><i><u style="width:${t?(g/t*100).toFixed(1):0}%"></u></i><em>${g}/${t}</em></div>`; }).join('')}</div></div>
-    <div class="ymini"><div><b>${f}</b><span>favoritas</span></div><div><b>${notes.length}</b><span>con nota</span></div><div><b>${mem}<small>/${MEMORIES.length}</small></b><span>recuerdos abiertos</span></div></div></div>`;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{ const r=$('.yr1'); if(r) r.style.strokeDashoffset=(1-pct/100).toFixed(3); }));
-  $('#favs').innerHTML=f? ST.favs.map((k,i)=>BYKEY[k]?rowHTML(BYKEY[k],i+1):'').join('')
-    :'<div class="empty">Ninguna aún. Abre una canción y dale a ♡.</div>';
-  $('#notesList').innerHTML=notes.length? notes.map((x,i)=>rowHTML(x,i+1)).join('')
-    :'<div class="empty">Todavía no escribes ninguna nota. Se escriben desde la ficha de cada canción.</div>';
 }
 
 let mapTab='score';
@@ -3075,7 +3057,7 @@ function paintPS(){
 
 function renderAll(){
   buildModel();
-  renderActs(); renderMosaic(); renderYou();
+  renderActs(); renderMosaic();
   if($('#q').value) renderSearch($('#q').value);
   if(CST.built){ CST.built=false; if($('#v-const').classList.contains('on')) drawConst(); }
   $('#gcount').textContent=SONGS.length;
@@ -3301,15 +3283,15 @@ $('#padSkip').onclick=()=>padGo(1);
    7 · NAVEGACIÓN
    ══════════════════════════════════════════════════════════════════════ */
 function stopConstLoop(){ if(CST.raf){cancelAnimationFrame(CST.raf);CST.raf=null;} }
-const HASH={acts:'nebulosas',const:'constelacion',mosaic:'mosaico',maps:'voces',letter:'carta',lyr:'letras',search:'buscar',you:'tu'};
+const HASH={acts:'nebulosas',const:'constelacion',mosaic:'mosaico',maps:'voces',letter:'carta',lyr:'letras',search:'buscar'};
 const HASH_V=Object.fromEntries(Object.entries(HASH).map(([k,v])=>[v,k]));
 const NAVICON={acts:'orbit',const:'star',mosaic:'layout-grid',maps:'mic-vocal',letter:'mail',lyr:'text-quote'};
 const NAVLBL={acts:'Nebulosas',const:'Cielo',mosaic:'Mosaico',maps:'Voces',letter:'Carta',lyr:'Letras'};
 let curView='acts'; const SCR={};
 (function(){ // la barra lateral: cada botón lleva ícono y etiqueta (la etiqueta aparece al expandirla)
-  const NI={acts:'orbit',const:'star',mosaic:'layout-grid',maps:'mic-vocal',letter:'mail',lyr:'text-quote',search:'search',you:'user-round'};
+  const NI={acts:'orbit',const:'star',mosaic:'layout-grid',maps:'mic-vocal',letter:'mail',lyr:'text-quote',search:'search'};
   const byId={shuffleBtn:['shuffle','Aleatorio'],editBtn:['pencil','Editar']};
-  const LBL={search:'Buscar',you:'Tú y esto'};
+  const LBL={search:'Buscar'};
   $$('header nav button').forEach((b,i)=>{
     const v=b.dataset.v, ic=v?NI[v]:(byId[b.id]||[])[0]; if(!ic)return;
     const lb=v?(LBL[v]||b.textContent.trim()):byId[b.id][1];
@@ -3320,8 +3302,8 @@ let curView='acts'; const SCR={};
 (function(){ const tb=$('#tabbar'); if(!tb)return;
   tb.innerHTML=Object.keys(NAVICON).map(v=>`<button data-v="${v}" aria-label="${NAVLBL[v]}">${kp(NAVICON[v])}<span>${NAVLBL[v]}</span></button>`).join('');
 })();
-const ACC={acts:'#e8c88a',const:'#7fd8e8',mosaic:'#f0a7b8',maps:'#9b8cf0',letter:'#f0a7b8',lyr:'#c9f27a',search:'#7fd8e8',you:'#e8c88a'};
-const EYE={const:['02','star','Constelación'],mosaic:['03','layout-grid','Mosaico'],maps:['04','mic-vocal','Voces'],letter:['05','mail','Carta'],lyr:['06','text-quote','Letras'],search:['·','sparkles','Buscar'],you:['·','heart','Tú y esto']};
+const ACC={acts:'#e8c88a',const:'#7fd8e8',mosaic:'#f0a7b8',maps:'#9b8cf0',letter:'#f0a7b8',lyr:'#c9f27a',search:'#7fd8e8'};
+const EYE={const:['02','star','Constelación'],mosaic:['03','layout-grid','Mosaico'],maps:['04','mic-vocal','Voces'],letter:['05','mail','Carta'],lyr:['06','text-quote','Letras'],search:['·','sparkles','Buscar']};
 function dressView(v){
   const el=$('#v-'+v); if(!el)return;
   const e=EYE[v], t=el.querySelector('.vtitle');
@@ -3340,13 +3322,12 @@ function go(v,fromHash){
   $$('nav button[data-v],#tabbar button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
   $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
   // al volver a una pestaña se queda donde la dejaste (la Carta y el cielo empiezan desde arriba, como al abrirlos)
-  $('#main').scrollTop=(fromHash!==true&&(v==='acts'||v==='maps'||v==='mosaic'||v==='lyr'||v==='you'))?(SCR[v]||0):0;
+  $('#main').scrollTop=(fromHash!==true&&(v==='acts'||v==='maps'||v==='mosaic'||v==='lyr'))?(SCR[v]||0):0;
   if(!fromHash){ try{ const h='#'+HASH[v]; if(location.hash!==h) history.pushState(null,'',h); }catch(e){} }
   try{ localStorage.setItem('hditu_view',v); }catch(e){}
   dressView(v);
   if(v==='const') drawConst();
   if(v==='letter') animLetter();
-  if(v==='you') renderYou();
   if(v==='mosaic') renderMosaic();
   if(v==='maps') renderMaps();
   if(v==='lyr') renderLyr();
@@ -5741,7 +5722,7 @@ addEventListener('keydown',e=>{
 })();
 buildModel();
 try{
-  renderActs(); renderMosaic(); renderYou(); renderSearch('');
+  renderActs(); renderMosaic(); renderSearch('');
 }catch(err){
   const f=document.getElementById('fatal');
   if(f){ f.className='on'; f.textContent='No pude dibujar la vista rica ('+err.message+'). Muestro la lista simple.'; }

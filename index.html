@@ -740,29 +740,6 @@ nav button.edit.on{color:#000}
   .vdr{padding-bottom:9rem}
 }
 
-/* ── Para hoy: una canción según cómo llegas ── */
-.hoy-card{display:flex;align-items:center;gap:1rem;width:100%;text-align:left;margin:0 0 1.6rem;padding:1rem 1.2rem;border-radius:18px;
-  border:1px solid color-mix(in srgb,var(--gold) 35%,transparent);background:linear-gradient(120deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent 70%);transition:.3s}
-.hoy-card:hover{border-color:var(--gold);transform:translateY(-1px)}
-.hoy-card b{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--gold)}
-.hoy-card em{font-style:normal;font-size:.78rem;color:var(--dim)}
-.hoy-card u{margin-left:auto;text-decoration:none;color:var(--gold);font-size:1.2rem}
-.hoy-ic{width:44px;height:44px;color:var(--gold);flex:none}.hoy-ic .kp{width:100%;height:100%}
-.hoy-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:92;display:flex;align-items:center;justify-content:center;padding:1.2rem;
-  background:rgba(4,5,10,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transition:opacity .4s}
-.hoy-ov.on{opacity:1}
-.hoy-box{width:min(520px,100%);max-height:calc(100vh - 2.4rem);max-height:calc(100dvh - 2.4rem);overflow-y:auto;scrollbar-width:none;text-align:center}
-.hoy-box h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,6vw,2.5rem);line-height:1.1;margin-bottom:.5rem}
-.hoy-box p{font-size:.85rem;color:var(--dim);margin-bottom:1.5rem}
-.hoy-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.hoy-opt{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1rem .7rem;border-radius:16px;
-  border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 8%,transparent);transition:.3s;
-  opacity:0;transform:translateY(10px);animation:fadeUp .7s forwards}
-.hoy-opt:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,transparent);transform:translateY(-2px)}
-.hoy-opt .kp{width:38px;height:38px;color:var(--c)}
-.hoy-opt b{font-family:var(--serif);font-weight:400;font-size:1.05rem;line-height:1.2}
-.hoy-opt span{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
-@media(max-width:420px){.hoy-grid{gap:.5rem}.hoy-opt{padding:.8rem .5rem}}
 @media(max-width:420px){.mem-card{padding:1.3rem 1.2rem 1.1rem}.k-ticket .mem-art::before{left:calc(-1.2rem - 12px)}.k-ticket .mem-art::after{right:calc(-1.2rem - 12px)}}
 .ps-btn{background:none;border:1px solid var(--line);color:var(--dimmer);border-radius:100px;
   padding:.3rem .8rem;font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
@@ -900,7 +877,7 @@ html.vid #dock{width:min(1760px,calc(100% - var(--vpw) - 1.4rem));
   html.vid #shell{padding-right:0}
   html.vid #dock{width:min(1760px,calc(100% - 1.4rem));left:50%}
 }
-#viz{position:absolute;left:0;right:0;bottom:100%;height:34px;pointer-events:none;opacity:0;transition:opacity .6s}
+#viz{position:absolute;left:0;right:0;bottom:100%;height:56px;pointer-events:none;opacity:0;transition:opacity .6s}
 #dock.spinning #viz{opacity:.55}
 
 #buildStamp{position:fixed;left:8px;bottom:6px;z-index:9;font-size:.5rem;letter-spacing:.14em;
@@ -1091,34 +1068,7 @@ header nav button .nl{white-space:nowrap}
 }
 #thread i{transform:scaleX(var(--p,0))}
 @media(max-width:899px){header nav button .nl{display:none}header nav button{gap:0}}
-/* ── mundos claros: papel ── */
-body[data-v=maps],body[data-v=letter]{--paper:#231b14;--dim:rgba(35,27,20,.68);--dimmer:rgba(35,27,20,.48);--line:rgba(35,27,20,.17);--bgw:#efe5d0;color:var(--paper)}
-body[data-v=maps] #main,body[data-v=letter] #main{background:
-  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E"),
-  radial-gradient(110% 70% at 85% -10%,rgba(255,255,255,.6),transparent 60%),var(--bgw)}
-body[data-v=maps] #main::-webkit-scrollbar-thumb,body[data-v=letter] #main::-webkit-scrollbar-thumb{background:rgba(35,27,20,.25)}
-body[data-v=maps] .sc-head{background:rgba(239,229,208,.92)}
-body[data-v=maps] .nt{border-color:color-mix(in srgb,var(--n) 75%,#2a1c10)}
-body[data-v=maps] .nt.h{background:color-mix(in srgb,var(--n) 80%,#2a1c10);box-shadow:0 0 0 3px color-mix(in srgb,var(--n) 25%,transparent)}
-body[data-v=maps] .sc-cv{background:rgba(35,27,20,.06)}
-body[data-v=maps] .sc-row::before{background:linear-gradient(90deg,rgba(35,27,20,.3),transparent)}
-body[data-v=maps] .face::after{opacity:.2}
-body[data-v=maps] .chip.on,body[data-v=letter] .chip.on{color:#fff;background:var(--vacc);border-color:var(--vacc)}
-body[data-v=maps] .voz-stats b,body[data-v=maps] .sc-name b{color:var(--paper)}
-body[data-v=maps] .sc-head b{filter:brightness(.7) saturate(1.3)}
-body[data-v=maps] .searchbar{background:rgba(255,255,255,.5)}
-/* la carta */
-body[data-v=letter] .letter{color:var(--paper);max-width:min(70ch,92%)}
-body[data-v=letter] .letter em{color:#b04058}
-body[data-v=letter] .letter em.lref:hover{color:#8a5a2b}
-body[data-v=letter] .letter .sig{color:#8a5a2b}
-body[data-v=letter] .letter-dust i{background:#231b14}
-body[data-v=letter] .vsub{color:var(--dim)}
-.mem-band{--paper:#f4efe6;--dim:rgba(244,239,230,.6);--dimmer:rgba(244,239,230,.4);--line:rgba(244,239,230,.14);color:var(--paper);
-  background:radial-gradient(90% 60% at 50% 0%,rgba(176,64,88,.18),transparent 70%),#080913;border-radius:30px;padding:1.6rem 1rem 2rem;margin:2.6rem -1.4rem;
-  box-shadow:0 30px 70px rgba(35,27,20,.35),inset 0 0 0 1px rgba(255,255,255,.04)}
-.mem-band .mem-progress{margin-top:.4rem}
-@media(max-width:640px){.mem-band{margin-left:-.9rem;margin-right:-.9rem;border-radius:24px}}
+.mem-band{margin:2.6rem 0}
 /* ── Mosaico: la pared ── */
 #v-mosaic,#v-const{max-width:none;width:100%}
 #v-mosaic,#v-const{padding-left:0;padding-right:0}
@@ -1140,15 +1090,6 @@ body[data-v=letter] .vsub{color:var(--dim)}
 #v-search .searchbar{max-width:none;padding:.4rem 0 .9rem;border:none;border-bottom:2px solid var(--line);border-radius:0;background:none}
 #v-search .searchbar:focus-within{border-bottom-color:var(--vacc)}
 #v-search .searchbar input{font-family:var(--disp);font-weight:300;font-size:clamp(1.8rem,6vw,4rem);letter-spacing:-.03em}
-/* ── Tú y esto: a todo color ── */
-.you-hero{background:linear-gradient(135deg,#f0527a,#8e4bf2 58%,#3a2fc9);border:none;color:#fff;--dim:rgba(255,255,255,.82);--dimmer:rgba(255,255,255,.62);--line:rgba(255,255,255,.28);
-  box-shadow:0 30px 80px rgba(142,75,242,.35)}
-.you-hero .yr1{stroke:#fff;filter:drop-shadow(0 0 10px rgba(255,255,255,.7))}
-.you-hero .yr0{stroke:rgba(255,255,255,.28)}
-.you-hero .ya u{background:#fff!important;box-shadow:0 0 12px rgba(255,255,255,.7)}
-.you-hero .ya i{background:rgba(255,255,255,.22)}
-.you-hero .ya span{color:#fff!important}
-.you-hero .yr b{font-family:var(--disp);font-weight:300;font-size:3.6rem}
 @media(max-width:640px){.vtitle{font-size:clamp(2.5rem,13vw,4rem)}}
 /* las sombras de lo que está escondido no deben asomar sobre los mundos claros */
 #dock:not(.on){box-shadow:none}
@@ -1168,6 +1109,59 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
 #v-search .searchbar input{min-width:0;width:100%}
 @media(max-width:640px){#v-search .searchbar input{font-size:1.5rem}#v-search .kbd{display:none}}
 @media(max-width:640px){#v-const .vsub{display:none}#v-const .vtitle{margin-bottom:.6rem}}
+
+/* ── Tú y esto: un solo acento, sin arcoíris ── */
+.you-hero{grid-template-columns:auto 1fr;border:1px solid var(--line);background:linear-gradient(140deg,color-mix(in srgb,var(--vacc) 7%,transparent),rgba(255,255,255,.015));color:inherit;box-shadow:none}
+.yr{width:190px;height:190px}
+.you-main{min-width:0;display:flex;flex-direction:column;gap:1.4rem}
+.you-next{padding:1rem 1.1rem;border-radius:18px;border:1px solid color-mix(in srgb,var(--vacc) 35%,transparent);background:rgba(0,0,0,.18)}
+.yn-l{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--vacc);margin-bottom:.7rem}
+.yn-b{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.yn-b img{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:none}
+.yn-b>div{flex:1;min-width:160px}.yn-b b{display:block;font-family:var(--disp);font-weight:400;font-size:1.25rem;line-height:1.15}
+.yn-b span{display:block;font-size:.72rem;color:var(--dim);margin-top:.2rem}
+.you-hero .ya u{background:var(--vacc);box-shadow:none;color:inherit}
+.ymini small{font-size:.9rem;color:var(--dimmer)}
+.yh{font-family:var(--disp);font-weight:300;font-size:1.7rem;margin:2.2rem 0 1rem}
+@media(max-width:640px){.you-hero{grid-template-columns:1fr}.yr{width:150px;height:150px;margin:0 auto}}
+
+/* ── reproductor 2.0 ── */
+.ic svg{width:17px;height:17px;display:block}.ic.big svg{width:20px;height:20px}
+.ic{position:relative}
+.dsep{width:1px;height:20px;background:var(--line);margin:0 .25rem;flex:none}
+.dock-info span.alb{font-size:.62rem;color:var(--dimmer)}
+.dock-seek{overflow:visible;height:5px;border-radius:20px 20px 0 0;transition:height .2s}
+.dock-seek::before{content:'';position:absolute;left:0;right:0;top:-9px;bottom:-9px}
+.dock-seek:hover{height:8px}
+.dock-seek i{border-radius:20px 20px 0 0;box-shadow:0 0 14px color-mix(in srgb,var(--a) 70%,transparent)}
+.dock-seek em{position:absolute;bottom:14px;transform:translateX(-50%);padding:.15rem .5rem;border-radius:8px;background:rgba(8,9,18,.95);border:1px solid var(--line);
+  font-style:normal;font-size:.62rem;color:var(--paper);opacity:0;pointer-events:none;transition:opacity .2s;font-variant-numeric:tabular-nums}
+.dock-seek:hover em{opacity:1}
+#dock.spinning #viz{opacity:.9}
+.vol-wrap{position:relative;display:flex}
+.vol-pop{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);padding:.8rem .7rem;border-radius:14px;background:rgba(8,9,18,.97);
+  border:1px solid var(--line);opacity:0;pointer-events:none;transition:opacity .25s;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.vol-pop::after{content:'';position:absolute;left:-6px;right:-6px;top:100%;height:14px}
+.vol-wrap:hover .vol-pop,.vol-wrap:focus-within .vol-pop{opacity:1;pointer-events:auto}
+.vol-pop input{writing-mode:vertical-lr;direction:rtl;height:96px;width:16px;accent-color:var(--a);cursor:pointer}
+#dSleep small{position:absolute;bottom:-4px;right:-5px;font-size:.45rem;line-height:1;background:var(--a);color:#000;border-radius:6px;padding:.12rem .28rem;font-weight:600}
+#dSleep small:empty{display:none}
+#queue{position:absolute;bottom:calc(100% + 40px);right:.8rem;width:min(410px,calc(100% - 1.6rem));max-height:min(56vh,480px);overflow-y:auto;padding:.5rem;
+  border-radius:20px;background:rgba(8,9,18,.97);backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.65);
+  opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .3s,transform .3s;scrollbar-width:thin}
+#queue.on{opacity:1;transform:none;pointer-events:auto}
+.q-h{display:flex;align-items:center;gap:.7rem;padding:.4rem .6rem .7rem}
+.q-h b{font-family:var(--disp);font-weight:400;font-size:1.15rem}.q-h em{font-style:normal;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);flex:1}
+.q-r{display:flex;align-items:center;gap:.7rem;width:100%;padding:.4rem .55rem;border-radius:12px;text-align:left;transition:background .25s}
+.q-r:hover{background:rgba(255,255,255,.06)}
+.q-r.now{background:color-mix(in srgb,var(--a) 12%,transparent)}
+.q-r>span{width:1.4rem;font-size:.6rem;color:var(--dimmer);text-align:center;flex:none}.q-r.now>span{color:var(--a)}
+.q-r img,.q-r>i{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:none;background:rgba(255,255,255,.06)}
+.q-r b{display:block;font-weight:400;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q-r em{display:block;font-style:normal;font-size:.62rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q-r>div{min-width:0;flex:1}
+@media(max-width:640px){.dsep{display:none}#queue{right:.4rem;width:calc(100% - .8rem)}}
+@media(max-width:760px){html #dock{bottom:var(--tabh)}html #toast{bottom:calc(var(--tabh) + 7rem)}html #dock .dock-row{padding:.6rem .8rem}}
 </style>
 </head>
 <body>
@@ -1199,7 +1193,6 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
       <span class="navsep"></span>
       <button data-v="search" class="ico" title="Buscar  ( / )">⌕</button>
       <button data-v="you" class="ico" title="Tú y esto">◐</button>
-      <button id="hoyBtn" class="ico" title="Para hoy: ¿cómo llegas?  ( h )">☾</button>
       <button id="shuffleBtn" class="ico" title="Reproducir en aleatorio  ( r )">✧</button>
       <button id="editBtn" class="ico edit" title="Editar  ( e )">✎</button>
     </nav>
@@ -1287,15 +1280,11 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
     <section class="view" id="v-you">
       <h2 class="vtitle">Tú y esto</h2>
       <p class="vsub">Todo esto se guarda solo en este dispositivo. Nadie más lo ve.</p>
-      <button class="hoy-card" id="hoyCard"><span class="hoy-ic"></span>
-        <span><b>Para hoy</b><em>Dime cómo llegas y te busco una canción. Sin prisa.</em></span><u>→</u></button>
-      <div class="stats" id="statsBox"></div>
-      <div class="barwrap"><i id="progBar" style="width:0"></i></div>
-      <h3 style="font-family:var(--serif);font-size:1.5rem;margin-bottom:.4rem">Tu paleta</h3>
-      <p style="color:var(--dim);font-size:.82rem">Un color por canción escuchada, en orden. Pasa el cursor.</p>
-      <div class="palstrip" id="palstrip"></div>
-      <h3 style="font-family:var(--serif);font-size:1.5rem;margin-bottom:1rem">Tus favoritas</h3>
+      <div id="statsBox"></div>
+      <h3 class="yh">Tus favoritas</h3>
       <div id="favs" class="rows"></div>
+      <h3 class="yh">Tus notas</h3>
+      <div id="notesList" class="rows"></div>
       <div style="margin-top:2.4rem;display:flex;gap:.5rem;flex-wrap:wrap">
         <button class="pill" id="resetProg">Borrar mi progreso</button>
         <button class="pill" id="markAll">Marcar todas como escuchadas</button>
@@ -1328,24 +1317,31 @@ html:not(.vid) #dockFrame{box-shadow:none;border-color:transparent}
 
 <div id="dock">
   <canvas id="viz"></canvas>
-  <div class="dock-seek" id="seek"><i id="seekFill"></i><u id="seekHead"></u></div>
+  <div class="dock-seek" id="seek"><i id="seekFill"></i><u id="seekHead"></u><em id="seekTip"></em></div>
   <div class="dock-row">
     <img class="dcover" id="dCover" alt="">
-    <div class="dock-info"><b id="dTitle">—</b><span id="dArt"></span></div>
+    <div class="dock-info"><b id="dTitle">—</b><span id="dArt"></span><span id="dAlb" class="alb"></span></div>
     <div class="dock-time" id="dTime">0:00 / 0:00</div>
     <div class="dock-btns">
-      <button class="ic" id="dShuffle" title="Aleatorio">⤨</button>
-      <button class="ic" id="dPrev" title="Anterior">⏮</button>
-      <button class="ic big" id="dPlay" title="Play / pausa">⏸</button>
-      <button class="ic" id="dNext" title="Siguiente">⏭</button>
-      <button class="ic" id="dLoop" title="Repetir">↻</button>
+      <button class="ic" id="dShuffle" title="Aleatorio ( r )"></button>
+      <button class="ic" id="dPrev" title="Anterior"></button>
+      <button class="ic big" id="dPlay" title="Play / pausa ( espacio )"></button>
+      <button class="ic" id="dNext" title="Siguiente"></button>
+      <button class="ic" id="dLoop" title="Repetir esta canción"></button>
+      <span class="dsep"></span>
+      <div class="vol-wrap"><button class="ic" id="dVol" title="Volumen ( m = silencio )"></button>
+        <div class="vol-pop"><input type="range" id="volR" min="0" max="100" aria-label="Volumen"></div></div>
+      <button class="ic" id="dQueue" title="A continuación"></button>
+      <button class="ic" id="dSleep" title="Temporizador para dormir"><span class="dsl-i"></span><small id="dSleepL"></small></button>
+      <button class="ic" id="dVizStyle" title="Estilo del visualizador"></button>
       <button class="ic" id="dViz" title="Fuente del visualizador"><span data-vizlabel="1" style="font-size:.5rem;letter-spacing:.02em"></span></button>
-      <button class="ic" id="dStage" title="Escenario a pantalla completa">⛶</button>
-      <button class="ic" id="dOpen" title="Mostrar video">▤</button>
-      <button class="ic" id="dInfo" title="Ver canción">ⓘ</button>
-      <button class="ic" id="dStop" title="Cerrar">✕</button>
+      <button class="ic" id="dStage" title="Escenario a pantalla completa ( f )"></button>
+      <button class="ic" id="dOpen" title="Mostrar video ( v )"></button>
+      <button class="ic" id="dInfo" title="Ver canción"></button>
+      <button class="ic" id="dStop" title="Cerrar"></button>
     </div>
   </div>
+  <div id="queue"></div>
 </div>
 
 <!-- panel lateral del video: vive fuera del dock para poder anclarse al
@@ -1677,6 +1673,7 @@ const MEMORIES = [
 const KP = {"shuffle":"<path d=\"m18 14 4 4-4 4\" /><path d=\"m18 2 4 4-4 4\" /><path d=\"M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22\" /><path d=\"M2 6h1.972a4 4 0 0 1 3.6 2.2\" /><path d=\"M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45\" />","eye":"<path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" /><circle cx=\"12\" cy=\"12\" r=\"3\" />","headphones":"<path d=\"M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3\" />","croissant":"<path d=\"M10.2 18H4.774a1.5 1.5 0 0 1-1.352-.97 11 11 0 0 1 .132-6.487\" /><path d=\"M18 10.2V4.774a1.5 1.5 0 0 0-.97-1.352 11 11 0 0 0-6.486.132\" /><path d=\"M18 5a4 3 0 0 1 4 3 2 2 0 0 1-2 2 10 10 0 0 0-5.139 1.42\" /><path d=\"M5 18a3 4 0 0 0 3 4 2 2 0 0 0 2-2 10 10 0 0 1 1.42-5.14\" /><path d=\"M8.709 2.554a10 10 0 0 0-6.155 6.155 1.5 1.5 0 0 0 .676 1.626l9.807 5.42a2 2 0 0 0 2.718-2.718l-5.42-9.807a1.5 1.5 0 0 0-1.626-.676\" />","speech":"<path d=\"M8.8 20v-4.1l1.9.2a2.3 2.3 0 0 0 2.164-2.1V8.3A5.37 5.37 0 0 0 2 8.25c0 2.8.656 3.054 1 4.55a5.77 5.77 0 0 1 .029 2.758L2 20\" /><path d=\"M19.8 17.8a7.5 7.5 0 0 0 .003-10.603\" /><path d=\"M17 15a3.5 3.5 0 0 0-.025-4.975\" />","cake":"<path d=\"M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8\" /><path d=\"M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1\" /><path d=\"M2 21h20\" /><path d=\"M7 8v3\" /><path d=\"M12 8v3\" /><path d=\"M17 8v3\" /><path d=\"M7 4h.01\" /><path d=\"M12 4h.01\" /><path d=\"M17 4h.01\" />","messages-square":"<path d=\"M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\" /><path d=\"M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1\" />","clapperboard":"<path d=\"m12.296 3.464 3.02 3.956\" /><path d=\"M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z\" /><path d=\"M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" /><path d=\"m6.18 5.276 3.1 3.899\" />","mic-vocal":"<path d=\"m11 7.601-5.994 8.19a1 1 0 0 0 .1 1.298l.817.818a1 1 0 0 0 1.314.087L15.09 12\" /><path d=\"M16.5 21.174C15.5 20.5 14.372 20 13 20c-2.058 0-3.928 2.356-6 2-2.072-.356-2.775-3.369-1.5-4.5\" /><circle cx=\"16\" cy=\"7\" r=\"5\" />","megaphone":"<path d=\"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z\" /><path d=\"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14\" /><path d=\"M8 6v8\" />","glasses":"<circle cx=\"6\" cy=\"15\" r=\"4\" /><circle cx=\"18\" cy=\"15\" r=\"4\" /><path d=\"M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2\" /><path d=\"M2.5 13 5 7c.7-1.3 1.4-2 3-2\" /><path d=\"M21.5 13 19 7c-.7-1.3-1.5-2-3-2\" />","monitor-play":"<path d=\"M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z\" /><path d=\"M12 17v4\" /><path d=\"M8 21h8\" /><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\" />","moon-star":"<path d=\"M18 5h4\" /><path d=\"M20 3v4\" /><path d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\" />","coffee":"<path d=\"M10 2v2\" /><path d=\"M14 2v2\" /><path d=\"M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1\" /><path d=\"M6 2v2\" />","file-check":"<path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /><path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /><path d=\"m9 15 2 2 4-4\" />","music":"<path d=\"M9 18V5l12-2v13\" /><circle cx=\"6\" cy=\"18\" r=\"3\" /><circle cx=\"18\" cy=\"16\" r=\"3\" />","ghost":"<path d=\"M15 10v1\" /><path d=\"M7.528 20.472a1.6 1.6 0 012.277 0l1.057 1.056a1.6 1.6 0 002.276 0l1.057-1.056a1.6 1.6 0 012.277 0l1.114 1.114a1.4 1.4 0 002.414-1V10a8 8 0 00-16 0v10.586a1.4 1.4 0 002.414 1z\" /><path d=\"M9 10v1\" />","bug":"<path d=\"M12 20v-9\" /><path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\" /><path d=\"M14.12 3.88 16 2\" /><path d=\"M21 21a4 4 0 0 0-3.81-4\" /><path d=\"M21 5a4 4 0 0 1-3.55 3.97\" /><path d=\"M22 13h-4\" /><path d=\"M3 21a4 4 0 0 1 3.81-4\" /><path d=\"M3 5a4 4 0 0 0 3.55 3.97\" /><path d=\"M6 13H2\" /><path d=\"m8 2 1.88 1.88\" /><path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\" />","stethoscope":"<path d=\"M11 2v2\" /><path d=\"M5 2v2\" /><path d=\"M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\" /><path d=\"M8 15a6 6 0 0 0 12 0v-3\" /><circle cx=\"20\" cy=\"10\" r=\"2\" />","flame":"<path d=\"M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4\" />","car":"<path d=\"M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2\" /><circle cx=\"7\" cy=\"17\" r=\"2\" /><path d=\"M9 17h6\" /><circle cx=\"17\" cy=\"17\" r=\"2\" />","sticky-note":"<path d=\"M21 9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z\" /><path d=\"M15 3v5a1 1 0 0 0 1 1h5\" />","fish":"<path d=\"M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z\" /><path d=\"M18 12v.5\" /><path d=\"M16 17.93a9.77 9.77 0 0 1 0-11.86\" /><path d=\"M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33\" /><path d=\"M10.46 7.26C10.2 5.88 9.17 4.24 8 3h5.8a2 2 0 0 1 1.98 1.67l.23 1.4\" /><path d=\"m16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98\" />","utensils":"<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\" /><path d=\"M7 2v20\" /><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7\" />","bot":"<path d=\"M12 8V4H8\" /><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\" /><path d=\"M2 14h2\" /><path d=\"M20 14h2\" /><path d=\"M15 13v2\" /><path d=\"M9 13v2\" />","siren":"<path d=\"M7 18v-6a5 5 0 1 1 10 0v6\" /><path d=\"M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z\" /><path d=\"M21 12h1\" /><path d=\"M18.5 4.5 18 5\" /><path d=\"M2 12h1\" /><path d=\"M12 2v1\" /><path d=\"m4.929 4.929.707.707\" /><path d=\"M12 12v6\" />","tv":"<path d=\"m17 2-5 5-5-5\" /><rect width=\"20\" height=\"15\" x=\"2\" y=\"7\" rx=\"2\" />","citrus":"<path d=\"M21.66 17.67a1.08 1.08 0 0 1-.04 1.6A12 12 0 0 1 4.73 2.38a1.1 1.1 0 0 1 1.61-.04z\" /><path d=\"M19.65 15.66A8 8 0 0 1 8.35 4.34\" /><path d=\"m14 10-5.5 5.5\" /><path d=\"M14 17.85V10H6.15\" />","sandwich":"<path d=\"m2.37 11.223 8.372-6.777a2 2 0 0 1 2.516 0l8.371 6.777\" /><path d=\"M21 15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.25\" /><path d=\"M3 15a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9\" /><path d=\"m6.67 15 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2\" /><rect width=\"20\" height=\"4\" x=\"2\" y=\"11\" rx=\"1\" />","spade":"<path d=\"M12 18v4\" /><path d=\"M2 14.499a5.5 5.5 0 0 0 9.591 3.675.6.6 0 0 1 .818.001A5.5 5.5 0 0 0 22 14.5c0-2.29-1.5-4-3-5.5l-5.492-5.312a2 2 0 0 0-3-.02L5 8.999c-1.5 1.5-3 3.2-3 5.5\" />","flag":"<path d=\"M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528\" />","drumstick":"<path d=\"M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.5 3.43 135 0 0-6.23 6.23\" /><path d=\"m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59\" />","phone":"<path d=\"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384\" />","users":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /><path d=\"M16 3.128a4 4 0 0 1 0 7.744\" /><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /><circle cx=\"9\" cy=\"7\" r=\"4\" />","compass":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z\" />","heart":"<path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\" />","hand-heart":"<path d=\"M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16\" /><path d=\"m14.45 13.39 5.05-4.694C20.196 8 21 6.85 21 5.75a2.75 2.75 0 0 0-4.797-1.837.276.276 0 0 1-.406 0A2.75 2.75 0 0 0 11 5.75c0 1.2.802 2.248 1.5 2.946L16 11.95\" /><path d=\"m2 15 6 6\" /><path d=\"m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a1 1 0 0 0-2.75-2.91\" />","sparkles":"<path d=\"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z\" /><path d=\"M20 2v4\" /><path d=\"M22 4h-4\" /><circle cx=\"4\" cy=\"20\" r=\"2\" />","camera":"<path d=\"M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z\" /><circle cx=\"12\" cy=\"13\" r=\"3\" />","cake-slice":"<path d=\"M16 13H3\" /><path d=\"M16 17H3\" /><path d=\"m7.2 7.9-3.388 2.5A2 2 0 0 0 3 12.01V20a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.654c0-2-2.44-6.026-6.44-8.026a1 1 0 0 0-1.082.057L10.4 5.6\" /><circle cx=\"9\" cy=\"7\" r=\"2\" />","shield":"<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" />","gamepad-2":"<line x1=\"6\" x2=\"10\" y1=\"11\" y2=\"11\" /><line x1=\"8\" x2=\"8\" y1=\"9\" y2=\"13\" /><line x1=\"15\" x2=\"15.01\" y1=\"12\" y2=\"12\" /><line x1=\"18\" x2=\"18.01\" y1=\"10\" y2=\"10\" /><path d=\"M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z\" />","rabbit":"<path d=\"M13 16a3 3 0 0 1 2.24 5\" /><path d=\"M18 12h.01\" /><path d=\"M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3\" /><path d=\"M20 8.54V4a2 2 0 1 0-4 0v3\" /><path d=\"M7.612 12.524a3 3 0 1 0-1.6 4.3\" />","meh":"<path d=\"M15 10V9\" /><path d=\"M8 16h8\" /><path d=\"M9 10V9\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","frown":"<path d=\"M15 10V9\" /><path d=\"M9 10V9\" /><path d=\"M9 16a5 5 0 016 0\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","annoyed":"<path d=\"M14 10h2\" /><path d=\"M8 10h2\" /><path d=\"M8 16h8\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","merge":"<path d=\"m8 6 4-4 4 4\" /><path d=\"M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22\" /><path d=\"m20 22-5-5\" />","sunrise":"<path d=\"M12 2v8\" /><path d=\"m4.93 10.93 1.41 1.41\" /><path d=\"M2 18h2\" /><path d=\"M20 18h2\" /><path d=\"m19.07 10.93-1.41 1.41\" /><path d=\"M22 22H2\" /><path d=\"m8 6 4-4 4 4\" /><path d=\"M16 18a4 4 0 0 0-8 0\" />","audio-waveform":"<path d=\"M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2\" />","send":"<path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\" /><path d=\"m21.854 2.147-10.94 10.939\" />","ticket":"<path d=\"M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z\" /><path d=\"M13 5v2\" /><path d=\"M13 17v2\" /><path d=\"M13 11v2\" />","audio-lines":"<path d=\"M2 10v3\" /><path d=\"M6 6v11\" /><path d=\"M10 3v18\" /><path d=\"M14 8v7\" /><path d=\"M18 5v13\" /><path d=\"M22 10v3\" />","calendar-heart":"<path d=\"M12.127 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v5.125\" /><path d=\"M14.62 17.8A2.25 2.25 0 1118 14.836a2.25 2.25 0 113.38 2.966l-2.626 2.856a.998.998 0 01-1.507 0z\" /><path d=\"M16 2v3\" /><path d=\"M3 9h18\" /><path d=\"M8 2v3\" />","heart-pulse":"<path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\" /><path d=\"M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27\" />","microscope":"<path d=\"M6 18h8\" /><path d=\"M3 22h18\" /><path d=\"M14 22a7 7 0 1 0 0-14h-1\" /><path d=\"M9 14h2\" /><path d=\"M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z\" /><path d=\"M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\" />","disc-3":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"M6 12c0-1.7.7-3.2 1.8-4.2\" /><circle cx=\"12\" cy=\"12\" r=\"2\" /><path d=\"M18 12c0 1.7-.7 3.2-1.8 4.2\" />","dices":"<rect width=\"12\" height=\"12\" x=\"2\" y=\"10\" rx=\"2\" ry=\"2\" /><path d=\"m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6\" /><path d=\"M6 18h.01\" /><path d=\"M10 14h.01\" /><path d=\"M15 6h.01\" /><path d=\"M18 9h.01\" />","circle-check":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"m16 9-5.5 5.5L8 12\" />","share-2":"<circle cx=\"18\" cy=\"5\" r=\"3\" /><circle cx=\"6\" cy=\"12\" r=\"3\" /><circle cx=\"18\" cy=\"19\" r=\"3\" /><line x1=\"8.59\" x2=\"15.42\" y1=\"13.51\" y2=\"17.49\" /><line x1=\"15.41\" x2=\"8.59\" y1=\"6.51\" y2=\"10.49\" />","drama":"<path d=\"M10 11h.01\" /><path d=\"M14 6h.01\" /><path d=\"M18 6h.01\" /><path d=\"M6.5 13.1h.01\" /><path d=\"M22 5c0 9-4 12-6 12s-6-3-6-12c0-2 2-3 6-3s6 1 6 3\" /><path d=\"M17.4 9.9c-.8.8-2 .8-2.8 0\" /><path d=\"M10.1 7.1C9 7.2 7.7 7.7 6 8.6c-3.5 2-4.7 3.9-3.7 5.6 4.5 7.8 9.5 8.4 11.2 7.4.9-.5 1.9-2.1 1.9-4.7\" /><path d=\"M9.1 16.5c.3-1.1 1.4-1.7 2.4-1.4\" />","hourglass":"<path d=\"M5 22h14\" /><path d=\"M5 2h14\" /><path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\" /><path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\" />","wand-sparkles":"<path d=\"m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72\" /><path d=\"m14 7 3 3\" /><path d=\"M5 6v4\" /><path d=\"M19 14v4\" /><path d=\"M10 2v2\" /><path d=\"M7 8H3\" /><path d=\"M21 16h-4\" /><path d=\"M11 3H9\" />","trophy":"<path d=\"M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2\" /><path d=\"M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2\" /><path d=\"M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3\" /><path d=\"M4 22h16\" /><path d=\"M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z\" /><path d=\"M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3\" />","alarm-clock":"<circle cx=\"12\" cy=\"13\" r=\"8\" /><path d=\"M12 9v4l2 2\" /><path d=\"M5 3 2 6\" /><path d=\"m22 6-3-3\" /><path d=\"M6.38 18.7 4 21\" /><path d=\"M17.64 18.67 20 21\" />","heart-crack":"<path d=\"M12.409 5.824c-.702.792-1.15 1.496-1.415 2.166l2.153 2.156a.5.5 0 0 1 0 .707l-2.293 2.293a.5.5 0 0 0 0 .707L12 15\" /><path d=\"M13.508 20.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.677.6.6 0 0 0 .818.001A5.5 5.5 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5z\" />","list-checks":"<path d=\"M13 5h8\" /><path d=\"M13 12h8\" /><path d=\"M13 19h8\" /><path d=\"m3 17 2 2 4-4\" /><path d=\"m3 7 2 2 4-4\" />","circle-play":"<path d=\"M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z\" /><circle cx=\"12\" cy=\"12\" r=\"10\" />","receipt":"<path d=\"M12 17V7\" /><path d=\"M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8\" /><path d=\"M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z\" />","thumbs-down":"<path d=\"M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z\" /><path d=\"M17 14V2\" />","popcorn":"<path d=\"M18 8a2 2 0 0 0 0-4 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0 0 4\" /><path d=\"M10 22 9 8\" /><path d=\"m14 22 1-14\" /><path d=\"M20 8c.5 0 .9.4.8 1l-2.6 12c-.1.5-.7 1-1.2 1H7c-.6 0-1.1-.4-1.2-1L3.2 9c-.1-.6.3-1 .8-1Z\" />","heart-handshake":"<path d=\"M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762\" />","volume-2":"<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" /><path d=\"M16 9a5 5 0 0 1 0 6\" /><path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\" />","message-circle-question":"<path d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\" /><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" /><path d=\"M12 17h.01\" />","notebook-pen":"<path d=\"M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4\" /><path d=\"M2 6h4\" /><path d=\"M2 10h4\" /><path d=\"M2 14h4\" /><path d=\"M2 18h4\" /><path d=\"M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z\" />","cloud-fog":"<path d=\"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242\" /><path d=\"M16 17H7\" /><path d=\"M17 21H9\" />","split":"<path d=\"M16 3h5v5\" /><path d=\"M8 3H3v5\" /><path d=\"M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3\" /><path d=\"m15 9 6-6\" />","zap":"<path d=\"M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z\" />"};
 Object.assign(KP,{"orbit":"<path d=\"M20.341 6.484A10 10 0 0 1 10.266 21.85\" /><path d=\"M3.659 17.516A10 10 0 0 1 13.74 2.152\" /><circle cx=\"12\" cy=\"12\" r=\"3\" /><circle cx=\"19\" cy=\"5\" r=\"2\" /><circle cx=\"5\" cy=\"19\" r=\"2\" />","star":"<path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\" />","layout-grid":"<rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\" /><rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\" /><rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\" /><rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\" />","mail":"<path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\" /><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\" />","text-quote":"<path d=\"M17 5H3\" /><path d=\"M21 12H8\" /><path d=\"M21 19H8\" /><path d=\"M3 12v7\" />"});
 Object.assign(KP,{"search":"<path d=\"m21 21-4.34-4.34\" /><circle cx=\"11\" cy=\"11\" r=\"8\" />","user-round":"<circle cx=\"12\" cy=\"8\" r=\"5\" /><path d=\"M20 21a8 8 0 0 0-16 0\" />","pencil":"<path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\" /><path d=\"m15 5 4 4\" />"});
+Object.assign(KP,{"skip-back":"<path d=\"M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z\" /><path d=\"M3 20V4\" />","skip-forward":"<path d=\"M21 4v16\" /><path d=\"M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z\" />","play":"<path d=\"M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z\" />","pause":"<rect x=\"14\" y=\"3\" width=\"5\" height=\"18\" rx=\"1\" /><rect x=\"5\" y=\"3\" width=\"5\" height=\"18\" rx=\"1\" />","repeat":"<path d=\"m17 2 4 4-4 4\" /><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\" /><path d=\"m7 22-4-4 4-4\" /><path d=\"M21 13v1a4 4 0 0 1-4 4H3\" />","repeat-1":"<path d=\"m17 2 4 4-4 4\" /><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\" /><path d=\"m7 22-4-4 4-4\" /><path d=\"M21 13v1a4 4 0 0 1-4 4H3\" /><path d=\"M11 10h1v4\" />","volume-x":"<path d=\"M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z\" /><path d=\"m16.5 14.5 5-5\" /><path d=\"m16.5 9.5 5 5\" />","volume-1":"<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" /><path d=\"M16 9a5 5 0 0 1 0 6\" />","list-music":"<path d=\"M16 5H3\" /><path d=\"M11 12H3\" /><path d=\"M11 19H3\" /><path d=\"M21 16V5\" /><circle cx=\"18\" cy=\"16\" r=\"3\" />","moon":"<path d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\" />","maximize":"<path d=\"M8 3H5a2 2 0 0 0-2 2v3\" /><path d=\"M21 8V5a2 2 0 0 0-2-2h-3\" /><path d=\"M3 16v3a2 2 0 0 0 2 2h3\" /><path d=\"M16 21h3a2 2 0 0 0 2-2v-3\" />","panel-right-open":"<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /><path d=\"M15 3v18\" /><path d=\"m10 15-3-3 3-3\" />","info":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><path d=\"M12 16v-4\" /><path d=\"M12 8h.01\" />","x":"<path d=\"M18 6 6 18\" /><path d=\"m6 6 12 12\" />","timer":"<line x1=\"10\" x2=\"14\" y1=\"2\" y2=\"2\" /><line x1=\"12\" x2=\"15\" y1=\"14\" y2=\"11\" /><circle cx=\"12\" cy=\"14\" r=\"8\" />","waves":"<path d=\"M2 12q2.5 2 5 0t5 0 5 0 5 0\" /><path d=\"M2 19q2.5 2 5 0t5 0 5 0 5 0\" /><path d=\"M2 5q2.5 2 5 0t5 0 5 0 5 0\" />"});
 const kp = k => `<svg class="kp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(KP[k]||KP.sparkles).replace(/<(path|circle|rect|ellipse|line|polyline|polygon) /g,'<$1 pathLength="1" ')}</svg>`;
 
 // etiqueta → [objeto, formato, nota corta]. Las notas salen de lo que cada texto ya dice.
@@ -1773,7 +1770,7 @@ const YTIDS = {
   "Not Today||BTS":"mCtVrf2x5BQ",
   "I Could Be The One||Avicii, Nicky Romero":"wdt10Q6Awu8",
   "Firework Eyes||Excision, Sullivan King":"2qq0dD0pQO0",
-  "Forever Yours||Kygo, Avicii, Sandro Cavazza":"K7WxPy2y0HQ",
+  "Forever Yours||Kygo, Avicii, Sandro Cavazza":"Xxqz3bgPTLs",
   "True Believer||Avicii":"MhTJJ1AHzzU",
   "Addicted To You||Avicii":"nYuVZPV4vTw",
   "I Don't Understand But I Luv U||SEVENTEEN":"MGK5wZJDXjo",
@@ -1785,8 +1782,8 @@ const YTIDS = {
   "Boy in Luv||BTS":"apUsvFnYgOk",
   "ONE&ONLY||ASTRO":"6QmpqYSuIzM",
   "Conversation||TWICE":"KwqUdV2hpII",
-  "To you||SEVENTEEN":"n9ta1Pgeu80",
-  "Die For You (Dabin Remix)||VALORANT, Grabbitz, Dabin":"4p9quFCHPG8",
+  "To you||SEVENTEEN":"7q9Ubv3othc",
+  "Die For You (Dabin Remix)||VALORANT, Grabbitz, Dabin":"6RjTUybvsUg",
   "Otras Vidas||Carlos Rivera":"VilDW2Aj9aM",
   "Love is Gone (JOSHUA)||SLANDER, SEVENTEEN, Dylan Matthew, JOSHUA":"me8KGQOIeac",
   "Ash||LE SSERAFIM":"G6CSdvvrI-k",
@@ -1796,17 +1793,17 @@ const YTIDS = {
   "Cold Water (ft. Justin Bieber & MØ)||Major Lazer, Justin Bieber, MØ":"a59gmGkq_pw",
   "The Best Thing I Ever Did||TWICE":"CfUGjK6gGgs",
   "Please Don't Change||Jung Kook, DJ Snake":"Shz9iLeE6i4",
-  "Ignite||K-391, Alan Walker, Julie Bergan, SEUNGRI":"zrwTYozyzYA",
+  "Ignite||K-391, Alan Walker, Julie Bergan, SEUNGRI":"I-CMtScCtc8",
   "Losing Sleep||TZUYU":"U0abEcy5Mqs",
   "Blink||Corbyn Besson, TZUYU":"QcuV8h_I1y0",
   "ALL OR NOTHING||NAYEON":"Qqgqp7GgSZQ",
-  "Walk Thru Fire||Vicetone":"kRauptdx_Is",
+  "Walk Thru Fire||Vicetone":"-qpEMQaaWBQ",
   "Alone, Pt. II||Alan Walker, Ava Max":"ciwx8yJPX54",
   "Replay||SLANDER, Dylan Matthew":"GGDgnPm8yB0",
   "Hold On Tight||aespa":"1XZRhrt1Tkg",
   "Free||Kpop Demon Hunters, RUMI, JINU":"fjOeJssZX_Q",
   "Mikrokosmos||BTS":"Fw7C6IsDYgI",
-  "Free||SABAI, Miles Away, ANDe, Shannon":"jPnUqOUu2Ns",
+  "Free||SABAI, Miles Away, ANDe, Shannon":"i9eZBYA3CJw",
   "Under the skin||&TEAM":"Eh-H3PSn4EA",
   "Stuck In The Middle||Ran-D, Vertile":"Inu1qnVfWP4",
   "Give Me Love||Don Diablo, Calum Scott":"7OvlmRI-WpU",
@@ -1826,14 +1823,14 @@ const YTIDS = {
   "Given-Taken||ENHYPEN":"1uhDiRvD6pc",
   "Parachute||HALIENE, Amidy":"Sy_Lt5UUnTM",
   "NEW NEW||TWICE":"JqEEOtVtBO4",
-  "Fortress||ILLENIUM, Joni Fatora":"_UTvd6vwYOg",
+  "Fortress||ILLENIUM, Joni Fatora":"7gF-05RYizs",
   "Nothing Hurts Like Goodbye||SLANDER, Kiiara":"-1uV9Gb1htY",
   "In Your Fantasy||ATEEZ":"JOF2ZTqvzwY",
   "stay a little longer||ROSÉ":"vHvOYQ0hbBA",
   "Deja Vu||TOMORROW X TOGETHER":"1MzNUehZ2cU",
   "FANTASIA||MONSTA X":"p2JzPlpA1Iw",
   "Ruin The Friendship||Taylor Swift":"RId6LV1wtQY",
-  "NO PROBLEM||NAYEON, Felix":"mwLdfTJ03SY",
+  "NO PROBLEM||NAYEON, Felix":"9oelHREj8iI",
   "Butterflies||NAYEON":"iLOJKRHmwI8",
   "I Knew You Were Trouble.||Taylor Swift":"VmBoTeLsKfs",
   "Perfect||One Direction":"Ho32Oh6b4jc",
@@ -1847,7 +1844,7 @@ const YTIDS = {
   "Paper Rings||Taylor Swift":"8zdg-pDF10g",
   "Paper Thin||ILLENIUM, Tom DeLonge, Angels & Airwaves":"adlVwacxucQ",
   "Wake Me When It's Quiet||Hilda, Don Diablo":"sUmVrPGYZ-E",
-  "Heartbreak In Heaven||TZUYU, PENIEL":"QtDUWUd6wxE",
+  "Heartbreak In Heaven||TZUYU, PENIEL":"gLtEq5UtPvk",
   "INCEPTION||ATEEZ":"2NArH91kHoQ",
   "RUSH||TWICE":"gw5uSSsHm6c",
   "CRUSH||IVE":"D-geLVTaBAo",
@@ -1884,7 +1881,7 @@ const YTIDS = {
   "soft spot||keshi":"4Lmcadu8ghM",
   "LOVE ME or LOSER||ONEUS":"MEx4nBk_MSk",
   "What Love Can Do||BONNIE X CLYDE":"-_j2ZXDixeI",
-  "Not Gonna Leave You||Wallaby, NEIMY":"FBnmjbgU_u0",
+  "Not Gonna Leave You||Wallaby, NEIMY":"G6OSnHFAEzw",
   "Young||The Chainsmokers":"z6nfK_zhYNk",
   "DIFFERENT||LE SSERAFIM":"HI9bU2j_Vmc",
   "Lose You||Gammer, Tweekacore, Da Tweekaz":"CHjIEukKS90",
@@ -1895,19 +1892,19 @@ const YTIDS = {
   "MOONLIGHT||TWICE":"Q8nCjQCvWD4",
   "Nothing Without Your Love||Jin":"7ue9yqfApQA",
   "Super Tuna||Jin":"h_qBHKdVXGk",
-  "Tired||Alan Walker, Gavin James":"YnaEoCY_vzc",
+  "Tired||Alan Walker, Gavin James":"9DyTU26FQlk",
   "Looking Your Eyes||Lim Ha Young":"G7pje8y6IbY",
   "How to Love||Cash Cash, Sofía Reyes":"peByeoQhjMM",
   "I Need U||BTS":"NMdTd9e-LEI",
   "I Need You To Know||Armin van Buuren, Nicky Romero, Ifimay":"avDRd6w7GC8",
   "ballad of a homeschooled girl||Olivia Rodrigo":"obSpLSnJ-wI",
   "Slow It Down||Jason Ross, L8NCY":"bhQS07vA-vU",
-  "Pretty U||SEVENTEEN":"TpHfh9VUOek",
+  "Pretty U||SEVENTEEN":"pxC7XsOHqxI",
   "baby blue||MONSTA X":"PxZej9IEVxc",
   "Secrets||MONSTA X":"7TF5PAG1-oc",
   "About Last Night||MONSTA X":"sBFi-Vg31wg",
   "Memory of Us||DEMIAN":"K3qfl5blz4w",
-  "Moonstruck||ENHYPEN":"7T8yERKbXfc",
+  "Moonstruck||ENHYPEN":"PN1hNIzGoWg",
   "Free||ARMNHMR, LOCKBOX, Sara, Benyo, Gabriel Eli":"d0NzCay_31s",
   "That Girl||Olly Murs":"3q2IXr6fjh0",
   "Rock with you||SEVENTEEN":"WpuatuzSDK4",
@@ -1915,7 +1912,7 @@ const YTIDS = {
   "Message In A Bottle (Fat Max G Remix) (Taylor's Version)||Taylor Swift, Fat Max Gsus":"4MXlqrZSfHY",
   "number one girl||ROSÉ":"pZ1NdE69VTs",
   "Shine With Me||IVE":"DriF-yior0k",
-  "Waiting||Vicetone, Daisy Guttridge":"C7DCLdMSYW0",
+  "Waiting||Vicetone, Daisy Guttridge":"fhYgfUZwZX8",
   "The Fate of Ophelia||Taylor Swift":"ko70cExuzZM",
   "Yes or No||Jung Kook":"uOFIcm-L0po",
   "Truman (HAN & Felix)||Stray Kids":"diMyNjWyDW8",
@@ -1926,14 +1923,14 @@ const YTIDS = {
   "Still With You||Jung Kook":"BksBNbTIoPE",
   "MARS||TWICE":"N1ExjhcpLso",
   "Magnetic||MONSTA X, Sebastian Yatra":"4DQlncYMCyw",
-  "Stay Alive||Jung Kook":"D5dRiKJ_dsM",
+  "Stay Alive||Jung Kook":"2JO3NYg6Bt0",
   "Hollow||HALIENE, Elephante":"1HlYsF7ftfo",
   "Nothing Hurts Like Goodbye||SLANDER":"xnP3XMMnq9Y",
   "Messy (F1)||ROSÉ, F1 The Album":"QVTIWWNhaYE",
   "Euphoria||BTS":"0D28qd--kRE",
   "YOU GET ME||TWICE":"GzmFNfvKSTY",
   "First Kiss||Calu":"TY4xjeW7yGM",
-  "Falling||Jin":"ZQQWGhPJfAU",
+  "Falling||Jin":"RDtjsZx_d40",
   "THUNDER||SEVENTEEN":"pS57UX6s-xw",
   "Potential||Lauv":"yQ7Xp6dOCCk",
   "Azizam (D.O.D Remix)||Ed Sheeran, D.O.D":"PdXrZELSM78",
@@ -2157,7 +2154,6 @@ const COV = {
  "I Could Be The One||Avicii, Nicky Romero":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/36/cb/e4/36cbe4c1-725b-80db-283e-04ee57911867/21UMGIM91133.rgb.jpg/600x600bb.jpg", "al": "Live A Life You Will Remember - EP", "yr": "2012"},
  "True Believer||Avicii":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/e0/f4/25/e0f425ba-2848-f1c2-e102-9ddcef5e9d9d/15UMGIM35223.rgb.jpg/600x600bb.jpg", "al": "Stories", "yr": "2015"},
  "Addicted To You||Avicii":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/18/5b/1e/185b1ef5-5d97-19d8-aebf-8e29e41874ef/13UAAIM59255.rgb.jpg/600x600bb.jpg", "al": "True", "yr": "2013"},
- "Forever Yours||Kygo, Avicii, Sandro Cavazza":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6a/65/dc/6a65dcb1-db77-191d-92f1-68ea48281f5a/25UMGIM06873.rgb.jpg/600x600bb.jpg", "al": "Forever Yours (Tim’s 2016 Ibiza Version) - Single", "yr": "2025"},
  "Firework Eyes||Excision, Sullivan King":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3f/79/c2/3f79c21b-3ae5-5407-0b4a-332bbe7dbdd2/810060817247.png/600x600bb.jpg", "al": "Firework Eyes - Single", "yr": "2025"},
  "THANKS||SEVENTEEN":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/bb/52/bc/bb52bcfc-f885-8fc8-0a86-6f8b132f5df6/cover-.jpg/600x600bb.jpg", "al": "SEVENTEEN Special Album 'Director's Cut' - EP", "yr": "2018"},
  "Closer||JIHYO":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/f3/65/92/f3659294-7806-4c52-9eb7-ab07df64eb03/8809928950853_Cover.jpg/600x600bb.jpg", "al": "ZONE", "yr": "2023"},
@@ -2182,7 +2178,6 @@ const COV = {
  "Alone, Pt. II||Alan Walker, Ava Max":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/68/7a/5f/687a5f29-685e-faf6-91a4-9165a62a1342/886448200574.jpg/600x600bb.jpg", "al": "Alone, Pt. II - Single", "yr": "2019"},
  "Walk Thru Fire||Vicetone":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/fc/95/24/fc952432-3a6e-b38b-1ae3-1f555c45baa8/859727680299.png/600x600bb.jpg", "al": "Walk Thru Fire (feat. Meron Ryan) - Single", "yr": "2018"},
  "Please Don't Change||Jung Kook, DJ Snake":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/86/78/b4/8678b4b3-2341-7239-b6cb-bcfdaef0e4e0/196922656545_Cover.jpg/600x600bb.jpg", "al": "GOLDEN", "yr": "2023"},
- "Blink||Corbyn Besson, TZUYU":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f1/9f/31/f19f31b0-db87-9317-32c9-1254df5a6c02/093624856108.jpg/600x600bb.jpg", "al": "Come Get Your Memory", "yr": "2023"},
  "Replay||SLANDER, Dylan Matthew":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/8a/75/03/8a750305-fa0c-6baa-32dd-268d4605c06f/734167034225_cover.jpg/600x600bb.jpg", "al": "Replay", "yr": "2022"},
  "Losing Sleep||TZUYU":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/cf/2b/6f/cf2b6fe5-b8d3-bacf-3885-0f14e775067e/8809928952437_Cover.jpg/600x600bb.jpg", "al": "abouTZU - EP", "yr": "2024"},
  "Mikrokosmos||BTS":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/40/d4/93/40d493e3-ac9e-1746-8d4c-f380f27c97cb/193483706238_Cover.jpg/600x600bb.jpg", "al": "MAP OF THE SOUL : PERSONA", "yr": "2019"},
@@ -2237,7 +2232,6 @@ const COV = {
  "VERY NICE||SEVENTEEN":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/cb/c4/32cbc434-82b9-6b8e-8cc8-752b554b49f9/cover-.jpg/600x600bb.jpg", "al": "Love&Letter", "yr": "2016"},
  "Moon||BTS":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/bd/68/9b/bd689bf2-ef25-4973-7ecd-7eb4965019c5/195081034713_Cover.jpg/600x600bb.jpg", "al": "MAP OF THE SOUL : 7", "yr": "2020"},
  "FIREWORK||&TEAM":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/16/e6/83/16e68310-eea4-bb94-3e02-afae97ac63de/23UMGIM53609.rgb.jpg/600x600bb.jpg", "al": "First Howling : WE - EP", "yr": "2023"},
- "MOJABI GHOST||Tainy, Bad Bunny":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/0c/73/83/0c73838a-7c60-7b45-8c91-99b1ba44552d/artwork.jpg/600x600bb.jpg", "al": "MOJABI GHOST (House Remix) - Single", "yr": "2023"},
  "The Killa (I Belong to You)||TOMORROW X TOGETHER":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9d/c4/16/9dc41676-d81e-b1ff-d62f-c3d7cd0757a6/196922842283_Cover.jpg/600x600bb.jpg", "al": "minisode 3: TOMORROW", "yr": "2024"},
  "Beautiful Strangers||TOMORROW X TOGETHER":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a7/4f/a9/a74fa965-9f10-e176-c812-70cd1028175a/198704558474_Cover.jpg/600x600bb.jpg", "al": "The Star Chapter: TOGETHER", "yr": "2025"},
  "3am||ROSÉ":{"u": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/14/66/2d14661b-345b-d0f3-4e86-56ef626e68aa/075679629203.jpg/600x600bb.jpg", "al": "rosie", "yr": "2024"},
@@ -2706,21 +2700,25 @@ function renderSearch(q){
 }
 
 function renderYou(){
-  const h=ST.heard.length, f=ST.favs.length, pct=SONGS.length?Math.round(h/SONGS.length*100):0;
-  const notes=SONGS.filter(s=>(s.note||'').trim()).length, mem=(ST.edits.memSeen||[]).length;
+  const h=ST.heard.length, f=ST.favs.length, n=SONGS.length, pct=n?Math.round(h/n*100):0;
+  const notes=SONGS.filter(x=>(x.note||'').trim()), mem=(ST.edits.memSeen||[]).length;
+  const nx=SONGS.find(x=>!heard(x.key));
+  const nextCard=nx?`<div class="you-next"><div class="yn-l">${h?'Sigue en tu recorrido':'Para empezar'}</div>
+      <div class="yn-b">${artOf(nx)?`<img src="${artOf(nx)}" alt="">`:''}<div><b>${esc(nx.t)}</b><span>${esc(nx.ar)} · ${esc(nx.actn)}</span></div>
+      <button class="pill solid" data-play="${esc(nx.key)}">▶ Escuchar</button></div></div>`
+    :`<div class="you-next"><div class="yn-l">Recorrido completo</div><div class="yn-b"><div><b>Las escuchaste todas</b><span>Gracias por quedarte hasta aquí.</span></div></div></div>`;
   $('#statsBox').innerHTML=`<div class="you-hero">
     <div class="yr"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="yr0" cx="60" cy="60" r="52"/><circle class="yr1" cx="60" cy="60" r="52" pathLength="1" style="stroke-dashoffset:1"/></svg>
-      <div><b>${h}</b><span>de ${SONGS.length} · ${pct}%</span></div></div>
-    <div class="yacts">${ACTV.map(a=>{ const g=a.songs.filter(x=>heard(x.key)).length, t=a.songs.length, c=actColor(a);
-      return `<div class="ya" style="color:${c}"><span style="color:var(--dim)">${esc(a.n)} · ${esc(a.name)}</span><i><u style="width:${t?(g/t*100).toFixed(1):0}%;background:${c}"></u></i><em>${g}/${t}</em></div>`; }).join('')}</div>
-    <div class="ymini"><div><b>${f}</b><span>favoritas</span></div><div><b>${notes}</b><span>con nota</span></div><div><b>${mem}<small style="font-size:.9rem;color:var(--dimmer)">/${MEMORIES.length}</small></b><span>recuerdos abiertos</span></div></div></div>`;
+      <div><b>${h}</b><span>de ${n} · ${pct}%</span></div></div>
+    <div class="you-main">${nextCard}
+      <div class="yacts">${ACTV.map(a=>{ const g=a.songs.filter(x=>heard(x.key)).length, t=a.songs.length;
+        return `<div class="ya"><span>${esc(a.n)} · ${esc(a.name)}</span><i><u style="width:${t?(g/t*100).toFixed(1):0}%"></u></i><em>${g}/${t}</em></div>`; }).join('')}</div></div>
+    <div class="ymini"><div><b>${f}</b><span>favoritas</span></div><div><b>${notes.length}</b><span>con nota</span></div><div><b>${mem}<small>/${MEMORIES.length}</small></b><span>recuerdos abiertos</span></div></div></div>`;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ const r=$('.yr1'); if(r) r.style.strokeDashoffset=(1-pct/100).toFixed(3); }));
-  $('#progBar').style.width=pct+'%';
-  $('#palstrip').innerHTML=ST.heard.map(k=>{const s=BYKEY[k];
-    return s?`<i style="background:${s.pal.a}" title="${esc(s.t)}" data-key="${esc(k)}"></i>`:''}).join('')
-    ||'<span class="empty">Todavía no hay colores. Escucha una.</span>';
   $('#favs').innerHTML=f? ST.favs.map((k,i)=>BYKEY[k]?rowHTML(BYKEY[k],i+1):'').join('')
     :'<div class="empty">Ninguna aún. Abre una canción y dale a ♡.</div>';
+  $('#notesList').innerHTML=notes.length? notes.map((x,i)=>rowHTML(x,i+1)).join('')
+    :'<div class="empty">Todavía no escribes ninguna nota. Se escriben desde la ficha de cada canción.</div>';
 }
 
 let mapTab='score';
@@ -3089,7 +3087,7 @@ function renderAll(){
 /* ══════════════════════════════════════════════════════════════════════
    6 · PORTADA + CIELO
    ══════════════════════════════════════════════════════════════════════ */
-const BUILD='v 2.0 · mundos';
+const BUILD='v 2.0 · reproductor';
 var cur=null, playing=null, tt=null, stageOn=false;   // declaradas arriba: los bucles de fondo las consultan al arrancar
 (function(){
   const txt="How do I tell you? ...", el=$('#gtitle');
@@ -3310,7 +3308,7 @@ const NAVLBL={acts:'Nebulosas',const:'Cielo',mosaic:'Mosaico',maps:'Voces',lette
 let curView='acts'; const SCR={};
 (function(){ // la barra lateral: cada botón lleva ícono y etiqueta (la etiqueta aparece al expandirla)
   const NI={acts:'orbit',const:'star',mosaic:'layout-grid',maps:'mic-vocal',letter:'mail',lyr:'text-quote',search:'search',you:'user-round'};
-  const byId={hoyBtn:['moon-star','Para hoy'],shuffleBtn:['shuffle','Aleatorio'],editBtn:['pencil','Editar']};
+  const byId={shuffleBtn:['shuffle','Aleatorio'],editBtn:['pencil','Editar']};
   const LBL={search:'Buscar',you:'Tú y esto'};
   $$('header nav button').forEach((b,i)=>{
     const v=b.dataset.v, ic=v?NI[v]:(byId[b.id]||[])[0]; if(!ic)return;
@@ -3322,7 +3320,7 @@ let curView='acts'; const SCR={};
 (function(){ const tb=$('#tabbar'); if(!tb)return;
   tb.innerHTML=Object.keys(NAVICON).map(v=>`<button data-v="${v}" aria-label="${NAVLBL[v]}">${kp(NAVICON[v])}<span>${NAVLBL[v]}</span></button>`).join('');
 })();
-const ACC={acts:'#e8c88a',const:'#7fd8e8',mosaic:'#f0a7b8',maps:'#b4472a',letter:'#b04058',lyr:'#c9f27a',search:'#7fd8e8',you:'#ff8a65'};
+const ACC={acts:'#e8c88a',const:'#7fd8e8',mosaic:'#f0a7b8',maps:'#9b8cf0',letter:'#f0a7b8',lyr:'#c9f27a',search:'#7fd8e8',you:'#e8c88a'};
 const EYE={const:['02','star','Constelación'],mosaic:['03','layout-grid','Mosaico'],maps:['04','mic-vocal','Voces'],letter:['05','mail','Carta'],lyr:['06','text-quote','Letras'],search:['·','sparkles','Buscar'],you:['·','heart','Tú y esto']};
 function dressView(v){
   const el=$('#v-'+v); if(!el)return;
@@ -4512,13 +4510,13 @@ function makePlayer(vid){
     YTP=new YT.Player('ytHost',{height:'100%',width:'100%',videoId:vid,
       playerVars:{autoplay:1,rel:0,modestbranding:1,playsinline:1},
       events:{
-        onReady:()=>{ clearInterval(tick); tick=setInterval(ticker,500); clearTimeout(watchdog);
+        onReady:()=>{ clearInterval(tick); tick=setInterval(ticker,500); clearTimeout(watchdog); applyVol();
           try{ YTP.setPlaybackRate(1); }catch(e){} },
         onStateChange:e=>{
           const S=YT.PlayerState;
           $('#dock').classList.toggle('spinning',e.data===S.PLAYING);
-          $('#dPlay').textContent=e.data===S.PLAYING?'\u23f8':'\u25b6';
-          if(e.data===S.PLAYING){ try{ if(YTP.getPlaybackRate()!==1) YTP.setPlaybackRate(1); }catch(err){} }
+          setPlayBtn(e.data===S.PLAYING);
+          if(e.data===S.PLAYING){ try{ if(YTP.getPlaybackRate()!==1) YTP.setPlaybackRate(1); }catch(err){} applyVol(); }
           if(e.data===S.ENDED){
             if(endGuard) return;                    // ENDED puede llegar dos veces
             endGuard=setTimeout(()=>{endGuard=null;},1200);
@@ -4534,6 +4532,7 @@ function ticker(){
   const d=YTP.getDuration()||0, c=YTP.getCurrentTime()||0;
   $('#seekFill').style.width=(d?c/d*100:0)+'%';
   $('#dTime').textContent=fmt(c)+' / '+fmt(d);
+  try{ if('mediaSession' in navigator&&d>0) navigator.mediaSession.setPositionState({duration:d,position:Math.min(c,d),playbackRate:1}); }catch(e){}
 }
 const fmt=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 
@@ -4546,6 +4545,8 @@ function play(key){
   paintVideoPanel();
   loadSpec(s.key).then(()=>paintVizUI());
   $('#dTitle').textContent=s.t; $('#dArt').textContent=s.ar+' · '+s.actn;
+  { const c=ALB[s.base||s.key]; $('#dAlb').textContent=c&&c.al?c.al+(c.yr?' · '+c.yr:''):''; }
+  msSet(s);
   $('#dCover').src=cover(s)||''; $('#dCover').style.visibility=s.vid?'visible':'hidden';
   $('#dock').classList.add('on','spinning');
   if(!s.vid){ toast('Sin video fijado — te abro la búsqueda'); window.open(ytSearch(s),'_blank'); }
@@ -4571,6 +4572,7 @@ function play(key){
     toast(HEARD_MSGS[(Math.random()*HEARD_MSGS.length)|0]); }
   $$('.row').forEach(r=>r.classList.toggle('playing',r.dataset.key===key));
   if(stageOn) paintStage();
+  paintQueue();
   if(CST.built){ const n=CST.nodes.find(n=>n.s.key===key);
     if(n){n.pop=1.6;CST.ripples.push({x:n.x,y:n.y,t:0,c:nodeRGB(n)});} paintActChips(); }
 }
@@ -4599,7 +4601,7 @@ function prev(){
   play(SONGS[(i-1+SONGS.length)%SONGS.length].key);
 }
 function setShuffle(on,startKey){
-  shuffleOn=on;
+  shuffleOn=on; setTimeout(()=>{ try{ paintQueue(); }catch(e){} },0);
   $('#dShuffle').classList.toggle('on',on);
   if(on){ buildShuffle(startKey||(cur?cur.key:null)); }
 }
@@ -4641,42 +4643,102 @@ $('#seek').onclick=e=>{ if(!YTP||!YTP.getDuration)return;
 $('#seek').onmousemove=e=>{ const r=e.currentTarget.getBoundingClientRect();
   $('#seekHead').style.left=(e.clientX-r.left)+'px'; };
 
-/* ── Para hoy ──────────────────────────────────────────────────────────────
-   Cada ánimo lleva a una Nebulosa (el recorrido ya tiene su propio arco) y
-   suena una canción de ahí que aún no hayas escuchado.                      */
-const HOY=[
-  {o:'moon-star',     t:'Cansada, sin ganas de nada', ai:2, c:'#7fd8e8'},
-  {o:'hand-heart',    t:'Quiero sentirme acompañada', ai:1, c:'#f0a7b8'},
-  {o:'cloud-fog',   t:'No sé qué siento',           ai:0, c:'#9b8cf0'},
-  {o:'split',     t:'Estoy dudando de algo',      ai:3, c:'#e8c88a'},
-  {o:'zap',   t:'Con energía, ¡pónganme algo!', ai:4, c:'#f0a7b8'},
-  {o:'heart',  t:'Extrañando, un poco',        ai:5, c:'#9b8cf0'}
-];
-function openHoy(){
-  if($('#hoyOv'))return;
-  const hr=new Date().getHours();
-  const q = hr<6 ? 'Es muy tarde, o muy temprano.' : hr<12 ? 'Buenos días.' : hr<19 ? 'Buenas tardes.' : 'Buenas noches.';
-  document.body.insertAdjacentHTML('beforeend',`<div class="hoy-ov" id="hoyOv"><div class="hoy-box">
-    <h3>${q}<br>¿Cómo llegas hoy?</h3><p>Sin respuesta correcta. Elige lo que más se parezca.</p>
-    <div class="hoy-grid">${HOY.map((m,i)=>{ const a=ACTV[m.ai]; return `<button class="hoy-opt" data-i="${i}" style="--c:${m.c};animation-delay:${.1+i*.08}s">
-      ${kp(m.o)}<b>${esc(m.t)}</b><span>${a?esc(a.n):''}</span></button>`; }).join('')}</div>
-    <button class="pill" id="hoyX" style="margin-top:1.4rem">Ahora no</button></div></div>`);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>$('#hoyOv').classList.add('on')));
-  const close=()=>{ const o=$('#hoyOv'); if(!o)return; document.removeEventListener('keydown',esc_); o.classList.remove('on'); setTimeout(()=>o.remove(),400); };
-  const esc_=e=>{ if(e.key==='Escape'){ e.stopPropagation(); close(); } };
-  document.addEventListener('keydown',esc_,true);
-  $('#hoyX').onclick=close;
-  $('#hoyOv').onclick=e=>{ if(e.target.id==='hoyOv') close(); };
-  $$('.hoy-opt').forEach(b=>b.onclick=()=>{
-    const m=HOY[+b.dataset.i], a=ACTV[m.ai]; if(!a||!a.songs.length){ close(); return; }
-    const pool=a.songs.filter(x=>!heard(x.key)), p=pool.length?pool:a.songs;
-    const pick=p[(Math.random()*p.length)|0];
-    close(); setShuffle(false); play(pick.key);
-    toast('Para hoy · '+pick.t+' · '+a.n+' — '+a.name);
-  });
+
+/* ══ Reproductor: íconos, volumen, cola, temporizador, estilos del visualizador, control desde el celular ══ */
+const IC=(id,n)=>{ const e=$(id); if(e) e.innerHTML=kp(n); };
+function setPlayBtn(on){ IC('#dPlay',on?'pause':'play'); }
+let VOL=ST.prefs.vol==null?80:ST.prefs.vol, MUTED=!!ST.prefs.muted;
+function applyVol(){ try{ if(YTP&&YTP.setVolume){ YTP.setVolume(VOL); if(MUTED) YTP.mute(); else YTP.unMute(); } }catch(e){} }
+function updateVolUI(){ IC('#dVol',MUTED||VOL===0?'volume-x':(VOL<40?'volume-1':'volume-2')); const r=$('#volR'); if(r) r.value=MUTED?0:VOL; }
+function setVol(v,mute){ VOL=Math.max(0,Math.min(100,v)); MUTED=mute!==undefined?mute:(VOL===0); ST.prefs.vol=VOL; ST.prefs.muted=MUTED; save(); applyVol(); updateVolUI(); }
+function seekBy(sec){ if(!YTP||!YTP.getCurrentTime)return; YTP.seekTo(Math.max(0,(YTP.getCurrentTime()||0)+sec),true); }
+(function(){
+  [['#dShuffle','shuffle'],['#dPrev','skip-back'],['#dNext','skip-forward'],['#dLoop','repeat'],['#dStage','maximize'],['#dOpen','panel-right-open'],
+   ['#dInfo','info'],['#dStop','x'],['#dQueue','list-music'],['#dVizStyle','audio-lines']].forEach(([i,n])=>IC(i,n));
+  $('#dSleep .dsl-i').innerHTML=kp('moon'); setPlayBtn(true); updateVolUI();
+  $('#volR').oninput=e=>setVol(+e.target.value,+e.target.value===0);
+  $('#dVol').onclick=()=>{ MUTED=!MUTED; if(!MUTED&&VOL===0) VOL=60; ST.prefs.vol=VOL; ST.prefs.muted=MUTED; save(); applyVol(); updateVolUI(); toast(MUTED?'Sin sonido':'Volumen '+VOL+'%'); };
+  $('#dVol').addEventListener('wheel',e=>{ e.preventDefault(); setVol(VOL+(e.deltaY<0?5:-5),false); },{passive:false});
+  $('#dLoop').onclick=e=>{ loopOn=!loopOn; e.currentTarget.classList.toggle('on',loopOn); IC('#dLoop',loopOn?'repeat-1':'repeat'); toast(loopOn?'Repetir esta canción':'Repetir apagado'); };
+  // barra de progreso: arrastrable, con la hora al pasar el cursor
+  const sk=$('#seek'); let drag=false; sk.onclick=null; sk.onmousemove=null;
+  const pos=e=>{ const r=sk.getBoundingClientRect(); return Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)); };
+  const tip=e=>{ const d=(YTP&&YTP.getDuration&&YTP.getDuration())||0, p=pos(e), t=$('#seekTip'); t.textContent=fmt(d*p); t.style.left=(p*100)+'%'; $('#seekHead').style.left=(p*100)+'%'; };
+  sk.addEventListener('pointerdown',e=>{ drag=true; try{sk.setPointerCapture(e.pointerId)}catch(_){} if(YTP&&YTP.getDuration){ YTP.seekTo((YTP.getDuration()||0)*pos(e),true); $('#seekFill').style.width=(pos(e)*100)+'%'; } });
+  sk.addEventListener('pointermove',e=>{ tip(e); if(drag&&YTP&&YTP.getDuration){ YTP.seekTo((YTP.getDuration()||0)*pos(e),true); $('#seekFill').style.width=(pos(e)*100)+'%'; } });
+  ['pointerup','pointercancel'].forEach(ev=>sk.addEventListener(ev,()=>{ drag=false; }));
+  // controles de teléfono / auriculares / pantalla de bloqueo
+  if('mediaSession' in navigator){ const ms=navigator.mediaSession, st=(a,f)=>{ try{ ms.setActionHandler(a,f); }catch(e){} };
+    st('play',()=>YTP&&YTP.playVideo&&YTP.playVideo()); st('pause',()=>YTP&&YTP.pauseVideo&&YTP.pauseVideo());
+    st('previoustrack',prev); st('nexttrack',next); st('seekbackward',()=>seekBy(-10)); st('seekforward',()=>seekBy(10));
+    st('seekto',d=>{ if(YTP&&YTP.seekTo) YTP.seekTo(d.seekTime,true); }); }
+})();
+function msSet(s){
+  if(!('mediaSession' in navigator)||typeof MediaMetadata==='undefined') return;
+  try{ const c=ALB[s.base||s.key]||{}, art=artOf(s);
+    navigator.mediaSession.metadata=new MediaMetadata({title:s.t,artist:s.ar,album:c.al||s.actn,artwork:art?[{src:art,sizes:'512x512'}]:[]}); }catch(e){}
 }
-$('#hoyBtn').onclick=openHoy;
-$('#hoyCard').onclick=openHoy; $('#hoyCard .hoy-ic').innerHTML=kp('moon-star');
+/* temporizador para dormir: baja el volumen poco a poco y pausa */
+let sleepT=0,sleepI=0,sleepEnd=0,sleepIdx=0; const SLEEPS=[0,15,30,60];
+function sleepLabel(){ const l=$('#dSleepL'); if(!l)return; if(!sleepEnd){ l.textContent=''; return; } l.textContent=Math.max(1,Math.ceil((sleepEnd-Date.now())/60000))+'m'; }
+function setSleep(min){ clearTimeout(sleepT); clearInterval(sleepI); sleepEnd=0; $('#dSleep').classList.toggle('on',!!min);
+  if(min){ sleepEnd=Date.now()+min*60000; sleepT=setTimeout(sleepFade,min*60000); sleepI=setInterval(sleepLabel,20000); } sleepLabel(); }
+function sleepFade(){ const v0=MUTED?0:VOL; let k=0; toast('Buenas noches ☾');
+  const iv=setInterval(()=>{ k++; try{ if(YTP&&YTP.setVolume) YTP.setVolume(Math.max(0,Math.round(v0*(1-k/20)))); }catch(e){}
+    if(k>=20){ clearInterval(iv); try{ if(YTP&&YTP.pauseVideo) YTP.pauseVideo(); }catch(e){} applyVol(); setSleep(0); sleepIdx=0; } },500); }
+$('#dSleep').onclick=()=>{ sleepIdx=(sleepIdx+1)%SLEEPS.length; setSleep(SLEEPS[sleepIdx]);
+  toast(SLEEPS[sleepIdx]?'Se detiene en '+SLEEPS[sleepIdx]+' min, bajando el volumen despacio':'Temporizador apagado'); };
+/* cola: lo que viene */
+function upcoming(n){ const out=[]; if(!SONGS.length) return out;
+  if(shuffleOn&&shufQ.length){ for(let k=1;k<=n;k++){ const s=BYKEY[shufQ[(shufPos+k)%shufQ.length]]; if(s) out.push(s); } }
+  else { const i=cur?idxOf(cur.key):-1; for(let k=1;k<=n;k++) out.push(SONGS[(i+k+SONGS.length)%SONGS.length]); }
+  return out; }
+function paintQueue(){ const q=$('#queue'); if(!q||!q.classList.contains('on')) return;
+  const row=(s,i,now)=>`<button class="q-r${now?' now':''}" data-q="${esc(s.key)}"><span>${now?'▶':i}</span>${artOf(s)?`<img src="${artOf(s)}" alt="">`:'<i></i>'}<div><b>${esc(s.t)}</b><em>${esc(s.ar)}</em></div></button>`;
+  q.innerHTML=`<div class="q-h"><b>A continuación</b><em>${shuffleOn?'aleatorio':'orden de la playlist'}</em><button class="ic" id="qX" aria-label="Cerrar">${kp('x')}</button></div>`
+    +(cur?row(cur,0,true):'')+upcoming(14).map((s,i)=>row(s,i+1,false)).join('');
+  q.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>play(b.dataset.q)); $('#qX').onclick=()=>toggleQueue(false); }
+function toggleQueue(on){ const q=$('#queue'), o=on===undefined?!q.classList.contains('on'):on; q.classList.toggle('on',o); $('#dQueue').classList.toggle('on',o); if(o) paintQueue(); }
+$('#dQueue').onclick=()=>toggleQueue();
+/* estilos del visualizador: barras, ondas y destellos, en colores sacados de la portada */
+const VSTY=['bars','waves','dots'], VNAME={bars:'Barras',waves:'Ondas de colores',dots:'Destellos'};
+$('#dVizStyle').onclick=()=>{ const i=(VSTY.indexOf(ST.prefs.vizStyle||'bars')+1)%VSTY.length; ST.prefs.vizStyle=VSTY[i]; save(); toast('Visualizador: '+VNAME[VSTY[i]]); };
+const _hs={};
+function hueShift(hex,deg){ const k=hex+deg; if(_hs[k]) return _hs[k];
+  const [r,g,b]=hex2rgb(hex).map(v=>v/255), mx=Math.max(r,g,b), mn=Math.min(r,g,b); let h=0,sat=0; const l=(mx+mn)/2;
+  if(mx!==mn){ const d=mx-mn; sat=l>.5?d/(2-mx-mn):d/(mx+mn);
+    h=mx===r?((g-b)/d+(g<b?6:0)):mx===g?((b-r)/d+2):((r-g)/d+4); h*=60; }
+  return _hs[k]=`hsl(${((h+deg)%360+360)%360},${Math.round(Math.max(55,sat*100))}%,${Math.round(Math.min(68,Math.max(52,l*100)))}%)`; }
+function drawViz(x,W,H,bars,pal,t,opt){
+  const st=ST.prefs.vizStyle||'bars', c1=pal.a, c2=pal.b;
+  if(st==='waves'){
+    const c3=hueShift(c1,70), n=NB, L=[{c:c1,k:1,ph:0,sp:.9,al:.9},{c:hueShift(c1,-60),k:.84,ph:2.1,sp:-.7,al:.85},{c:c3,k:.68,ph:4.2,sp:1.25,al:.8}];
+    x.save(); x.globalCompositeOperation='lighter';
+    L.forEach(l=>{
+      x.beginPath(); x.moveTo(0,H);
+      for(let px=0;px<=W;px+=3){
+        const u=px/W, f=u*(n-1), i0=Math.floor(f), i1=Math.min(n-1,i0+1), v=bars[i0]+(bars[i1]-bars[i0])*(f-i0);
+        const y=H-(Math.pow(v,.8)*H*.98*l.k)*(.62+.38*Math.sin(u*8+t*l.sp+l.ph))-1;
+        x.lineTo(px,y);
+      }
+      x.lineTo(W,H); x.closePath();
+      const g=x.createLinearGradient(0,0,0,H); g.addColorStop(0,l.c); g.addColorStop(1,'rgba(0,0,0,0)');
+      x.globalAlpha=l.al; x.fillStyle=g; if(opt.glow){ x.shadowBlur=opt.glow; x.shadowColor=l.c; } x.fill();
+    });
+    x.restore(); return;
+  }
+  if(st==='dots'){
+    const m=Math.max(12,Math.min(NB*2,Math.floor(W/(opt.gap>3?18:10)))), bw=W/m, r=Math.max(1.6,Math.min(bw*.3,opt.gap>3?5:2.6)), step=r*3.1;
+    x.save(); if(opt.glow){ x.shadowBlur=opt.glow*.5; }
+    for(let i=0;i<m;i++){
+      const v=bars[Math.min(NB-1,Math.floor(i/m*NB))], cnt=Math.max(1,Math.floor(v*H*.95/step));
+      const col=hueShift(c1,(i/m)*150-60); x.fillStyle=col; if(opt.glow) x.shadowColor=col;
+      for(let k=0;k<cnt;k++){ x.globalAlpha=.4+.6*(k/cnt); x.beginPath(); x.arc(i*bw+bw/2,H-r-k*step,r,0,6.283); x.fill(); }
+    }
+    x.restore(); return;
+  }
+  drawSpectrum(x,W,H,bars,c1,c2,opt);
+}
 $('#shuffleBtn').onclick=()=>{
   if(!SONGS.length)return;
   const pool=SONGS.filter(s=>!heard(s.key)); const p=pool.length?pool:SONGS;
@@ -4690,7 +4752,7 @@ $('#shuffleBtn').onclick=()=>{
 (function(){
   const c=$('#viz'); const x=c.getContext('2d');
   function size(){ const w=$('#dock').clientWidth; const DPR=Math.min(devicePixelRatio,2);
-    c.width=w*DPR; c.height=70*DPR; c.style.width=w+'px'; x.setTransform(DPR,0,0,DPR,0,0); }
+    c.width=w*DPR; c.height=56*DPR; c.style.width=w+'px'; c.style.height='56px'; x.setTransform(DPR,0,0,DPR,0,0); }
   addEventListener('resize',size); setTimeout(size,300);
   let last=0;
   (function loop(t){
@@ -4700,11 +4762,11 @@ $('#shuffleBtn').onclick=()=>{
     const playing=$('#dock').classList.contains('spinning');
     if(!playing&&!$('#dock').classList.contains('on'))return;
     if(!c.width)size();
-    const W=c.width/Math.min(devicePixelRatio,2), H=35;
+    const W=c.width/Math.min(devicePixelRatio,2), H=55;
     x.clearRect(0,0,W,H+4);
     const bars=sampleSpectrum(t/1000,playing);
     const p=cur?cur.pal:{a:'#e8c88a',b:'#f0a7b8'};
-    drawSpectrum(x,W,H,bars,p.a,p.b,{cap:false,gap:2,scale:.98});
+    drawViz(x,W,H,bars,p,t/1000,{cap:false,gap:2,scale:.98});
   })(0);
 })();
 
@@ -5187,7 +5249,7 @@ function loopStage(){
     const playing=$('#dock').classList.contains('spinning');
     const bars=sampleSpectrum(ts/1000,playing);
     const p=cur?cur.pal:{a:'#e8c88a',b:'#f0a7b8'};
-    drawSpectrum(x,W,H,bars,p.a,p.b,{glow:30,scale:.95,gap:4,capColor:'rgba(255,255,255,.82)'});
+    drawViz(x,W,H,bars,p,ts/1000,{glow:30,scale:.95,gap:4,capColor:'rgba(255,255,255,.82)'});
     // karaoke
     const box=$('#stLyr');
     if(box.dataset.timed==='1'&&YTP&&YTP.getCurrentTime){
@@ -5647,10 +5709,11 @@ addEventListener('keydown',e=>{
     if(SYNC&&e.key==='Enter'&&e.target.id==='e_og'){} return; }
   if(e.key==='/'){e.preventDefault();go('search');}
   if(e.key===' '){e.preventDefault(); if(SYNC){syncMark();return;} $('#dPlay').click();}
-  if(e.key==='ArrowRight')next();
-  if(e.key==='ArrowLeft')prev();
+  if(e.key==='ArrowRight'){ if(e.shiftKey) seekBy(10); else next(); }
+  if(e.key==='ArrowLeft'){ if(e.shiftKey) seekBy(-10); else prev(); }
+  if(e.key==='m'||e.key==='M') $('#dVol').click();
+  if(e.key==='['||e.key===']') setVol(VOL+(e.key===']'?5:-5),false);
   if(e.key==='r')$('#shuffleBtn').click();
-  if(e.key==='h')openHoy();
   if(/^[1-6]$/.test(e.key)&&!e.metaKey&&!e.ctrlKey&&!e.altKey){ go(['acts','const','mosaic','maps','letter','lyr'][+e.key-1]); }
   if(e.key==='v')$('#dOpen').click();
   if(e.key==='f'){ stageOn?closeStage():openStage(); }

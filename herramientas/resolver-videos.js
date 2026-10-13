@@ -41,7 +41,7 @@ const strip=s=>(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
 function shape(t,arts){
   let x=' '+strip(t)+' ';
   arts.forEach(a=>{ if(a.length>2) x=x.split(' '+a+' ').join(' '); });
-  x=x.replace(/\b(official|music|video|audio|visuali[sz]er|lyric|lyrics|mv|hd|hq|4k|explicit|clip|feat|ft|featuring|with|prod)\b/g,' ');
+  x=x.replace(/\b(official|music|video|audio|visuali[sz]er|lyric|lyrics|mv|m v|hd|hq|4k|explicit|clip|feat|ft|featuring|with|prod)\b/g,' ');
   return x.replace(/\s+/g,' ').trim();
 }
 function sim(a,b){
@@ -155,7 +155,8 @@ function scoreTrack(v,s,arts,ref){
       // ── pista oficial (ATV) ──
       const tracks=tr.filter(v=>v.type==='ATV')
         .map(v=>({v,...scoreTrack(v,s,arts,ref)})).sort((a,b)=>b.sc-a.sc);
-      const track=tracks[0]&&tracks[0].sc>105?tracks[0]:null;
+      // el artista TIENE que coincidir: antes bastaba un título exacto y salían canciones de otro artista (p. ej. «Stuck In The Middle» de Tai Verdes)
+      const track=tracks[0]&&tracks[0].sc>105&&tracks[0].as>=0.5?tracks[0]:null;
       const base=ref&&ref.sec?ref.sec:(track?track.v.len:0);
 
       // ── vídeo oficial (OMV) del propio artista, el más visto ──

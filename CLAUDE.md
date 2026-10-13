@@ -129,6 +129,14 @@ usa la paleta oscura: se reinicia con `body>*:not(#shell)` — si añades un ove
 Barra lateral izquierda en compu (`header` fijo, se expande al pasar el cursor), barra inferior en móvil.
 Tipografías: Fraunces (títulos), Bricolage Grotesque (UI), DM Mono (Letras), Caveat (a mano).
 
+## Que sea la canción correcta
+
+Los IDs de YouTube viven en `const YTIDS` (index.html) y las portadas/álbumes en `const COV`. Antes de dar por
+buena una lista de IDs corre **`python3 herramientas/auditar-videos.py`**: pregunta a YouTube el título y canal de
+cada vídeo y avisa de otro artista, otra versión (ensayo, fancam, directo) o subidas no oficiales. El resolvedor
+exige que el artista coincida (antes un título exacto bastaba y salían canciones de otro artista).
+Si una portada de iTunes no es del artista/versión, se borra de `COV`: la app cae a la miniatura del propio vídeo.
+""
 ## Trampas conocidas
 
 - `cur` es la canción **enfocada** (cambia al abrir una ficha); `playing` es la
